@@ -1,0 +1,39 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "$0")"; pwd)"
+
+# Optional parameter: the destination directory where trino server files need to be copied to.
+TRINO_STATIC_FILES_DIR=$1
+if [ -z "${TRINO_STATIC_FILES_DIR}" ]; then
+    echo "Usage: $(basename "$0") <TRINO_STATIC_FILES_DIR>"
+    exit 1
+fi
+
+# Get the version of Trino server to use from the trino-bios pom.xml file.
+TRINO_VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='properties']/*[local-name()='dep.trino.version']/text()" "${SCRIPT_DIR}/../pom.xml" | tr -d '\n')
+
+# First get the official Trino build.
+BIOS_CACHE_DIR="${SCRIPT_DIR}/../cache"
+mkdir -p ${BIOS_CACHE_DIR}
+pushd ${BIOS_CACHE_DIR}
+echo -e "\n...   Downloading trino framework; version:" ${TRINO_VERSION}
+wget -N https://repo.maven.apache.org/maven2/io/trino/trino-server/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
+wget -N https://repo.maven.apache.org/maven2/io/trino/trino-cli/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}-executable.jar
+popd
+
+echo -e "\n...   Copying necessary files to destination:" ${TRINO_STATIC_FILES_DIR}
+rm -rf "${TRINO_STATIC_FILES_DIR}"
+pushd /tmp
+tar xzf ${BIOS_CACHE_DIR}/trino-server-${TRINO_VERSION}.tar.gz
+mv trino-server-${TRINO_VERSION} "${TRINO_STATIC_FILES_DIR}"
+cp -rf ${BIOS_CACHE_DIR}/trino-cli-${TRINO_VERSION}-executable.jar "${TRINO_STATIC_FILES_DIR}/trino-cli"
+chmod +x "${TRINO_STATIC_FILES_DIR}/trino-cli"
+cd ${TRINO_STATIC_FILES_DIR}
+
+# Delete unnecesary files
+rm -rf plugin
+mkdir plugin
+
+popd

@@ -1,0 +1,10 @@
+{
+  "contextName": "auxiliary",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "String" },
+    { "attributeName": "cost", "type": "Decimal" },
+    { "attributeName": "auxiliaryId", "type": "String" }
+  ],
+  "primaryKey": ["resourceId"]
+}

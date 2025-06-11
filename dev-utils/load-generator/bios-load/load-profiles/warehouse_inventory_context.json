@@ -1,0 +1,77 @@
+{
+  "contextName": "warehouseInventoryContext",
+  "peakRequestSize": 625,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "inventoryId",
+      "type": "integer",
+      "attrValType": "REGEX",
+      "pattern": "[1-9]{10}"
+    },
+    {
+      "attributeName": "warehouseId",
+      "type": "string",
+      "attrValType": "REGEX",
+      "pattern": "[W]{1}[H]{1}[1-9]{1}"
+    },
+    {
+      "attributeName": "productId",
+      "type": "string",
+      "attrValType": "REGEX",
+      "pattern": "[1-5]{4}"
+    },
+    {
+      "attributeName": "lotId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "10000-99999"
+    },
+    {
+      "attributeName": "batch",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "10000-99999"
+    },
+    {
+      "attributeName": "bin",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "10000-99999"
+    },
+    {
+      "attributeName": "binType",
+      "type": "string",
+      "attrValType": "PRODUCT_NAME"
+    },
+    {
+      "attributeName": "mrp",
+      "type": "decimal",
+      "attrValType": "PRICE",
+      "range": "100-99999"
+    },
+    {
+      "attributeName": "available",
+      "type": "Boolean",
+      "attrValType": "BOOLEAN"
+    },
+    {
+      "attributeName": "expiry",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "createdAt",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "updatedAt",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    }
+  ],
+  "primaryKey": [
+    "inventoryId"
+  ]
+}

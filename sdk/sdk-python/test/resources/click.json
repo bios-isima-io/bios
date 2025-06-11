@@ -1,0 +1,53 @@
+{
+  "targetId": 1606453466,
+  "profiles": [
+    {
+      "email": "xxx@gmail.com",
+      "identity": "1234123412",
+      "all_identities": [
+        "123123123123",
+        "xxx@gmail.com"
+      ],
+      "objectId": "-v53481010f3654132b0f428424821036f",
+      "event_properties": {
+        "session_id": "s_i_6984413F-A841-4E35-98F1-C730BC1C18BA_8859676164011390263",
+        "user_reminder_state": "ineligible",
+        "element_name": "Deals of the Day",
+        "item_rank": "19",
+        "item_type": "otc",
+        "item_image_url": "https://cdn01.pharmeasy.in/dam/products_otc/I42413/new-hair-4u-5-hair-spray-bottle-of-60-ml-1-1605104937.jpg?dim=300x0&f=jpg&dpr=1&q=60",
+        "platform": "iOS",
+        "element_unique_name": "home_deals",
+        "has_active_subscription": "false",
+        "is_diag_cart_empty": "true",
+        "trigger": "on_scroll",
+        "item_name": "New Hair 4u 5% Hair Spray Bottle Of 60 Ml",
+        "item_discount_percentage": "25",
+        "item_discount_amount": "552.00",
+        "item_id": "216670",
+        "destination": "p_product_details",
+        "has_delivered_order": "false",
+        "selected_pincode": "831011",
+        "has_diag_fulfilled_order": "false",
+        "is_priority": "false",
+        "num_of_items": "36",
+        "is_cart_empty": "true",
+        "source": "p_home",
+        "is_chronic": "false",
+        "selected_city": "Jamshedpur",
+        "Is_first_app_launch": "false",
+        "has_placed_diag_order": "false",
+        "item_price": "736.00",
+        "is_logged_in": "true",
+        "has_placed_order": "true",
+        "is_diag_service_available": "true",
+        "is_lab_selected": "false",
+        "element_position_on_page": "12",
+        "app_version": "4.9.33",
+        "element_scroll_type": "horizontal",
+        "CT App Version": "4.9.33",
+        "CT Source": "Mobile"
+      }
+    }
+  ]
+}

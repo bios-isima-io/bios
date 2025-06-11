@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package com.isima.bios.models.proto;
+
+option java_package = "io.isima.bios.models.proto";
+option java_outer_classname = "ErrorProto";
+
+message ErrorResponse {
+  string error_code = 1;
+  string message = 5;
+}

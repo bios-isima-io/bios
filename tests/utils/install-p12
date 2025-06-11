@@ -1,0 +1,58 @@
+#!/bin/bash
+
+NO_RESTART=0
+if [ "$1" = "--no-restart" ]; then
+    NO_RESTART=1
+    shift
+fi
+
+if [ $# -lt 3 ]; then
+    echo ""
+    echo "Usage: $(basename $0) [--no-restart] <docker_container> <pkcs12_file_path> <password>"
+    echo ""
+    echo "This command installs specified server certificate pkcs12 file to a TFOS docker container."
+    exit 1
+fi
+
+if [ $(docker --version | sed -r 's/.* ([0-9]+)\.[0-9]+\.[0-9]+, .*/\1/g') -ge 23 ]; then
+    DOCKER_CP_OPT=-q
+fi
+
+docker_container=$1
+pkcs12_file_path=$2
+password=$3
+
+pkcs12_file="$(basename "${pkcs12_file_path}")"
+server_p12="server.p12"
+
+SERVER_CONF=/opt/bios/configuration
+
+# check if the docker container is available
+docker exec ${docker_container} echo hello > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    IS_CONTAINER_UP=1
+else
+    IS_CONTAINER_UP=0
+fi
+
+if [ ! -f "${pkcs12_file_path}" ]; then
+    echo "File ${pkcs12_file_path} not found."
+    exit 1
+fi
+
+# check if the same name of pkcs12 is already installed
+if [ ${IS_CONTAINER_UP} = 1 ]; then
+    docker exec ${docker_container} ls "${SERVER_CONF}/${server_p12}" > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "Backing up existing cert file ${SERVER_CONF}/${server_p12}."
+        docker exec ${docker_container} mv "${SERVER_CONF}/${server_p12}" "${SERVER_CONF}/${server_p12}.bak"
+        echo "done."
+    fi
+fi
+
+# copy the pkcs12 file into the container and install
+set -e
+docker cp ${DOCKER_CP_OPT} "${pkcs12_file_path}" ${docker_container}:"${SERVER_CONF}/server.p12"
+if [ "${NO_RESTART}" -ne 1 ]; then
+    docker restart ${docker_container}
+fi

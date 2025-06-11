@@ -1,0 +1,57 @@
+{
+  "signal": {
+    "signalName": "shoppingCart",
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "Integer"
+      },
+      {
+        "attributeName": "productId",
+        "type": "Integer"
+      },
+      {
+        "attributeName": "quantity",
+        "type": "Integer"
+      },
+      {
+        "attributeName": "price",
+        "type": "Integer",
+        "default": 0
+      }
+    ]
+  },
+  "flow": {
+    "importFlowName": "Shopping Cart Flow",
+    "importFlowId": "327",
+    "sourceDataSpec": {
+      "importSourceId": "231",
+      "webhookSubPath": "/shopping-cart",
+      "payloadType": "JSON"
+    },
+    "destinationDataSpec": {
+      "importDestinationId": "101",
+      "type": "SIGNAL",
+      "name": "shoppingCart"
+    },
+    "dataPickupSpec": {
+      "attributeSearchPath": "",
+      "attributes": [
+        {
+          "sourceAttributeName": "visitorId"
+        },
+        {
+          "sourceAttributeName": "productId"
+        },
+        {
+          "sourceAttributeName": "quantity"
+        },
+        {
+          "sourceAttributeName": "price"
+        }
+      ]
+    },
+    "acknowledgementEnabled": true
+  }
+}

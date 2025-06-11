@@ -1,0 +1,4 @@
+geo_id,cases,deaths,data_rep,test_name
+94071,10,0,file06 008,csvWithHeader
+94072,7,0,file06 009,csvWithHeader
+94073,38,0,file06 010,csvWithHeader

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.isima</groupId>
+    <artifactId>bios</artifactId>
+    <version>${revision}</version>
+  </parent>
+  <properties>
+    <main.directory>${project.parent.basedir}</main.directory>
+  </properties>
+  <artifactId>sdk</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>csdk</module>
+    <module>sdk-java</module>
+    <module>sdk-python</module>
+    <module>sdk-js</module>
+  </modules>
+</project>

@@ -1,0 +1,17 @@
+{
+    "name": "biossimpletesttenant",
+    "streams":
+    [{
+        "name": "simple",
+        "_description": [
+            "Event for this stream includes all bios attribute types."
+        ],
+        "attributes": [{
+            "name": "first",
+            "type": "string"
+        }, {
+            "name": "second",
+            "type": "long"
+        }]
+    }]
+}

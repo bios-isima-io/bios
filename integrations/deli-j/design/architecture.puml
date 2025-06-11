@@ -1,0 +1,57 @@
+@startuml DeliArchitecture
+
+class Configuration
+
+class ConfigLoader
+class FileConfigLoader implements ConfigLoader
+class PullConfigLoader implements ConfigLoader
+ConfigLoader ..> Configuration : "loads"
+
+abstract class SourceTranslator
+
+abstract class EndpointHandler
+class WebhookServiceHandler extends EndpointHandler
+EndpointHandler ..> SourceTranslator
+EndpointHandler ..> Processor : "publish"
+
+abstract class DataImporter {
+}
+class WebhookDataImporter extends DataImporter
+WebhookDataImporter .. WebhookServiceHandler
+class FileDataImporter extends DataImporter
+DataImporter "1" *-- "n" EndpointHandler
+
+class Processor
+Processor ..> DataFlow : "refers"
+Processor ..> Deliverer : "delivers"
+
+abstract class DeliveryChannel {
+Per-destination delivery channel.
+Maintains a connection to the destination.
+}
+class BiosDeliveryChannel extends DeliveryChannel
+BiosDeliveryChannel "1" *-- "1" bios.Client
+
+abstract class Deliverer {
+Takes care of transforming data to the destination.
+}
+class BiosDeliverer extends Deliverer
+DeliveryChannel ..> Deliverer : <<generates>>
+BiosDeliverer ..> BiosDeliveryChannel : <<pushes>>
+
+Integrations "1" *-- "1..n" DeliveryChannel : <<registers>>
+
+class Integrations {
+}
+Integrations "1" *-- "1" Configuration
+Integrations "1" *-- "1" ConfigLoader
+Integrations o-- DataImporter
+Integrations "1" *-- "1" Processor
+
+class DataFlow
+DataFlow "1" *-- "1" PickupSpec
+DataFlow "1" *-- "1" SourceSpec
+DataFlow "1" *-- "1" DestinationSpec
+Integrations "1" o-- "0..n" DataFlow
+
+@enduml

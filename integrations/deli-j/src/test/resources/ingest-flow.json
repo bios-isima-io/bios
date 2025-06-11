@@ -1,0 +1,176 @@
+{
+  "importSources": [
+    {
+      "importSourceId": "207",
+      "importSourceName": "hibernate_test",
+      "type": "Hibernate"
+    },
+    {
+      "importSourceId": "208",
+      "importSourceName": "logger_test",
+      "type": "Logger"
+    }
+  ],
+  "importDestinations": [
+    {
+      "importDestinationId": "101",
+      "type": "Bios",
+      "endpoint": "kalyan-server-1:443",
+      "authentication": {
+        "type": "Login",
+        "email": "kalyan@isima.io",
+        "password": "Isima@123"
+      }
+    }
+  ],
+  "importFlowConfigs": [
+    {
+      "importFlowName": "user_signal_flow",
+      "importFlowId": "307",
+      "sourceDataSpec": {
+        "importSourceId": "207",
+        "hibernateEntity": "com.example.accessingdatamysql.User",
+        "hibernateOperationTypes": [
+          "Create",
+          "Read",
+          "Update",
+          "Delete"
+        ],
+        "hibernateAdditionalAttributes": [
+          "operationType",
+          "operationLatency",
+          "operationResult",
+          "sqlStatement",
+          "deltaChanges"
+        ]
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "userSignal"
+      },
+      "dataPickupSpec": {
+        "attributes": [
+          {
+            "sourceAttributeName": "id",
+            "as": "id"
+          },
+          {
+            "sourceAttributeName": "name",
+            "as": "name"
+          },
+          {
+            "sourceAttributeName": "email",
+            "as": "email"
+          }
+        ]
+      },
+      "acknowledgementEnabled": false
+    },
+    {
+      "importFlowName": "role_signal_flow",
+      "importFlowId": "308",
+      "sourceDataSpec": {
+        "importSourceId": "207",
+        "hibernateEntity": "com.example.accessingdatamysql.Role",
+        "hibernateOperationTypes": [
+          "Create",
+          "Read",
+          "Update",
+          "Delete"
+        ],
+        "hibernateAdditionalAttributes": [
+          "operationType",
+          "operationLatency",
+          "operationResult",
+          "sqlStatement",
+          "deltaChanges"
+        ]
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "roleSignal"
+      },
+      "dataPickupSpec": {
+        "attributes": [
+          {
+            "sourceAttributeName": "id",
+            "as": "id"
+          },
+          {
+            "sourceAttributeName": "name",
+            "as": "name"
+          },
+          {
+            "sourceAttributeName": "description",
+            "as": "description"
+          }
+        ]
+      },
+      "acknowledgementEnabled": false
+    },
+    {
+      "importFlowName": "country_context_flow",
+      "importFlowId": "309",
+      "sourceDataSpec": {
+        "importSourceId": "207",
+        "hibernateEntity": "com.example.accessingdatamysql.Country",
+        "hibernateOperationTypes": [
+          "Create",
+          "Read",
+          "Update",
+          "Delete"
+        ],
+        "hibernateAdditionalAttributes": [
+          "operationType",
+          "operationLatency",
+          "operationResult",
+          "sqlStatement",
+          "deltaChanges"
+        ]
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "CONTEXT",
+        "name": "countryContextNew"
+      },
+      "dataPickupSpec": {
+          "attributes": [
+            {
+              "sourceAttributeName": "countryCode"
+            },
+            {
+              "sourceAttributeName": "name"
+            },
+            {
+              "sourceAttributeName": "population"
+            },
+            {
+              "sourceAttributeName": "continent"
+            }
+          ]
+      },
+      "acknowledgementEnabled": false
+    },
+    {
+      "importFlowName": "logger_role_signal_flow",
+      "importFlowId": "310",
+      "sourceDataSpec": {
+        "importSourceId": "208"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "roleSignal"
+      },
+      "acknowledgementEnabled": false
+    }
+  ],
+  "importDataProcessors": [
+    {
+      "processorName": "test",
+      "code": "ZnJvbSBkYXRldGltZSBpbXBvcnQgZGF0ZXRpbWUKCgpkZWYgcGFyc2VfZGF0ZXRpbWUoc3JjKToKICAgIHJldHVybiBkYXRldGltZS5zdHJwdGltZShzcmMsICIlWS0lbS0lZFQlSDolTTolU1oiKQo="
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "name": "orders",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "order_id",
+      "type": "long"
+    },
+    {
+      "name": "customer_id",
+      "type": "long"
+    },
+    {
+      "name": "deliveryTime",
+      "type": "long"
+    },
+    {
+      "name": "zipcode",
+      "type": "string"
+    }
+  ],
+  "views": [
+    {
+      "name": "byZipcode",
+      "groupBy": [
+        "zipcode"
+      ],
+      "attributes": [
+        "deliveryTime"
+      ]
+    },
+    {
+      "name": "byCustomer",
+      "groupBy": [
+        "customer_id"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "byOrder",
+      "groupBy": [
+        "order_id"
+      ],
+      "attributes": []
+    }
+  ],
+  "postprocesses": [
+    {
+      "view": "byZipcode",
+      "rollups": [
+        {
+          "name": "rollup_byZipcode",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "schemaName": "rollup_byZipcode"
+        }
+      ]
+    },
+    {
+      "view": "byCustomer",
+      "rollups": [
+        {
+          "name": "rollup_byCustomer",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "schemaName": "rollup_byCustomer"
+        }
+      ]
+    },
+    {
+      "view": "byOrder",
+      "rollups": [
+        {
+          "name": "rollup_byOrder",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "schemaName": "rollup_byOrder"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "groupName": "*",
+    "p1Type": "NETTY_PIPE",
+    "p2Type": "JAVA_SINGLE_THREAD",
+    "p3Type": "NETTY_PIPE"
+  },
+  {
+    "groupName": "isima",
+    "p1Type": "NETTY_PIPE",
+    "p2Type": "JAVA_SINGLE_THREAD",
+    "p3Type": "NETTY_PIPE"
+  },
+  {
+    "groupName": "nettyExecutorTest",
+    "p1Type": "NETTY_SINGLE_THREAD",
+    "p2Type": "NETTY_SINGLE_THREAD",
+    "p3Type": "NETTY_SINGLE_THREAD"
+  }
+]

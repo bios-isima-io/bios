@@ -1,0 +1,10 @@
+{
+  "contextName": "workspace",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "String" },
+    { "attributeName": "rent", "type": "Decimal" },
+    { "attributeName": "workspaceId", "type": "String" }
+  ],
+  "primaryKey": ["resourceId"]
+}

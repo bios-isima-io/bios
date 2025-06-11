@@ -1,0 +1,6 @@
+env
+.eggs
+dbdozer.egg-info
+dist
+_version.py
+!.vscode

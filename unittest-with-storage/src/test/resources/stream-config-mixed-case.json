@@ -1,0 +1,10 @@
+{
+    "name": "testStreamTwo",
+    "attributes": [{
+        "name": "firstAttribute",
+        "type": "string"
+    }, {
+        "name": "secondAttribute",
+        "type": "int"
+    }]
+}

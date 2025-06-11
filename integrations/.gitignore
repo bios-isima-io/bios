@@ -1,0 +1,7 @@
+.idea
+.vscode
+bios_sdk-*.whl
+target
+venv
+pybuild-env
+__pycache__

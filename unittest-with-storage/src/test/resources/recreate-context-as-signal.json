@@ -1,0 +1,288 @@
+{
+  "tenantName": "isima",
+  "history": [
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "category",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "uniqueProducts",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "categoryName",
+            "type": "String",
+            "missingAttributePolicy": "StoreDefaultValue",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "isActive",
+            "type": "Boolean",
+            "missingAttributePolicy": "StoreDefaultValue",
+            "default": false
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "employee",
+        "missingAttributePolicy": "StoreDefaultValue",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer",
+            "default": 0
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "isactive",
+            "type": "Boolean",
+            "default": false
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "test",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "test",
+                "fillIn": "mis"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "g",
+                "fillIn": "1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.isActive",
+                "as": "isActive1",
+                "fillIn": "false"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "uniqueProducts1",
+                "fillIn": "0"
+              },
+              {
+                "value": "category.desc",
+                "as": "desc1",
+                "fillIn": "MISSING1"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "testContext",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.uniqueProducts",
+                "as": "test",
+                "fillIn": "10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "test",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "value",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "test",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "value",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "x1",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "valuePickFirst": [
+                  "employee.first_name",
+                  "product.name"
+                ],
+                "as": "bb",
+                "fillIn": "MISSING"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "delete",
+      "schema": {
+        "contextName": "test"
+      }
+    },
+    {
+      "type": "context",
+      "operation": "delete",
+      "schema": {
+        "contextName": "employee"
+      }
+    },
+    {
+      "type": "signal",
+      "operation": "create",
+      "skip": false,
+      "schema": {
+        "signalName": "employee",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+    "inserted": {
+        "products": [
+            {
+                "product_id": "83971256",
+                "modification_id": "42781593",
+                "product_title": "Agfa KM800, Grey",
+                "item_description": "Aine: plastik&lt;br \/&gt; M\u00f5\u00f5dud: universaalne&lt;br \/&gt; V\u00e4rv: hall&lt;br \/&gt; Pakend: 1 kaamera Dash Cam Realimove KM800&lt;br \/&gt; Reaalne 2,7K \u2013 30FPS&lt;br \/&gt; &lt;br \/&gt; 2,7'' LCD ekraan&lt;br \/&gt; &lt;br \/&gt; 150\u00b0 lainurkobjektiiv.&lt;br \/&gt; T\u00e4nu lainurkobjektiivile saate pilte lihtsalt ja turvaliselt j\u00e4\u00e4dvustada.&lt;br \/&gt; &lt;br \/&gt; Multi-funktsioonid&lt;br \/&gt; See on multifunktsionaalne autokaamera: Loop Recording, \/ Parking Mode, Motion Detection, mis v\u00f5imaldab salvestada videoid reaalajas erinevates olukordades.&lt;br \/&gt; &lt;br \/&gt; Loop salvestamine&lt;br \/&gt; Silmussalvestus v\u00f5imaldab pidevat salvestamist isegi siis, kui m\u00e4lukaart saavutab blokeerimata failide kustutamise t\u00f5ttu oma t\u00e4ismahu.&lt;br \/&gt; &lt;br \/&gt; Liikumistuvastus&lt;br \/&gt; Liikumistuvastus aktiveerub automaatselt ja alustab salvestamist, kui armatuurlaua kaamera tuvastab liikumise teie auto ees v\u00f5i kui keegi tabab teie autot, kui see on pargitud.&lt;br \/&gt; &lt;br \/&gt; Parkimisre\u017eiim&lt;br \/&gt; See autosisene kaamera l\u00fclitub sisse ja alustab automaatselt salvestamist, kui teie auto pargimisel tuvastatakse p\u00f5rutus.\u00a0",
+                "product_title_ru": "",
+                "category3id": "Pardakaamerad ja auto videokaamerad",
+                "category2id": "Autokaubad",
+                "status": "active",
+                "category1id": "Autokaubad",
+                "operation": "INSERT",
+                "brand": "AgfaPhoto",
+                "score": "0",
+                "sample": "0",
+                "sell_price": "75.49",
+                "normal_price": "75.49",
+                "cost_price": "61.86",
+                "amount": "8",
+                "seller": "PIGU",
+                "delivery_hours": "168",
+                "weight": "0.5000",
+                "client_recommendation": "0",
+                "release_date": "2022-02-18",
+                "product_color": "",
+                "category_atribute1_name": "Ekraani suurus",
+                "category_atribute1_value": "290341\"",
+                "category_atribute2_name": "Salvestamise resolutsioon",
+                "category_atribute2_value": "Tpsustamata",
+                "category_atribute3_name": "",
+                "category_atribute3_value": "",
+                "country": "hansapost.ee",
+                "image_url": "https://www.example.com/images/example.jpg",
+                "product_url": "https://www.example.com/products/abc?id=83971256mid=42781593",
+                "product_url_ru": "https://www.example.com/products/abc?id=83971256mid=42781593"
+            }
+        ]
+    },
+    "deleted": {
+        "products": [
+            {
+                "product_id": "3128690928",
+                "modification_id": "91092834",
+                "product_title": "Agfa KM800, Grey",
+                "item_description": "Aine: plastik&lt;br \/&gt; M\u00f5\u00f5dud: universaalne&lt;br \/&gt; V\u00e4rv: hall&lt;br \/&gt; Pakend: 1 kaamera Dash Cam Realimove KM800&lt;br \/&gt; Reaalne 2,7K \u2013 30FPS&lt;br \/&gt; &lt;br \/&gt; 2,7'' LCD ekraan&lt;br \/&gt; &lt;br \/&gt; 150\u00b0 lainurkobjektiiv.&lt;br \/&gt; T\u00e4nu lainurkobjektiivile saate pilte lihtsalt ja turvaliselt j\u00e4\u00e4dvustada.&lt;br \/&gt; &lt;br \/&gt; Multi-funktsioonid&lt;br \/&gt; See on multifunktsionaalne autokaamera: Loop Recording, \/ Parking Mode, Motion Detection, mis v\u00f5imaldab salvestada videoid reaalajas erinevates olukordades.&lt;br \/&gt; &lt;br \/&gt; Loop salvestamine&lt;br \/&gt; Silmussalvestus v\u00f5imaldab pidevat salvestamist isegi siis, kui m\u00e4lukaart saavutab blokeerimata failide kustutamise t\u00f5ttu oma t\u00e4ismahu.&lt;br \/&gt; &lt;br \/&gt; Liikumistuvastus&lt;br \/&gt; Liikumistuvastus aktiveerub automaatselt ja alustab salvestamist, kui armatuurlaua kaamera tuvastab liikumise teie auto ees v\u00f5i kui keegi tabab teie autot, kui see on pargitud.&lt;br \/&gt; &lt;br \/&gt; Parkimisre\u017eiim&lt;br \/&gt; See autosisene kaamera l\u00fclitub sisse ja alustab automaatselt salvestamist, kui teie auto pargimisel tuvastatakse p\u00f5rutus.\u00a0",
+                "product_title_ru": "",
+                "category3id": "Pardakaamerad ja auto videokaamerad",
+                "category2id": "Autokaubad",
+                "status": "inactive",
+                "category1id": "Autokaubad",
+                "operation": "DELETE",
+                "brand": "AgfaPhoto",
+                "score": "0",
+                "sample": "0",
+                "sell_price": "75.49",
+                "normal_price": "75.49",
+                "cost_price": "61.86",
+                "amount": "0",
+                "seller": "PIGU",
+                "delivery_hours": "24",
+                "weight": "0.5000",
+                "client_recommendation": "0",
+                "release_date": "2022-02-18",
+                "product_color": "",
+                "category_atribute1_name": "Ekraani suurus",
+                "category_atribute1_value": "290466\"",
+                "category_atribute2_name": "Salvestamise resolutsioon",
+                "category_atribute2_value": "Tpsustamata",
+                "category_atribute3_name": "",
+                "category_atribute3_value": "",
+                "country": "hansapost.ee",
+                "image_url": "https://www.example.com/images/example.jpg",
+                "product_url": "https://www.example.com/products/abc?id=83971256mid=42781593",
+                "product_url_ru": "https://www.example.com/products/abc?id=83971256mid=42781593"
+            }
+        ]
+    }
+}

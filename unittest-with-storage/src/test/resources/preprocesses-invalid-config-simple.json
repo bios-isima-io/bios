@@ -1,0 +1,10 @@
+{
+    "version" : "1.0",
+    "name": "preprocess1",
+    "actions" : [
+        {
+            "actionType" : "JOIN",
+            "attribute" : "first"
+        }
+    ]
+}

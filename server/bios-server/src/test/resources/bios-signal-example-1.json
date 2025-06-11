@@ -1,0 +1,126 @@
+{
+  "signalName": "signal_with_postprocess_example",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "customer_id",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "access_point_id",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "stay_length",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "order_id",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "latitude",
+      "type": "Decimal"
+    },
+    {
+      "attributeName": "longitude",
+      "type": "Decimal"
+    },
+    {
+      "attributeName": "customer_name",
+      "type": "String"
+    },
+    {
+      "attributeName": "gender",
+      "type": "String",
+      "allowedValues": [
+        "MALE",
+        "FEMALE",
+        "UNKNOWN"
+      ]
+    },
+    {
+      "attributeName": "country",
+      "type": "String"
+    },
+    {
+      "attributeName": "state",
+      "type": "String"
+    }
+  ],
+  "enrich": {
+    "missingLookupPolicy": "StoreFillInValue",
+    "enrichments": [
+      {
+        "enrichmentName": "join_customer_info",
+        "foreignKey": [
+          "customer_id"
+        ],
+        "missingLookupPolicy": "StoreFillInValue",
+        "contextName": "user_context",
+        "contextAttributes": [
+          {
+            "attributeName": "name",
+            "as": "user_name",
+            "fillIn": "n/a"
+          },
+          {
+            "attributeName": "gender",
+            "as": "user_gender",
+            "fillIn": "UNKNOWN"
+
+          }
+        ]
+      },
+      {
+        "enrichmentName": "join_access_point_location",
+        "foreignKey": [
+          "access_point_id"
+        ],
+        "missingLookupPolicy": "Reject",
+        "contextName": "access_point_context",
+        "contextAttributes": [
+          {
+            "attributeName": "ap_country"
+          },
+          {
+            "attributeName": "ap_state"
+          },
+          {
+            "attributeName": "ap_city"
+          }
+        ]
+      }
+    ]
+  },
+  "dataSynthesisStatus": "Enabled",
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "by_country_state",
+        "dimensions": [
+          "country",
+          "state"
+        ],
+        "attributes": [
+          "stay_length",
+          "order_id"
+        ],
+        "featureInterval": 300000,
+        "alerts": [
+          {
+            "alertName": "alertForAnomalyStayLength",
+            "condition": "anomaly(sum(stayLength), min(stayLength), max(stayLength))",
+            "webhookUrl": "https://webhook.site/99743393-3a47-473f-8676-319e8c5d9422"
+          },
+          {
+            "alertName": "alertForLongStay",
+            "condition": "(sum(stay_length) / count()) > 2",
+            "webhookUrl": "https://webhook.site/99743393-3a47-473f-8676-319e8c5d9422"
+          }
+        ]
+      }
+    ]
+  }
+}
+

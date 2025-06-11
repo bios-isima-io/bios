@@ -1,0 +1,464 @@
+{
+  "name": "special_page_viewed_signal",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "visitorId",
+      "type": "string"
+    },
+    {
+      "name": "userId",
+      "type": "long"
+    },
+    {
+      "name": "funnel",
+      "type": "string"
+    },
+    {
+      "name": "section",
+      "type": "string"
+    },
+    {
+      "name": "subsection",
+      "type": "string"
+    },
+    {
+      "name": "funnelTile",
+      "type": "string"
+    },
+    {
+      "name": "funnelRow",
+      "type": "long"
+    },
+    {
+      "name": "sortbar",
+      "type": "string"
+    },
+    {
+      "name": "sortbarGroup",
+      "type": "string"
+    },
+    {
+      "name": "funnelSection",
+      "type": "string"
+    },
+    {
+      "name": "receivedAt",
+      "type": "long"
+    },
+    {
+      "name": "from_feed_size",
+      "type": "long"
+    },
+    {
+      "name": "from_location",
+      "type": "string"
+    },
+    {
+      "name": "from_screen",
+      "type": "string"
+    },
+    {
+      "name": "from_section",
+      "type": "string"
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "plp",
+      "type": "string"
+    },
+    {
+      "name": "position",
+      "type": "long"
+    },
+    {
+      "name": "row",
+      "type": "long"
+    },
+    {
+      "name": "sort_by",
+      "type": "string"
+    },
+    {
+      "name": "track",
+      "type": "string"
+    },
+    {
+      "name": "universal",
+      "type": "string"
+    }
+  ],
+  "primaryKey": [
+    "funnel",
+    "subscription"
+  ],
+  "views": [
+    {
+      "name": "total_special_page_views",
+      "groupBy": [],
+      "attributes": [],
+      "schemaVersion": 1603344106238
+    }
+  ],
+  "preprocesses": [
+    {
+      "name": "deviceJoin",
+      "condition": "visitorId",
+      "foreignKey": [
+        "VisitorId",
+        "extra"
+      ],
+      "missingLookupPolicy": "use_default",
+      "actions": [
+        {
+          "actionType": "merge",
+          "attribute": "os",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_os"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "osVersion",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_osVersion"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "browser",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_browser"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "ipAddress",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "127.0.0.1"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "advertisingTrackingEnabled",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "false"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "advertisingId",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_advertisingId"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "screenHeight",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "2.0"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "screenWidth",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "2.0"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "screenDensity",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "2.0"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "deviceManufacturer",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_deviceManufacturer"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "deviceModel",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_deviceModel"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "deviceName",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_deviceName"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "deviceType",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_deviceType"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "networkType",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_networkType"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "cellularNetwork",
+          "context": "device_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_cellularNetwork"
+        }
+      ]
+    },
+    {
+      "name": "visitorJoin",
+      "condition": "visitorId",
+      "missingLookupPolicy": "use_default",
+      "actions": [
+        {
+          "actionType": "merge",
+          "attribute": "utmSource",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_utm_source"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "utmContent",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_utmContent"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "utmMedium",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_utmMedium"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "customerId",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "-1000"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "utmCampaign",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_utmCampaign"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "utmTerm",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_utmTerm"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "deeplink",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_deeplink"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "daysSinceLastVisit",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "7"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "lastVisitDate",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "2018-10-16T15:11:27.028Z"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "visitorType",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_visitorType"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "hsSite",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_hsSite"
+        },
+        {
+          "actionType": "merge",
+          "attribute": "segmentSource",
+          "context": "visitor_context",
+          "missingLookupPolicy": "use_default",
+          "defaultValue": "default_segmentSource"
+        }
+      ]
+    }
+  ],
+  "postprocesses": [
+    {
+      "view": "total_special_page_views",
+      "rollups": [
+        {
+          "name": "special_page_viewed_signal.rollup.total_special_page_views",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "schemaName": "special_page_viewed_signal.rollup.total_special_page_views",
+          "schemaVersion": 1603344106238
+        }
+      ]
+    }
+  ],
+  "globalLookupPolicy": "use_default",
+  "dataSynthesisStatus": "Disabled",
+  "schemaName": "special_page_viewed_signal",
+  "schemaVersion": 1603344106238,
+  "formatVersion": 1,
+  "indexWindowLength": 300000,
+  "attributeProxyInfo": {
+    "visitorid": {
+      "proxy": 1,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "userid": {
+      "proxy": 2,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "funnel": {
+      "proxy": 3,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "section": {
+      "proxy": 4,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "subsection": {
+      "proxy": 5,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "funneltile": {
+      "proxy": 6,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "funnelrow": {
+      "proxy": 7,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "sortbar": {
+      "proxy": 8,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "sortbargroup": {
+      "proxy": 9,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "funnelsection": {
+      "proxy": 10,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "receivedat": {
+      "proxy": 11,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "from_feed_size": {
+      "proxy": 12,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "from_location": {
+      "proxy": 13,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "from_screen": {
+      "proxy": 14,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "from_section": {
+      "proxy": 15,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "id": {
+      "proxy": 16,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "name": {
+      "proxy": 17,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "plp": {
+      "proxy": 18,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "position": {
+      "proxy": 19,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "row": {
+      "proxy": 20,
+      "baseVersion": 1610692084729,
+      "type": "long"
+    },
+    "sort_by": {
+      "proxy": 21,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "track": {
+      "proxy": 22,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    },
+    "universal": {
+      "proxy": 23,
+      "baseVersion": 1610692084729,
+      "type": "string"
+    }
+  },
+  "maxAttributeProxy": 23
+}

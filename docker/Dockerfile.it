@@ -1,0 +1,21 @@
+FROM ubuntu:22.04
+
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends software-properties-common \
+    openjdk-8-jdk openjdk-11-jdk wget maven curl python3-pip python3-sphinx libxml2-utils \
+    python2.7 \
+    python3-pytest make gcc g++ libssl-dev cmake libjemalloc2 procps iproute2
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN pip3 install setuptools pycodestyle sphinxcontrib-napoleon pylint sphinx_rtd_theme cpplint \
+    protobuf==4.21.9
+RUN echo "export PATH=${JAVA_HOME}/bin:${PATH}" >> ~/.bashrc
+
+ENV PATH="/usr/bin/cmake/bin:${PATH}"
+
+COPY it-entrypoint.sh /usr/local/bin
+COPY wait_url_up.sh /usr/local/bin
+COPY wait_cassandra_up.sh /usr/local/bin
+CMD ["/bin/bash"]

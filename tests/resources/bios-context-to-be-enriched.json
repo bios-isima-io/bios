@@ -1,0 +1,11 @@
+{
+  "contextName": "enrichedContext",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "resourceId",     "type": "String"},
+    {"attributeName": "resourceTypeNum", "type": "Integer"},
+    {"attributeName": "zipcode",         "type": "String", "missingAttributePolicy": "StoreDefaultValue", "default": "missing_zipcode"}
+  ],
+  "primaryKey": ["resourceId"],
+  "dataSynthesisStatus":"Disabled"
+}

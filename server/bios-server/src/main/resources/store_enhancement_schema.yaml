@@ -1,0 +1,417 @@
+signals:
+  - signalName: auditProductViews
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: _operation
+        type: String
+      - attributeName: clientId
+        type: String
+      - attributeName: productId
+        type: String
+      - attributeName: productName
+        type: String
+      - attributeName: vendor
+        type: String
+      - attributeName: url
+        type: String
+      - attributeName: productType
+        type: String
+      - attributeName: widgetId
+        type: Integer
+      - attributeName: timestamp
+        type: Integer
+      - attributeName: prevClientId
+        type: String
+      - attributeName: prevProductId
+        type: String
+      - attributeName: prevProductName
+        type: String
+      - attributeName: prevVendor
+        type: String
+      - attributeName: prevUrl
+        type: String
+      - attributeName: prevProductType
+        type: String
+      - attributeName: prevWidgetId
+        type: Integer
+      - attributeName: prevTimestamp
+        type: Integer
+    # enrich:
+    #   enrichments:
+    #     - enrichmentName: widgetName
+    #       foreignKey:
+    #         - widgetId
+    #       missingLookupPolicy: StoreFillInValue
+    #       contextName: widgets
+    #       contextAttributes:
+    #         - attributeName: widgetName
+    #           as: widgetName
+    #           fillIn: MISSING
+    postStorageStage:
+      features:
+        - featureName: byProductTypeAndId
+          dimensions:
+            - productType
+            - productId
+          attributes: [ ]
+          featureInterval: 60000
+        - featureName: byProductIdClientId
+          dimensions:
+            - productId
+            - clientId
+          attributes: [ ]
+          featureInterval: 60000
+        - featureName: byClientId
+          dimensions:
+            - clientId
+          attributes:
+            - productId
+          featureInterval: 5000
+          featureAsContextName: productViews_byClientId
+          items: 15
+          ttl: 604800000
+          materializedAs: LastN
+        - featureName: byProduct
+          dimensions:
+            - productId
+            - productName
+            - vendor
+            - productType
+            - url
+          attributes: [ ]
+          featureInterval: 60000
+        - featureName: byWidgetId
+          dimensions:
+            - widgetId
+            # - widgetName
+          attributes: [ ]
+          featureInterval: 300000
+  - signalName: widgetImpressions
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: widgetId
+        type: Integer
+      - attributeName: clientId
+        type: String
+      - attributeName: productId
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+    enrich:
+      enrichments:
+        - enrichmentName: widgetName
+          foreignKey:
+            - widgetId
+          missingLookupPolicy: StoreFillInValue
+          contextName: widgets
+          contextAttributes:
+            - attributeName: widgetName
+              as: widgetName
+              fillIn: MISSING
+    postStorageStage:
+      features:
+        - featureName: impressionsByWidgetId
+          dimensions:
+            - widgetId
+            - widgetName
+          attributes: [ ]
+          featureInterval: 300000
+  - signalName: cartActivities
+    missingAttributePolicy: StoreDefaultValue
+    attributes:
+      - attributeName: clientId
+        type: String
+        default: MISSING
+      - attributeName: productId
+        type: String
+        default: MISSING
+      - attributeName: productName
+        type: String
+        default: MISSING
+      - attributeName: vendor
+        type: String
+        default: MISSING
+      - attributeName: url
+        type: String
+        default: MISSING
+      - attributeName: productType
+        type: String
+        default: MISSING
+      - attributeName: quantity
+        type: Integer
+        default: 0
+      - attributeName: timestamp
+        type: Integer
+        default: 0
+    enrich:
+      enrichments:
+        - enrichmentName: lastProductView
+          foreignKey:
+            - clientId
+            - productId
+          missingLookupPolicy: StoreFillInValue
+          contextName: productViews
+          contextAttributes:
+            - attributeName: widgetId
+              fillIn: -1
+    postStorageStage:
+      features:
+        - featureName: byProductIdClientId
+          dimensions:
+            - productId
+            - clientId
+          attributes:
+            - quantity
+          featureInterval: 300000
+        - featureName: byWidget
+          dimensions:
+            - widgetId
+          attributes:
+            - quantity
+          featureInterval: 300000
+        - featureName: byProduct
+          dimensions:
+            - productId
+            - productName
+            - vendor
+            - url
+            - productType
+          attributes:
+            - quantity
+          featureInterval: 300000
+        - featureName: byWidgetProduct
+          dimensions:
+            - widgetId
+            - productName
+          attributes:
+            - quantity
+          featureInterval: 300000
+  - signalName: orders
+    missingAttributePolicy: StoreDefaultValue
+    attributes:
+      - attributeName: orderId
+        type: String
+        default: MISSING
+      - attributeName: clientId
+        type: String
+        default: MISSING
+      - attributeName: productId
+        type: String
+        default: MISSING
+      - attributeName: productName
+        type: String
+        default: MISSING
+      - attributeName: vendor
+        type: String
+        default: MISSING
+      - attributeName: url
+        type: String
+        default: MISSING
+      - attributeName: productType
+        type: String
+        default: MISSING
+      - attributeName: quantity
+        type: Integer
+        default: 0
+      - attributeName: finalPrice
+        type: Decimal
+        default: 0.0
+      - attributeName: currency
+        type: String
+        default: MISSING
+      - attributeName: timestamp
+        type: Integer
+        default: 0
+    enrich:
+      enrichments:
+        - enrichmentName: lastProductView
+          foreignKey:
+            - clientId
+            - productId
+          missingLookupPolicy: StoreFillInValue
+          contextName: productViews
+          contextAttributes:
+            - attributeName: widgetId
+              fillIn: -1
+    postStorageStage:
+      features:
+        - featureName: byProductIdClientId
+          dimensions:
+            - productId
+            - clientId
+          attributes:
+            - quantity
+            - finalPrice
+          featureInterval: 300000
+        - featureName: byOrderId
+          dimensions:
+            - orderId
+          attributes:
+            - quantity
+            - finalPrice
+          featureInterval: 300000
+        - featureName: byWidgetId
+          dimensions:
+            - widgetId
+          attributes:
+            - quantity
+            - finalPrice
+          featureInterval: 300000
+        - featureName: byProduct
+          dimensions:
+            - productId
+            - productName
+            - vendor
+            - url
+            - productType
+          attributes:
+            - quantity
+            - finalPrice
+          featureInterval: 300000
+  - signalName: widgetClicks
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: widgetId
+        type: Integer
+      - attributeName: clientId
+        type: String
+      - attributeName: productId
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+    enrich:
+      enrichments:
+        - enrichmentName: byWidgetId
+          foreignKey:
+            - widgetId
+          missingLookupPolicy: StoreFillInValue
+          contextName: widgets
+          contextAttributes:
+            - attributeName: widgetName
+              fillIn: MISSING
+    postStorageStage:
+      features:
+        - featureName: clicksByWidgetIdName
+          dimensions:
+            - widgetId
+            - widgetName
+          attributes: [ ]
+          featureInterval: 300000
+contexts:
+  - contextName: productViews
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: clientId
+        type: String
+      - attributeName: productId
+        type: String
+      - attributeName: productName
+        type: String
+      - attributeName: vendor
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+      - attributeName: url
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+      - attributeName: productType
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+      - attributeName: widgetId
+        type: Integer
+        missingAttributePolicy: StoreDefaultValue
+        default: -1
+      - attributeName: timestamp
+        type: Integer
+    primaryKey:
+      - clientId
+      - productId
+    ttl: 5788800000
+    auditEnabled: true
+  - contextName: products
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: productId
+        type: String
+      - attributeName: productName
+        type: String
+      - attributeName: vendor
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+      - attributeName: url
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+      - attributeName: productType
+        type: String
+        missingAttributePolicy: StoreDefaultValue
+        default: MISSING
+    primaryKey:
+      - productId
+  - contextName: sessions
+    missingAttributePolicy: StoreDefaultValue
+    attributes:
+      - attributeName: clientId
+        type: String
+        missingAttributePolicy: Reject
+      - attributeName: userAgent
+        type: String
+        default: MISSING
+      - attributeName: browserName
+        type: String
+        default: MISSING
+      - attributeName: browserVersion
+        type: String
+        default: MISSING
+      - attributeName: osName
+        type: String
+        default: MISSING
+      - attributeName: osVersion
+        type: String
+        default: MISSING
+      - attributeName: deviceName
+        type: String
+        default: MISSING
+      - attributeName: deviceType
+        type: String
+        allowedValues:
+          - Mobile
+          - Tablet
+          - PC
+          - Unknown
+        default: Unknown
+      - attributeName: ipAddress
+        type: String
+        default: MISSING
+    primaryKey:
+      - clientId
+    ttl: 5788800000
+    auditEnabled: true
+  - contextName: productViews_byClientId
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: clientId
+        type: String
+      - attributeName: collection
+        type: String
+    primaryKey:
+      - clientId
+    ttl: 5788800000
+    auditEnabled: false
+  - contextName: widgets
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: widgetId
+        type: Integer
+      - attributeName: widgetName
+        type: String
+      - attributeName: pageType
+        type: String
+      - attributeName: widgetType
+        type: String
+    primaryKey:
+      - widgetId
+    auditEnabled: false

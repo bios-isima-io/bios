@@ -1,0 +1,13 @@
+.cache
+.checkstyle
+.classpath
+.project
+.settings/*
+*.pyc
+__pycache__
+build
+mysetup
+sdk.log
+target
+temp
+/bin/

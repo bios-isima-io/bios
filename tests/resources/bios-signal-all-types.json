@@ -1,0 +1,11 @@
+{
+  "signalName": "allTypes",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "stringData", "type": "string"},
+    {"attributeName": "integerData", "type": "integer"},
+    {"attributeName": "decimalData", "type": "decimal"},
+    {"attributeName": "booleanData", "type": "boolean"},
+    {"attributeName": "blobData", "type": "blob"}
+  ]
+}

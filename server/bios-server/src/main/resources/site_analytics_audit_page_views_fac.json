@@ -1,0 +1,50 @@
+{
+  "signalName": "auditPageViews_pageUriBySessionId",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "_operation",
+      "type": "String"
+    },
+    {
+      "attributeName": "sessionId",
+      "type": "String"
+    },
+    {
+      "attributeName": "prevSessionId",
+      "type": "String"
+    },
+    {
+      "attributeName": "pageUriCollection",
+      "type": "String"
+    },
+    {
+      "attributeName": "prevPageUriCollection",
+      "type": "String"
+    }
+  ],
+  "enrich": {
+    "ingestTimeLag": []
+  },
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "byOperation2",
+        "dimensions": [
+          "_operation"
+        ],
+        "attributes": [],
+        "featureInterval": 60000
+      },
+      {
+        "featureName": "bySessionId",
+        "dimensions": [
+          "sessionId"
+        ],
+        "attributes": [],
+        "featureInterval": 60000
+      }
+    ]
+  },
+  "isInternal": true
+}

@@ -1,0 +1,10 @@
+{
+  "name": "auxiliary",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    { "name": "resourceId", "type": "string" },
+    { "name": "cost", "type": "double" },
+    { "name": "auxiliaryId", "type": "string" }
+  ]
+}

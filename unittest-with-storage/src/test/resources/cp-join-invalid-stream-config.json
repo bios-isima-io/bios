@@ -1,0 +1,22 @@
+{
+  "name": "ref_missing",
+  "attributes": [
+    {
+      "name": "ip",
+      "type": "inet"
+    }
+  ],
+  "preprocesses": [
+    {
+      "name": "merge_geolocation",
+      "condition": "ip",
+      "actions": [
+        {
+          "actionType": "merge",
+          "stream": "geolocation",
+          "attribute": "city"
+        }
+      ]
+    }
+  ]
+}

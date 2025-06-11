@@ -1,0 +1,78 @@
+{
+  "name": "_operationFailure",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "timestamp",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Timestamp",
+        "unit": "UnixMillisecond"
+      }
+    },
+    {
+      "name": "stream",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": ""
+    },
+    {
+      "name": "request",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": ""
+    },
+    {
+      "name": "errorName",
+      "type": "string"
+    },
+    {
+      "name": "errorMessage",
+      "type": "string"
+    },
+    {
+      "name": "appType",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "appName",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    }
+  ],
+  "views": [
+    {
+      "name": "byAllDimensions",
+      "groupBy": [
+        "stream",
+        "request",
+        "appType",
+        "appName"
+      ],
+      "attributes": []
+    }
+  ],
+  "postprocesses": [
+    {
+      "view": "byAllDimensions",
+      "rollups": [
+        {
+          "name": "_operationFailure.rollup.byAllDimensions",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          }
+        }
+      ]
+    }
+  ]
+}

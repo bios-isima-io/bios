@@ -1,0 +1,38 @@
+{
+  "signalName": "secondLevelEnrichedSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "signalId", "type": "Integer"},
+    {"attributeName": "secondId", "type": "String"}
+  ],
+  "enrich": {
+    "enrichments": [
+      {
+        "enrichmentName": "resourceDetails",
+        "foreignKey": ["secondId"],
+        "missingLookupPolicy": "Reject",
+        "contextName": "secondLevelEnrichedContext",
+        "contextAttributes": [
+          {"attributeName": "resourceId"},
+          {"attributeName": "resourceTypeNum"},
+          {"attributeName": "zipcode"},
+          {"attributeName": "resourceTypeCode"},
+          {"attributeName": "myResourceCategory"},
+          {"attributeName": "resourceCategory"}
+        ]
+      },
+      {
+        "enrichmentName": "resourceDetails2",
+        "foreignKey": ["resourceId"],
+        "missingLookupPolicy": "StoreFillInValue",
+        "contextName": "enrichedContext",
+        "contextAttributes": [
+          {"attributeName": "resourceTypeNum", "as": "resourceTypeNum2", "fillIn": 0},
+          {"attributeName": "zipcode", "as": "zipcode2", "fillIn": "00000"},
+          {"attributeName": "resourceTypeCode", "as": "resourceTypeCode2", "fillIn": "None"},
+          {"attributeName": "myResourceCategory", "as": "myResourceCategory2", "fillIn": 0}
+        ]
+      }
+    ]
+  }
+}

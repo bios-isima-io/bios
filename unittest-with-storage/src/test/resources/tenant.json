@@ -1,0 +1,49 @@
+{
+  "name": "geolocation_demo",
+  "streams": [{
+    "name": "accesses",
+    "_description": [
+      "This stream tracks access events from remote peers.",
+      "An event only includes peer IP, but we want to track where the accesses come."
+    ],
+    "attributes": [{
+      "name": "ip",
+      "type": "inet"
+    }],
+    "preprocesses": [{
+      "_comment": "ip_to_geolocation",
+      "name": "add_geolocation",
+      "condition": "ip",
+      "actions": [{
+        "actionType": "merge",
+        "stream": "geolocation",
+        "attribute": "city"
+      }, {
+        "actionType": "merge",
+        "stream": "geolocation",
+        "attribute": "state"
+      }, {
+        "actionType": "merge",
+        "stream": "geolocations",
+        "attribute": "country"
+      }]
+    }]
+  }, {
+    "name": "geolocation",
+    "type": "context",
+    "_description": [ "A mapping for the IP to geolocation" ],
+    "additionalAttributes": [{
+      "name": "ip",
+      "type": "inet"
+    }, {
+      "name": "city",
+      "type": "string"
+    }, {
+      "name": "state",
+      "type": "string"
+    }, {
+      "name": "country",
+      "type": "string"
+    }]
+  }]
+}

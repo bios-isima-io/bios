@@ -1,0 +1,25 @@
+{
+  "signalName": "proxiesSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "visitId", "type": "Integer"},
+    {"attributeName": "patientId", "type": "Integer"},
+    {"attributeName": "zipcode", "type": "Integer"},
+    {"attributeName": "resourceId", "type": "String"}
+  ],
+  "enrich": {
+    "enrichments": [
+      {
+        "enrichmentName": "enrich1",
+        "foreignKey": ["resourceId"],
+        "missingLookupPolicy": "Reject",
+        "contextName": "proxiesContext",
+        "contextAttributes": [
+          {"attributeName": "attr1"},
+          {"attributeName": "attr2"},
+          {"attributeName": "attr3"}
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1962 @@
+{
+  "tenantName": "test",
+  "importSources": [
+    {
+      "importSourceId": "205",
+      "importSourceName": "Webhook Alerts",
+      "type": "Webhook",
+      "webhookPath": "/system",
+      "authentication": {
+        "type": "InMessage",
+        "inMessageUserAttribute": "user",
+        "inMessagePasswordAttribute": "password"
+      }
+    },
+    {
+      "importSourceId": "206",
+      "importSourceName": "Filter Test",
+      "type": "Webhook",
+      "webhookPath": "/simple-signal",
+      "authentication": {
+        "type": "InMessage",
+        "inMessageUserAttribute": "user",
+        "inMessagePasswordAttribute": "pass"
+      }
+    },
+    {
+      "importSourceId": "207",
+      "importSourceName": "Header Auth Test",
+      "type": "Webhook",
+      "webhookPath": "/header-auth",
+      "authentication": {
+        "type": "HttpHeadersPlain",
+        "userHeader": "user",
+        "passwordHeader": "pass"
+      }
+    },
+    {
+      "importSourceId": "208",
+      "importSourceName": "HMAC Auth Test Encoded Digest",
+      "type": "Webhook",
+      "webhookPath": "/hmac-auth-encoded-digest",
+      "authentication": {
+        "type": "HttpHeadersPlain",
+        "userHeader": "user",
+        "passwordHeader": "pass"
+      },
+      "payloadValidation": {
+        "type": "HmacSignature",
+        "hmacHeader": "x-shopify-hmac-sha256",
+        "sharedSecret": "salt",
+        "digestBase64Encoded": "true"
+      }
+    },
+    {
+      "importSourceId": "301",
+      "importSourceName": "HMAC Auth Test UnEncoded Digest",
+      "type": "Webhook",
+      "webhookPath": "/hmac-auth-unencoded-digest",
+      "authentication": {
+        "type": "HttpHeadersPlain",
+        "userHeader": "user",
+        "passwordHeader": "pass"
+      },
+      "payloadValidation": {
+        "type": "HmacSignature",
+        "hmacHeader": "x-shopify-hmac-sha256",
+        "sharedSecret": "salt",
+        "digestBase64Encoded": "false"
+      }
+    },
+    {
+      "importSourceId": "211",
+      "importSourceName": "Basic Authorization auth test",
+      "type": "Webhook",
+      "webhookPath": "authorization-auth",
+      "authentication": {
+        "type": "HttpAuthorizationHeader"
+      }
+    },
+    {
+      "importSourceId": "209",
+      "importSourceName": "MySQL Inventory",
+      "type": "MySql",
+      "databaseHost": "${MYSQL_HOST}",
+      "databasePort": "${MYSQL_PORT}",
+      "databaseName": "inventory",
+      "authentication": {
+        "type": "Login",
+        "user": "integrations_user",
+        "password": "MySQL&p@55w0rd!"
+      },
+      "ssl": {
+        "mode": "Enabled",
+        "rootCaContent": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVVWljQjNGWXFoWWF4Y2xEUllxS2wyV3ptTmJnd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNWVk14RXpBUkJnTlZCQWdNQ2tOaGJHbG1iM0p1YVdFeERqQU1CZ05WQkFvTQpCV2x6YVcxaE1SUXdFZ1lEVlFRTERBdEZibWRwYm1WbGNtbHVaekFnRncweU16QTNNVEF5TVRBME5USmFHQTh5Ck1EVXdNVEV5TkRJeE1EUTFNbG93U0RFTE1Ba0dBMVVFQmhNQ1ZWTXhFekFSQmdOVkJBZ01Da05oYkdsbWIzSnUKYVdFeERqQU1CZ05WQkFvTUJXbHphVzFoTVJRd0VnWURWUVFMREF0RmJtZHBibVZsY21sdVp6Q0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLMFhKUGVKZVJ5V3c4eU1GYmNhbEZQY0xtYkFjbWV1CmtpdUltczBHc3p2cjNxeWNDc2tXbmk4eGtzT2Q1VGZQU3JsNFJ2TzR6MVFpM1Q4K0l3RlI1NzRibTRTbzVCUDEKZGtKRDhCMDBEMmlMeHFqM1NhVVBwTHNMRkZWNnEzenUxZEZYZ1ZBUnh3cVNWM3l3VmdiTGpIaTk2a251SWRKVQo0MVFkUmJRRlNWcS9TSWZvQXVhY0paMHlSeTRCaXo2SFdqQ1VFOUtnNWhldktnbmJvZlQwQ040R1NWcWhpWi9oClNuUUdjVUlGTHRyYXI0K1EwMkNEc3pvYlQzN1B6bk8wU0dpYXBnTEpPS0lYZS9BL1FDVCt5UlFWZmowSXpHRmUKbVRWaEVvbzBnMkEzQ1g1VDNwSzlKcG9LNHJES1BHK3FHU0lYWHlDbkVlQ2FXNCtoUkprS1lzTUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkM3WjJQalVyVC9PQ2ltVGYyNzdyL3FFcDA3cU1COEdBMVVkSXdRWU1CYUFGQzdaCjJQalVyVC9PQ2ltVGYyNzdyL3FFcDA3cU1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBSjNsTS92QmpBM3oyQ01vZlM5NzM4MUJvN1libEYyWFFEalh0Z1NTWmsxZGJ0MjFzUjdqeTZWagpqNjJnUStGYXg2dHBtOElyMVRUNHhjTDh5eFdEMkpBTTV0Nk1oc2FlSFNhaXY5a0V4WjJ4enNteFBJYkpOVExNClpMTDkxYnljSzRNSlVDQmNRSUhZYzJnc09FODJEOTdtUjhvcTBPZi9Jc3BhL3JGa1Y1b2dyWjJORzZXYTJoaUwKSVpxZFpLVmVvK2hwMmc4T0d3TnNWcFNvNkUrMmJ5ZkhRaTVjSEl1ZWhMR0tBQlFZVlhvOW5FZlhkK2RUSHhYRApLMmFCdkgxaEx0bG0wSG5hbXNUUUxNeUFIZEZ2TUp3QUpXOWdISThSbFdtblpNVHhkL1hQU01uVnRpUWlXWHdjCmZSS3J0dU1FZ0RxZGRBd1VHSzBWMjBKcUY2VDN0c1E9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+        "clientCertificateContent": "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",
+        "clientCertificatePassword": "I51m@&bi0s"
+      }
+    },
+    {
+      "importSourceId": "212",
+      "importSourceName": "Postgres Catalog",
+      "type": "Postgres",
+      "databaseHost": "bios-postgres.it.example.com",
+      "databasePort": "${POSTGRES_PORT}",
+      "databaseName": "products",
+      "authentication": {
+        "type": "Login",
+        "user": "postgresuser",
+        "password": "P057gres%P&ssword!"
+      },
+      "ssl": {
+        "mode": "Enabled",
+        "rootCaContent": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVVWljQjNGWXFoWWF4Y2xEUllxS2wyV3ptTmJnd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNWVk14RXpBUkJnTlZCQWdNQ2tOaGJHbG1iM0p1YVdFeERqQU1CZ05WQkFvTQpCV2x6YVcxaE1SUXdFZ1lEVlFRTERBdEZibWRwYm1WbGNtbHVaekFnRncweU16QTNNVEF5TVRBME5USmFHQTh5Ck1EVXdNVEV5TkRJeE1EUTFNbG93U0RFTE1Ba0dBMVVFQmhNQ1ZWTXhFekFSQmdOVkJBZ01Da05oYkdsbWIzSnUKYVdFeERqQU1CZ05WQkFvTUJXbHphVzFoTVJRd0VnWURWUVFMREF0RmJtZHBibVZsY21sdVp6Q0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLMFhKUGVKZVJ5V3c4eU1GYmNhbEZQY0xtYkFjbWV1CmtpdUltczBHc3p2cjNxeWNDc2tXbmk4eGtzT2Q1VGZQU3JsNFJ2TzR6MVFpM1Q4K0l3RlI1NzRibTRTbzVCUDEKZGtKRDhCMDBEMmlMeHFqM1NhVVBwTHNMRkZWNnEzenUxZEZYZ1ZBUnh3cVNWM3l3VmdiTGpIaTk2a251SWRKVQo0MVFkUmJRRlNWcS9TSWZvQXVhY0paMHlSeTRCaXo2SFdqQ1VFOUtnNWhldktnbmJvZlQwQ040R1NWcWhpWi9oClNuUUdjVUlGTHRyYXI0K1EwMkNEc3pvYlQzN1B6bk8wU0dpYXBnTEpPS0lYZS9BL1FDVCt5UlFWZmowSXpHRmUKbVRWaEVvbzBnMkEzQ1g1VDNwSzlKcG9LNHJES1BHK3FHU0lYWHlDbkVlQ2FXNCtoUkprS1lzTUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkM3WjJQalVyVC9PQ2ltVGYyNzdyL3FFcDA3cU1COEdBMVVkSXdRWU1CYUFGQzdaCjJQalVyVC9PQ2ltVGYyNzdyL3FFcDA3cU1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBSjNsTS92QmpBM3oyQ01vZlM5NzM4MUJvN1libEYyWFFEalh0Z1NTWmsxZGJ0MjFzUjdqeTZWagpqNjJnUStGYXg2dHBtOElyMVRUNHhjTDh5eFdEMkpBTTV0Nk1oc2FlSFNhaXY5a0V4WjJ4enNteFBJYkpOVExNClpMTDkxYnljSzRNSlVDQmNRSUhZYzJnc09FODJEOTdtUjhvcTBPZi9Jc3BhL3JGa1Y1b2dyWjJORzZXYTJoaUwKSVpxZFpLVmVvK2hwMmc4T0d3TnNWcFNvNkUrMmJ5ZkhRaTVjSEl1ZWhMR0tBQlFZVlhvOW5FZlhkK2RUSHhYRApLMmFCdkgxaEx0bG0wSG5hbXNUUUxNeUFIZEZ2TUp3QUpXOWdISThSbFdtblpNVHhkL1hQU01uVnRpUWlXWHdjCmZSS3J0dU1FZ0RxZGRBd1VHSzBWMjBKcUY2VDN0c1E9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+        "clientCertificateContent": "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",
+        "clientCertificatePassword": "57R0NG&Unbreakable!"
+      }
+    },
+    {
+      "importSourceId": "213",
+      "importSourceName": "MongoDB Shopping",
+      "type": "Mongodb",
+      "endpoints": [
+        "bios-mongodb.it.example.com:27017"
+      ],
+      "replicaSet": "my-mongo-set",
+      "databaseName": "shopping",
+      "authentication": {
+        "type": "MongodbX509",
+        "user": "CN=Deli,O=Test",
+        "type_": "Login",
+        "user_": "warehouseUser",
+        "password_": "%Test&123!"
+      },
+      "ssl": {
+        "mode": "Enabled",
+        "rootCaContent": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVVWljQjNGWXFoWWF4Y2xEUllxS2wyV3ptTmJnd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNWVk14RXpBUkJnTlZCQWdNQ2tOaGJHbG1iM0p1YVdFeERqQU1CZ05WQkFvTQpCV2x6YVcxaE1SUXdFZ1lEVlFRTERBdEZibWRwYm1WbGNtbHVaekFnRncweU16QTNNVEF5TVRBME5USmFHQTh5Ck1EVXdNVEV5TkRJeE1EUTFNbG93U0RFTE1Ba0dBMVVFQmhNQ1ZWTXhFekFSQmdOVkJBZ01Da05oYkdsbWIzSnUKYVdFeERqQU1CZ05WQkFvTUJXbHphVzFoTVJRd0VnWURWUVFMREF0RmJtZHBibVZsY21sdVp6Q0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLMFhKUGVKZVJ5V3c4eU1GYmNhbEZQY0xtYkFjbWV1CmtpdUltczBHc3p2cjNxeWNDc2tXbmk4eGtzT2Q1VGZQU3JsNFJ2TzR6MVFpM1Q4K0l3RlI1NzRibTRTbzVCUDEKZGtKRDhCMDBEMmlMeHFqM1NhVVBwTHNMRkZWNnEzenUxZEZYZ1ZBUnh3cVNWM3l3VmdiTGpIaTk2a251SWRKVQo0MVFkUmJRRlNWcS9TSWZvQXVhY0paMHlSeTRCaXo2SFdqQ1VFOUtnNWhldktnbmJvZlQwQ040R1NWcWhpWi9oClNuUUdjVUlGTHRyYXI0K1EwMkNEc3pvYlQzN1B6bk8wU0dpYXBnTEpPS0lYZS9BL1FDVCt5UlFWZmowSXpHRmUKbVRWaEVvbzBnMkEzQ1g1VDNwSzlKcG9LNHJES1BHK3FHU0lYWHlDbkVlQ2FXNCtoUkprS1lzTUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkM3WjJQalVyVC9PQ2ltVGYyNzdyL3FFcDA3cU1COEdBMVVkSXdRWU1CYUFGQzdaCjJQalVyVC9PQ2ltVGYyNzdyL3FFcDA3cU1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBSjNsTS92QmpBM3oyQ01vZlM5NzM4MUJvN1libEYyWFFEalh0Z1NTWmsxZGJ0MjFzUjdqeTZWagpqNjJnUStGYXg2dHBtOElyMVRUNHhjTDh5eFdEMkpBTTV0Nk1oc2FlSFNhaXY5a0V4WjJ4enNteFBJYkpOVExNClpMTDkxYnljSzRNSlVDQmNRSUhZYzJnc09FODJEOTdtUjhvcTBPZi9Jc3BhL3JGa1Y1b2dyWjJORzZXYTJoaUwKSVpxZFpLVmVvK2hwMmc4T0d3TnNWcFNvNkUrMmJ5ZkhRaTVjSEl1ZWhMR0tBQlFZVlhvOW5FZlhkK2RUSHhYRApLMmFCdkgxaEx0bG0wSG5hbXNUUUxNeUFIZEZ2TUp3QUpXOWdISThSbFdtblpNVHhkL1hQU01uVnRpUWlXWHdjCmZSS3J0dU1FZ0RxZGRBd1VHSzBWMjBKcUY2VDN0c1E9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K",
+        "clientCertificateContent": "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",
+        "clientCertificatePassword": "P@55word&Test123!"
+      }
+    },
+    {
+      "importSourceId": "210",
+      "importSourceName": "Kafka test server",
+      "type": "Kafka",
+      "authentication": {
+        "type": "SaslPlaintext",
+        "user": "admin",
+        "password": "secret"
+      },
+      "bootstrapServers": [
+        "localhost:9092"
+      ],
+      "apiVersion": [
+        0,
+        10,
+        2
+      ]
+    },
+    {
+      "importSourceId": "220",
+      "importSourceName": "S3 Source",
+      "type": "S3",
+      "authentication": {
+        "type": "AccessKey",
+        "accessKey": "xxxxxxxxxxxxxxxxxxxx",
+        "secretKey": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "pollingInterval": 10
+    },
+    {
+      "importSourceId": "230",
+      "importSourceName": "Csv Test",
+      "type": "Webhook",
+      "webhookPath": "/csv",
+      "authentication": {
+        "type": "HttpHeadersPlain",
+        "userHeader": "user",
+        "passwordHeader": "pass"
+      }
+    },
+    {
+      "importSourceId": "231",
+      "importSourceName": "CMS source",
+      "type": "Webhook",
+      "webhookPath": "/cms",
+      "authentication": {
+        "type": "InMessage",
+        "inMessageUserAttribute": "/user",
+        "inMessagePasswordAttribute": "/password"
+      }
+    },
+    {
+      "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+      "importSourceName": "Shopify Webhook",
+      "type": "Webhook",
+      "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+      "webhookPath": "/events"
+    },
+    {
+      "importSourceId": "shopifySecurity",
+      "importSourceName": "Shopify Security",
+      "type": "Webhook",
+      "payloadValidation": {
+        "type": "HmacSignature",
+        "hmacHeader": "x-shopify-hmac-sha256",
+        "sharedSecret": "3882be31202e202fc5ce70fb82b87367",
+        "digestBase64Encoded": true
+      },
+      "webhookPath": "/security"
+    },
+    {
+      "importSourceId": "shopifySecurityNotif",
+      "importSourceName": "Shopify Security Notif",
+      "type": "Webhook",
+      "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+      "webhookPath": "/slack-notification"
+    }
+  ],
+  "importDestinations": [
+    {
+      "importDestinationId": "101",
+      "importDestinationName": "bios",
+      "type": "bios",
+      "endpoint": "${BIOS_ENDPOINT}"
+    },
+    {
+      "importDestinationId": "102",
+      "importDestinationName": "biOS logged in",
+      "type": "bios",
+      "endpoint": "${BIOS_ENDPOINT}",
+      "authentication": {
+        "type": "Login",
+        "user": "ingest@test",
+        "password": "ingest"
+      }
+    },
+    {
+      "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+      "type": "Bios",
+      "endpoint": "${BIOS_ENDPOINT}",
+      "authentication": {
+        "type": "Login",
+        "user": "app-master@test",
+        "password": "app-master"
+      }
+    }
+  ],
+  "importFlowSpecs": [
+    {
+      "importFlowName": "Alerts",
+      "importFlowId": "305",
+      "sourceDataSpec": {
+        "importSourceId": "205",
+        "webhookSubPath": "/alerts",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "alertsSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "signalName"
+          },
+          {
+            "sourceAttributeName": "featureName"
+          },
+          {
+            "sourceAttributeName": "alertName"
+          },
+          {
+            "sourceAttributeName": "condition"
+          },
+          {
+            "sourceAttributeName": "event"
+          },
+          {
+            "sourceAttributeName": "timestampMillisSinceEpoch",
+            "as": "alertRaisedTimestamp"
+          },
+          {
+            "sourceAttributeName": "windowStartTime",
+            "processes": [
+              {
+                "processorName": "alertUtils",
+                "method": "parse_datetime"
+              }
+            ],
+            "transforms": [
+              {
+                "rule": "lambda parsed: parsed.year",
+                "as": "year"
+              },
+              {
+                "rule": "lambda parsed: parsed.month",
+                "as": "month"
+              },
+              {
+                "rule": "lambda parsed: parsed.day",
+                "as": "day"
+              },
+              {
+                "rule": "lambda parsed: parsed.hour",
+                "as": "hour"
+              },
+              {
+                "rule": "lambda parsed: parsed.minute",
+                "as": "minute"
+              },
+              {
+                "rule": "lambda parsed: parsed.second",
+                "as": "second"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Filter for none",
+      "importFlowId": "306",
+      "sourceDataSpec": {
+        "importSourceId": "206",
+        "webhookSubPath": "/filter-test",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "filters": [
+          {
+            "sourceAttributeName": "zero",
+            "filter": "lambda value: value is None"
+          }
+        ],
+        "attributes": [
+          {
+            "sourceAttributeName": "one",
+            "as": "testName"
+          },
+          {
+            "sourceAttributeName": "two",
+            "transforms": [
+              {
+                "rule": "lambda dummy: 'filter for none'",
+                "as": "testParam"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Filter for abc",
+      "importFlowId": "307",
+      "sourceDataSpec": {
+        "importSourceId": "206",
+        "webhookSubPath": "/filter-test",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "filters": [
+          {
+            "sourceAttributeName": "zero",
+            "filter": "lambda value: value == 'abc'"
+          }
+        ],
+        "attributes": [
+          {
+            "sourceAttributeName": "one",
+            "as": "testName"
+          },
+          {
+            "sourceAttributeName": "two",
+            "transforms": [
+              {
+                "rule": "lambda dummy: 'filter for abc'",
+                "as": "testParam"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Simple flattener",
+      "importFlowId": "308",
+      "sourceDataSpec": {
+        "importSourceId": "206",
+        "webhookSubPath": "/flattener-test",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "items/*",
+        "filters": [
+          {
+            "sourceAttributeName": "testName",
+            "filter": "lambda value: value is None"
+          }
+        ],
+        "attributes": [
+          {
+            "sourceAttributeName": "one",
+            "as": "testName"
+          },
+          {
+            "sourceAttributeName": "two",
+            "as": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Flattener with common parameter",
+      "importFlowId": "309",
+      "sourceDataSpec": {
+        "importSourceId": "206",
+        "webhookSubPath": "/flattener-test",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "items/*",
+        "filters": [
+          {
+            "sourceAttributeName": "testName",
+            "filter": "lambda value: value"
+          }
+        ],
+        "attributes": [
+          {
+            "sourceAttributeName": "/testName",
+            "as": "testName"
+          },
+          {
+            "sourceAttributeName": "two",
+            "as": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Flattener with nested common parameter",
+      "importFlowId": "310",
+      "sourceDataSpec": {
+        "importSourceId": "206",
+        "webhookSubPath": "/flattener-test2",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "items/*",
+        "filters": [
+          {
+            "sourceAttributeName": "common",
+            "filter": "lambda value: value"
+          }
+        ],
+        "attributes": [
+          {
+            "sourceAttributeName": "/common/title",
+            "as": "testName"
+          },
+          {
+            "sourceAttributeName": "sequenceNo",
+            "as": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Header auth flow",
+      "importFlowId": "311",
+      "sourceDataSpec": {
+        "importSourceId": "207",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "testName"
+          },
+          {
+            "sourceAttributeName": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "HMAC auth flow",
+      "importFlowId": "312",
+      "sourceDataSpec": {
+        "importSourceId": "208",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "testName"
+          },
+          {
+            "sourceAttributeName": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Authorization auth flow",
+      "importFlowId": "313",
+      "sourceDataSpec": {
+        "importSourceId": "211",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "testName"
+          },
+          {
+            "sourceAttributeName": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Process Chain Flow",
+      "importFlowId": "314",
+      "sourceDataSpec": {
+        "importSourceId": "206",
+        "webhookSubPath": "/process-chain",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "one",
+            "processes": [
+              {
+                "processorName": "multiStage",
+                "method": "first_step"
+              }
+            ],
+            "as": "testName"
+          },
+          {
+            "sourceAttributeName": "testName",
+            "processes": [
+              {
+                "processorName": "multiStage",
+                "method": "second_step"
+              }
+            ],
+            "as": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "HMAC auth flow",
+      "importFlowId": "315",
+      "sourceDataSpec": {
+        "importSourceId": "301",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "SIGNAL",
+        "name": "simpleSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "testName"
+          },
+          {
+            "sourceAttributeName": "testParam"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Covid Data (csv with header)",
+      "importFlowId": "320",
+      "sourceDataSpec": {
+        "importSourceId": "220",
+        "s3Bucket": "deli-s3-integration",
+        "fileNamePrefix": "test/csvWithHeader",
+        "payloadType": "Csv",
+        "headerPresent": true,
+        "sourceBatchSize": 4
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "Signal",
+        "name": "covidDataSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "geo_id",
+            "as": "geoId"
+          },
+          {
+            "sourceAttributeName": "cases",
+            "as": "cases"
+          },
+          {
+            "sourceAttributeName": "deaths",
+            "as": "deaths"
+          },
+          {
+            "sourceAttributeName": "data_rep",
+            "as": "dataRep"
+          },
+          {
+            "sourceAttributeName": "test_name",
+            "as": "testName"
+          }
+        ]
+      },
+      "checkpointingEnabled": true
+    },
+    {
+      "importFlowName": "Covid Data (csv without header)",
+      "importFlowId": "321",
+      "sourceDataSpec": {
+        "importSourceId": "220",
+        "s3Bucket": "deli-s3-integration",
+        "fileNamePrefix": "test/csvWithoutHeader",
+        "payloadType": "Csv",
+        "headerPresent": false,
+        "sourceBatchSize": 4
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "Signal",
+        "name": "covidDataSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "0",
+            "as": "geoId"
+          },
+          {
+            "sourceAttributeName": "1",
+            "as": "cases"
+          },
+          {
+            "sourceAttributeName": "2",
+            "as": "deaths"
+          },
+          {
+            "sourceAttributeName": "3",
+            "as": "dataRep"
+          },
+          {
+            "sourceAttributeName": "4",
+            "as": "testName"
+          }
+        ]
+      },
+      "checkpointingEnabled": true
+    },
+    {
+      "importFlowName": "Impression Signal",
+      "importFlowId": "322",
+      "sourceDataSpec": {
+        "importSourceId": "220",
+        "s3Bucket": "deli-s3-integration",
+        "fileNamePrefix": "test/jsonImpressionSignal",
+        "payloadType": "Json",
+        "sourceBatchSize": 4
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "Signal",
+        "name": "impressionSignal"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "key_values/signal",
+            "filter": "lambda value: value == 'impressionSignal'"
+          }
+        ],
+        "attributeSearchPath": "profiles/*/event_properties",
+        "attributes": [
+          {
+            "sourceAttributeName": "trigger",
+            "transforms": [
+              {
+                "rule": "lambda x: 'on_page_load'",
+                "as": "impressionTrigger"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "click_id",
+            "as": "clickId"
+          },
+          {
+            "sourceAttributeName": "source_url",
+            "as": "sourcePage"
+          },
+          {
+            "sourceAttributeName": "source",
+            "as": "sourceId"
+          },
+          {
+            "sourceAttributeName": "session_id",
+            "as": "sessionId"
+          },
+          {
+            "sourceAttributeName": "session_id_flag",
+            "as": "sessionIdFlag"
+          },
+          {
+            "sourceAttributeName": "referrer",
+            "as": "referrer"
+          },
+          {
+            "sourceAttributeName": "clever_tap_id",
+            "as": "cleverTapId"
+          },
+          {
+            "sourceAttributeName": "CT Source",
+            "as": "cleverTapSource"
+          },
+          {
+            "sourceAttributeName": "platform",
+            "as": "appPlatform"
+          },
+          {
+            "sourceAttributeName": "app_version",
+            "as": "appVersion"
+          },
+          {
+            "sourceAttributeName": "identity",
+            "as": "customerId"
+          },
+          {
+            "sourceAttributeName": "is_logged_in",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isCustomerLoggedIn"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "is_cart_empty",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isCartEmpty"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "ip_reverse_city",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isIpReverseCity"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "selected_pincode",
+            "as": "selectedPinCode"
+          },
+          {
+            "sourceAttributeName": "is_pincode_courier",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isPinCodeCourier"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "selected_city",
+            "as": "selectedCity"
+          },
+          {
+            "sourceAttributeNames": [
+              "element_unique_name",
+              "platform"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda un, p: f'{un}_{p}'",
+                "as": "elementUniqueNameAndPlatform"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "item_id",
+            "as": "itemId"
+          },
+          {
+            "sourceAttributeName": "item_rank",
+            "as": "itemRank"
+          },
+          {
+            "sourceAttributeName": "item_name",
+            "as": "itemName"
+          },
+          {
+            "sourceAttributeName": "item_type",
+            "as": "itemType"
+          },
+          {
+            "sourceAttributeName": "item_sub_type",
+            "as": "itemSubType"
+          },
+          {
+            "sourceAttributeName": "item_price",
+            "as": "itemPrice"
+          },
+          {
+            "sourceAttributeName": "item_discount_amount",
+            "as": "itemDiscountAmount"
+          },
+          {
+            "sourceAttributeName": "item_discount_percent",
+            "as": "itemDiscountPercent"
+          },
+          {
+            "sourceAttributeName": "item_image_url",
+            "as": "itemImageUrl"
+          },
+          {
+            "sourceAttributeName": "parent_item_type",
+            "as": "parentItemType"
+          },
+          {
+            "sourceAttributeName": "parent_item_id",
+            "as": "parentItemId"
+          }
+        ]
+      },
+      "checkpointingEnabled": true
+    },
+    {
+      "importFlowName": "Covid Data Rest Post (csv without header)",
+      "importFlowId": "323",
+      "sourceDataSpec": {
+        "importSourceId": "230",
+        "payloadType": "CSV"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "Signal",
+        "name": "covidDataSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "0",
+            "as": "geoId"
+          },
+          {
+            "sourceAttributeName": "1",
+            "as": "cases"
+          },
+          {
+            "sourceAttributeName": "2",
+            "as": "deaths"
+          },
+          {
+            "sourceAttributeName": "3",
+            "as": "dataRep"
+          },
+          {
+            "sourceAttributeName": "4",
+            "as": "testName"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowName": "Simple Catalog",
+      "importFlowId": "324",
+      "sourceDataSpec": {
+        "importSourceId": "231",
+        "webhookSubPath": "/single",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "Context",
+        "name": "simpleProductCatalog"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "deletionSpec": {
+          "sourceAttributeName": "operation",
+          "condition": "lambda op: op == 'DELETE'"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "productName"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowName": "Simple Catalog, Nested Input",
+      "importFlowId": "325",
+      "sourceDataSpec": {
+        "importSourceId": "231",
+        "webhookSubPath": "/multiple",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "Context",
+        "name": "simpleProductCatalog"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "products/*",
+        "deletionSpec": {
+          "sourceAttributeName": "operation",
+          "condition": "lambda op: op == 'DELETE'"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "productName"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowName": "Simple Catalog, Nested Input, Bulk Deletion",
+      "importFlowId": "326",
+      "sourceDataSpec": {
+        "importSourceId": "231",
+        "webhookSubPath": "/multiple_bulk",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "Context",
+        "name": "simpleProductCatalog"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "products/*",
+        "deletionSpec": {
+          "sourceAttributeName": "/operation",
+          "condition": "lambda op: op == 'DELETE'"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "productName"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowName": "Shopping Cart Flow",
+      "importFlowId": "327",
+      "sourceDataSpec": {
+        "importSourceId": "231",
+        "webhookSubPath": "/shopping-cart",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "shoppingCart"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "visitorId"
+          },
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "quantity"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Inventory Flow",
+      "importFlowId": "328",
+      "sourceDataSpec": {
+        "importSourceId": "231",
+        "webhookSubPath": "/inventory",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "CONTEXT",
+        "name": "inventory"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "deletionSpec": {
+          "sourceAttributeName": "clear",
+          "condition": "lambda value: value"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "unitPrice"
+          },
+          {
+            "sourceAttributeName": "quantity"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "CDC customers flow",
+      "importFlowId": "329",
+      "sourceDataSpec": {
+        "importSourceId": "209",
+        "payloadType": "JSON",
+        "tableName": "customers",
+        "cdcOperationTypes": [
+          "Create",
+          "Update",
+          "Delete"
+        ],
+        "serverId": "1"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "CONTEXT",
+        "name": "customer"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "id",
+            "as": "customerId"
+          },
+          {
+            "sourceAttributeName": "first_name",
+            "as": "firstName"
+          },
+          {
+            "sourceAttributeName": "last_name",
+            "as": "lastName"
+          },
+          {
+            "sourceAttributeName": "email",
+            "as": "email"
+          },
+          {
+            "sourceAttributeNames": [
+              "first_name",
+              "last_name"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda fn, ln: f'{ln}, {fn}'",
+                "as": "fullName"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Customer enter and exit flow",
+      "importFlowId": "330",
+      "sourceDataSpec": {
+        "importSourceId": "209",
+        "payloadType": "JSON",
+        "tableName": "customers",
+        "cdcOperationTypes": [
+          "Create",
+          "Delete"
+        ],
+        "serverId": "1"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "SIGNAL",
+        "name": "customerEnterAndExit"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "id",
+            "as": "customerId"
+          },
+          {
+            "sourceAttributeName": "first_name",
+            "as": "firstName"
+          },
+          {
+            "sourceAttributeName": "last_name",
+            "as": "lastName"
+          },
+          {
+            "sourceAttributeName": "email",
+            "as": "email"
+          },
+          {
+            "sourceAttributeName": "${timestamp}",
+            "as": "timestamp"
+          },
+          {
+            "sourceAttributeName": "${operationType}",
+            "transforms": [
+              {
+                "rule": "lambda type: 'Enter' if type == 'Create' else 'Exit'",
+                "as": "action"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "CDC product flow",
+      "importFlowId": "331",
+      "sourceDataSpec": {
+        "importSourceId": "212",
+        "payloadType": "JSON",
+        "tableName": "product",
+        "cdcOperationTypes": [
+          "Create",
+          "Update",
+          "Delete"
+        ],
+        "serverId": "1"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "CONTEXT",
+        "name": "productCatalog"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "product_id",
+            "as": "productId"
+          },
+          {
+            "sourceAttributeName": "product_name",
+            "as": "productName"
+          },
+          {
+            "sourceAttributeName": "price",
+            "transforms": [
+              {
+                "rule": "lambda price: f'{price / 100:.2f}' if price else ''",
+                "as": "price"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "MongoDB CDC cart item flow",
+      "importFlowId": "332",
+      "sourceDataSpec": {
+        "importSourceId": "213",
+        "payloadType": "JSON",
+        "tableName": "cart_items",
+        "cdcOperationTypes": [
+          "Create",
+          "Update",
+          "Delete"
+        ]
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "SIGNAL",
+        "name": "cartActivity"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "user_id",
+            "as": "userId"
+          },
+          {
+            "sourceAttributeName": "product_id",
+            "as": "productId"
+          },
+          {
+            "sourceAttributeName": "item_name",
+            "as": "itemName"
+          },
+          {
+            "sourceAttributeName": "quantity",
+            "as": "quantity"
+          },
+          {
+            "sourceAttributeName": "${operationType}",
+            "as": "activity"
+          },
+          {
+            "sourceAttributeName": "price",
+            "transforms": [
+              {
+                "rule": "lambda price: f'{price / 100:.2f}' if price else ''",
+                "as": "price"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "MongoDB CDC order status flow",
+      "importFlowId": "333",
+      "sourceDataSpec": {
+        "importSourceId": "213",
+        "payloadType": "JSON",
+        "tableName": "order_status",
+        "cdcOperationTypes": [
+          "Create",
+          "Update",
+          "Delete"
+        ]
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "Context",
+        "name": "orderStatus"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "_id",
+            "as": "id"
+          },
+          {
+            "sourceAttributeName": "order_id",
+            "as": "orderId"
+          },
+          {
+            "sourceAttributeName": "user_id",
+            "as": "userId"
+          },
+          {
+            "sourceAttributeName": "status",
+            "as": "status"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "MongoDB CDC warehouse stock flow",
+      "importFlowId": "334",
+      "sourceDataSpec": {
+        "importSourceId": "213",
+        "payloadType": "JSON",
+        "tableName": "stock",
+        "cdcOperationTypes": [
+          "Create",
+          "Update",
+          "Delete"
+        ]
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "102",
+        "type": "Context",
+        "name": "warehouseStock"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "item_number",
+            "as": "itemNumber"
+          },
+          {
+            "sourceAttributeName": "item_name",
+            "as": "itemName"
+          },
+          {
+            "sourceAttributeName": "quantity",
+            "as": "quantity"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowId": "Sessions",
+      "importFlowName": "Sessions",
+      "sourceDataSpec": {
+        "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Context",
+        "name": "sessions"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "name",
+            "filter": "lambda name: name == 'pageViewed'"
+          }
+        ],
+        "attributeSearchPath": "",
+        "tenantForwarding": {
+          "sourceAttributeName": "store"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "clientId"
+          },
+          {
+            "sourceAttributeName": "${user-agent}",
+            "as": "userAgent"
+          },
+          {
+            "sourceAttributeName": "${user-agent}",
+            "processes": [
+              {
+                "processorName": "userAgentUtils",
+                "method": "parse_user_agent"
+              }
+            ],
+            "transforms": [
+              {
+                "rule": "lambda bn, bv, osn, osv, dn, dt: bn",
+                "as": "browserName"
+              },
+              {
+                "rule": "lambda bn, bv, osn, osv, dn, dt: bv",
+                "as": "browserVersion"
+              },
+              {
+                "rule": "lambda bn, bv, osn, osv, dn, dt: osn",
+                "as": "osName"
+              },
+              {
+                "rule": "lambda bn, bv, osn, osv, dn, dt: osv",
+                "as": "osVersion"
+              },
+              {
+                "rule": "lambda bn, bv, osn, osv, dn, dt: dn",
+                "as": "deviceName"
+              },
+              {
+                "rule": "lambda bn, bv, osn, osv, dn, dt: dt",
+                "as": "deviceType"
+              }
+            ]
+          },
+          {
+            "sourceAttributeNames": [
+              "${x-real-ip}",
+              "ipAddress"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda header, payload: payload or (header.split(',')[0].strip() if header else None)",
+                "as": "ipAddress"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "ProductsFlow",
+      "importFlowName": "Products",
+      "sourceDataSpec": {
+        "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Context",
+        "name": "products"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "name",
+            "filter": "lambda name: name in ('productViewed', 'productAddedToCart')"
+          }
+        ],
+        "attributeSearchPath": "",
+        "tenantForwarding": {
+          "sourceAttributeName": "store"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "title",
+            "as": "productName"
+          },
+          {
+            "sourceAttributeName": "vendor"
+          },
+          {
+            "sourceAttributeName": "url"
+          },
+          {
+            "sourceAttributeName": "type",
+            "as": "productType"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "ProductViews",
+      "importFlowName": "Product Views",
+      "sourceDataSpec": {
+        "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Context",
+        "name": "productViews"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "name",
+            "filter": "lambda name: name == 'productViewed'"
+          }
+        ],
+        "attributeSearchPath": "",
+        "tenantForwarding": {
+          "sourceAttributeName": "store"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "clientId"
+          },
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "title",
+            "as": "productName"
+          },
+          {
+            "sourceAttributeName": "vendor"
+          },
+          {
+            "sourceAttributeName": "url"
+          },
+          {
+            "sourceAttributeName": "type",
+            "as": "productType"
+          },
+          {
+            "sourceAttributeName": "widgetId"
+          },
+          {
+            "sourceAttributeName": "timestamp"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "WidgetClicks",
+      "importFlowName": "Widget Clicks",
+      "sourceDataSpec": {
+        "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Signal",
+        "name": "widgetClicks"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "name",
+            "filter": "lambda name: name == 'productViewed'"
+          },
+          {
+            "sourceAttributeName": "widgetId",
+            "filter": "lambda widgetId: widgetId and int(widgetId) > 0"
+          }
+        ],
+        "attributeSearchPath": "",
+        "tenantForwarding": {
+          "sourceAttributeName": "store"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "widgetId"
+          },
+          {
+            "sourceAttributeName": "clientId"
+          },
+          {
+            "sourceAttributeName": "productId"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "cartActivities",
+      "importFlowName": "Cart Activities",
+      "sourceDataSpec": {
+        "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Signal",
+        "name": "cartActivities"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "name",
+            "filter": "lambda name: name in {'productAddedToCart', 'productRemovedFromCart'}"
+          }
+        ],
+        "attributeSearchPath": "",
+        "tenantForwarding": {
+          "sourceAttributeName": "store"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "clientId"
+          },
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "title",
+            "as": "productName"
+          },
+          {
+            "sourceAttributeName": "vendor"
+          },
+          {
+            "sourceAttributeName": "url"
+          },
+          {
+            "sourceAttributeName": "type",
+            "as": "productType"
+          },
+          {
+            "sourceAttributeName": "timestamp",
+            "as": "timestamp"
+          },
+          {
+            "sourceAttributeNames": [
+              "quantity",
+              "name"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda qnt, nm: qnt if nm == 'productAddedToCart' else -qnt",
+                "as": "quantity"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "orders",
+      "importFlowName": "Orders",
+      "sourceDataSpec": {
+        "importSourceId": "2359a43b-4c4d-4d28-8ff4-652f9d7b32ea",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Signal",
+        "name": "orders"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "name",
+            "filter": "lambda name: name == 'checkoutCompleted'"
+          }
+        ],
+        "attributeSearchPath": "lineItems/*",
+        "tenantForwarding": {
+          "sourceAttributeName": "/store"
+        },
+        "attributes": [
+          {
+            "sourceAttributeName": "/orderId",
+            "as": "orderId"
+          },
+          {
+            "sourceAttributeName": "/clientId",
+            "as": "clientId"
+          },
+          {
+            "sourceAttributeName": "productId"
+          },
+          {
+            "sourceAttributeName": "title",
+            "as": "productName"
+          },
+          {
+            "sourceAttributeName": "vendor"
+          },
+          {
+            "sourceAttributeName": "url"
+          },
+          {
+            "sourceAttributeName": "type",
+            "as": "productType"
+          },
+          {
+            "sourceAttributeName": "quantity"
+          },
+          {
+            "sourceAttributeName": "finalPrice"
+          },
+          {
+            "sourceAttributeName": "currency"
+          },
+          {
+            "sourceAttributeName": "/timestamp",
+            "as": "timestamp"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "webhookRequests",
+      "importFlowName": "webhookRequests",
+      "sourceDataSpec": {
+        "importSourceId": "shopifySecurity",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Context",
+        "name": "shopifyWebhookRequests"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "${x-shopify-webhook-id}",
+            "as": "webhookId"
+          },
+          {
+            "sourceAttributeName": "${x-shopify-shop-domain}",
+            "as": "domain"
+          },
+          {
+            "sourceAttributeName": "${x-shopify-topic}",
+            "as": "topic"
+          },
+          {
+            "sourceAttributeName": "${x-shopify-triggered-at}",
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "parse_timestamp"
+              }
+            ],
+            "as": "createdTimestamp"
+          },
+          {
+            "sourceAttributeName": "none",
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "create_timestamp"
+              }
+            ],
+            "as": "receivedTimestamp"
+          },
+          {
+            "sourceAttributeName": "customer",
+            "transforms": [
+              {
+                "rule": "lambda customer: customer.get('id') if customer else -1",
+                "as": "customerId"
+              },
+              {
+                "rule": "lambda customer: customer.get('email') if customer else 'MISSING'",
+                "as": "customerEmail"
+              },
+              {
+                "rule": "lambda customer: customer.get('phone') if customer else 'MISSING'",
+                "as": "customerPhone"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "orders_requested",
+            "transforms": [
+              {
+                "rule": "lambda orders: str(orders) if orders else 'MISSING'",
+                "as": "ordersRequested"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "orders_to_redact",
+            "transforms": [
+              {
+                "rule": "lambda orders: str(orders) if orders else 'MISSING'",
+                "as": "ordersToRedact"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "data_request",
+            "transforms": [
+              {
+                "rule": "lambda request: request.get('id') if request else 'MISSING'",
+                "as": "dataRequest"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "/",
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "encode_payload"
+              }
+            ],
+            "as": "payload"
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "webhookRequestAudit",
+      "importFlowName": "webhookRequestAudit",
+      "sourceDataSpec": {
+        "importSourceId": "shopifySecurity",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Signal",
+        "name": "shopifyAppAudit"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "${x-shopify-topic}",
+            "transforms": [
+              {
+                "rule": "lambda topic: f'webhook/{topic}'",
+                "as": "eventType"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "shop_domain",
+            "as": "domain"
+          },
+          {
+            "sourceAttributeName": "${x-shopify-webhook-id}",
+            "as": "webhookId"
+          },
+          {
+            "sourceAttributeName": "${x-shopify-triggered-at}",
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "parse_timestamp"
+              }
+            ],
+            "as": "eventTimestamp"
+          },
+          {
+            "sourceAttributeName": "/",
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "encode_payload"
+              }
+            ],
+            "as": "payload"
+          },
+          {
+            "sourceAttributeNames": [
+              "${x-shopify-webhook-id}",
+              "shop_domain",
+              "${x-shopify-topic}",
+              "${x-shopify-triggered-at}",
+              "/"
+            ],
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "send_slack_notification"
+              }
+            ],
+            "transforms": [
+              {
+                "rule": "lambda out: out['details']",
+                "as": "slackNotification"
+              },
+              {
+                "rule": "lambda out: out['status']",
+                "as": "status"
+              },
+              {
+                "rule": "lambda out: out['response']",
+                "as": "response"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "importFlowId": "webhookSecurityNotif",
+      "importFlowName": "webhook security notif",
+      "sourceDataSpec": {
+        "importSourceId": "shopifySecurityNotif",
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "35bff174-672d-4fe6-8ea3-026c038d5fad",
+        "type": "Signal",
+        "name": "webhookNotification"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "/",
+            "processes": [
+              {
+                "processorName": "webhookUtils",
+                "method": "json_encode"
+              }
+            ],
+            "as": "payload"
+          }
+        ]
+      }
+    }
+  ],
+  "importDataProcessors": [
+    {
+      "processorName": "alertUtils",
+      "code": "ZnJvbSBkYXRldGltZSBpbXBvcnQgZGF0ZXRpbWUKCgpkZWYgcGFyc2VfZGF0ZXRpbWUoc3JjKToKICAgIHJldHVybiBkYXRldGltZS5zdHJwdGltZShzcmMsICIlWS0lbS0lZFQlSDolTTolU1oiKQo="
+    },
+    {
+      "processorName": "multiStage",
+      "code": "ZGVmIGZpcnN0X3N0ZXAocGFyYW0xOiBzdHIpIC0+IHN0cjoKICAgIHJldHVybiAic3RlcDE6ICIgKyBwYXJhbTEKCmRlZiBzZWNvbmRfc3RlcChwYXJhbTI6IHN0cikgLT4gc3RyOgogICAgcmV0dXJuICJzdGVwMigiICsgcGFyYW0yICsgIikiCg=="
+    },
+    {
+      "processorName": "userAgentUtils",
+      "code": "ZnJvbSB1c2VyX2FnZW50cyBpbXBvcnQgcGFyc2UKCgpkZWYgcGFyc2VfdXNlcl9hZ2VudCh1c2VyX2FnZW50X3NyYyk6CiAgICBpZiBub3QgdXNlcl9hZ2VudF9zcmM6CiAgICAgICAgcmV0dXJuIChOb25lLCBOb25lLCBOb25lLCBOb25lLCBOb25lLCBOb25lKQogICAgdXNlcl9hZ2VudCA9IHBhcnNlKHVzZXJfYWdlbnRfc3JjKQogICAgaWYgdXNlcl9hZ2VudC5pc19tb2JpbGU6CiAgICAgICAgZGV2aWNlX3R5cGUgPSAiTW9iaWxlIgogICAgZWxpZiB1c2VyX2FnZW50LmlzX3RhYmxldDoKICAgICAgICBkZXZpY2VfdHlwZSA9ICJUYWJsZXQiCiAgICBlbHNlOgogICAgICAgIGRldmljZV90eXBlID0gIlBDIgogICAgcmV0dXJuICgKICAgICAgICB1c2VyX2FnZW50LmJyb3dzZXIuZmFtaWx5LAogICAgICAgIHVzZXJfYWdlbnQuYnJvd3Nlci52ZXJzaW9uX3N0cmluZywKICAgICAgICB1c2VyX2FnZW50Lm9zLmZhbWlseSwKICAgICAgICB1c2VyX2FnZW50LmRldmljZS5mYW1pbHksCiAgICAgICAgdXNlcl9hZ2VudC5vcy52ZXJzaW9uX3N0cmluZywKICAgICAgICBkZXZpY2VfdHlwZSwKICAgICkK"
+    },
+    {
+      "processorName": "webhookUtils",
+      "encoding": "source_file",
+      "code": "webhook_utils.py"
+    }
+  ]
+}

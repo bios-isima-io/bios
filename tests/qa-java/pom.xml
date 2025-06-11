@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>tests</artifactId>
+    <groupId>io.isima</groupId>
+    <version>${revision}</version>
+  </parent>
+
+  <artifactId>qa-java</artifactId>
+  <packaging>jar</packaging>
+
+  <properties>
+    <main.directory>${project.parent.parent.basedir}</main.directory>
+    <skipIT>true</skipIT>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.isima</groupId>
+      <artifactId>bios-sdk</artifactId>
+      <version>${revision}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>${surefireArgLine}</argLine>
+          <systemPropertyVariables>
+            <skipIT>${skipIT}</skipIT>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>integration-test</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>3.0.0-M5</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <skipITs>${skipIT}</skipITs>
+              <reportsDirectory>${project.build.directory}/failsafe-reports</reportsDirectory>
+              <argLine>${testArgLine}</argLine>
+              <forkCount>1</forkCount>
+              <reuseForks>true</reuseForks>
+              <argLine>-Xmx1024m</argLine>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

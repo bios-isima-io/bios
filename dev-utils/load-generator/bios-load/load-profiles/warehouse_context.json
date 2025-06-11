@@ -1,0 +1,43 @@
+{
+  "contextName": "warehouseContext",
+  "peakRequestSize": 625,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "warehouseId",
+      "type": "string",
+      "attrValType": "REGEX",
+      "pattern": "[W]{1}[H]{1}[1-9]{1}"
+    },
+    {
+      "attributeName": "warehouseName",
+      "type": "string",
+      "attrValType": "STRING_ID",
+      "range": "5-5"
+    },
+    {
+      "attributeName": "city",
+      "type": "string",
+      "attrValType": "CITY",
+      "range": "5-5"
+    },
+    {
+      "attributeName": "createdAt",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "updatedAt",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "isActive",
+      "type": "boolean",
+      "attrValType": "BOOLEAN"
+    }
+  ],
+  "primaryKey": [
+    "warehouseId"
+  ]
+}

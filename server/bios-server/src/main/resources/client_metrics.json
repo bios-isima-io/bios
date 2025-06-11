@@ -1,0 +1,207 @@
+{
+  "name": "_clientMetrics",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "stream",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": ""
+    },
+    {
+      "name": "request",
+      "type": "string"
+    },
+    {
+      "name": "appName",
+      "type": "string"
+    },
+    {
+      "name": "appType",
+      "type": "enum",
+      "enum": [
+        "Unknown",
+        "Realtime",
+        "Batch",
+        "Adhoc",
+        "Internal"
+      ],
+      "missingValuePolicy": "use_default",
+      "defaultValue": "Unknown"
+    },
+    {
+      "name": "serverEndpoint",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": ""
+    },
+    {
+      "name": "numSuccessfulOperations",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "numFailedOperations",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "latencySum",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Microsecond"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "latencyMin",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Microsecond"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "latencyMax",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Microsecond"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "latencyInternalSum",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Microsecond",
+        "firstSummary": "SUM"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "latencyInternalMin",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Microsecond",
+        "firstSummary": "MIN"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "latencyInternalMax",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Microsecond",
+        "firstSummary": "MAX"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "numReads",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "numWrites",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "numThreads",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      },
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    }
+  ],
+  "views": [
+    {
+      "name": "byAllDimensions",
+      "groupBy": [
+        "stream",
+        "request",
+        "appType",
+        "appName",
+        "serverEndpoint"
+      ],
+      "attributes": [
+        "numSuccessfulOperations",
+        "numFailedOperations",
+        "latencySum",
+        "latencyMin",
+        "latencyMax",
+        "latencyInternalSum",
+        "latencyInternalMin",
+        "latencyInternalMax",
+        "numReads",
+        "numWrites",
+        "numThreads"
+      ]
+    }
+  ],
+  "postprocesses": [
+    {
+      "view": "byAllDimensions",
+      "rollups": [
+        {
+          "name": "_clientMetrics.rollup.byAllDimensions",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          }
+        }
+      ]
+    }
+  ]
+}

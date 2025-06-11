@@ -1,0 +1,71 @@
+{
+  "name": "_ipBlacklist",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "ipAddress",
+      "type": "string"
+    },
+    {
+      "name": "clusterName",
+      "type": "String",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "cloudProvider",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "numViolations",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    }
+  ],
+  "primaryKey": [
+    "ipAddress"
+  ],
+  "dataSynthesisStatus": "Disabled",
+  "missingLookupPolicy": "FailParentLookup",
+  "enrichments": [
+    {
+      "enrichmentName": "ip2geoEnrichment",
+      "missingLookupPolicy": "StoreFillInValue",
+      "foreignKey": [
+        "ipAddress"
+      ],
+      "enrichedAttributes": [
+        {
+          "value": "_ip2geo.city",
+          "as": "city",
+          "fillIn": "MISSING"
+        },
+        {
+          "value": "_ip2geo.country",
+          "as": "country",
+          "fillIn": "MISSING"
+        },
+        {
+          "value": "_ip2geo.latitude",
+          "as": "latitude",
+          "fillIn": "0.0"
+        },
+        {
+          "value": "_ip2geo.longitude",
+          "as": "longitude",
+          "fillIn": "0.0"
+        }
+      ]
+    }
+  ]
+}

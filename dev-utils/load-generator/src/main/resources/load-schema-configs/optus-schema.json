@@ -1,0 +1,1881 @@
+{
+    "name": "optus",
+    "streams": [
+        {
+            "attributes": [
+                {
+                    "name": "msidn",
+                    "type": "number"
+                },
+                {
+                    "name": "status",
+                    "type": "number"
+                },
+                {
+                    "name": "start_time",
+                    "type": "string"
+                },
+                {
+                    "name": "start_time_local",
+                    "type": "string"
+                },
+                {
+                    "name": "service_session_id",
+                    "type": "string"
+                },
+                {
+                    "name": "imsi",
+                    "type": "string"
+                },
+                {
+                    "name": "roaming",
+                    "type": "boolean"
+                },
+                {
+                    "name": "rate_plan_id",
+                    "type": "number"
+                },
+                {
+                    "name": "rate_plan_name",
+                    "type": "string"
+                },
+                {
+                    "name": "sp_id",
+                    "type": "number"
+                },
+                {
+                    "name": "timezone",
+                    "type": "string"
+                },
+                {
+                    "name": "account_group_id",
+                    "type": "number"
+                },
+                {
+                    "name": "main_account_balance_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "main_account_balance_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_group_id",
+                    "type": "number"
+                },
+                {
+                    "name": "dedicated_account_balance_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_balance_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_balance_change",
+                    "type": "decimal"
+                },
+                {
+                    "allowedValues": [
+                        "Unknown",
+                        "time",
+                        "money"
+                    ],
+                    "name": "dedicated_account_type",
+                    "type": "string"
+                },
+                {
+                    "name": "usage_counter_id",
+                    "type": "number"
+                },
+                {
+                    "name": "usage_counter_change",
+                    "type": "number"
+                },
+                {
+                    "name": "total_credit_octet_unit",
+                    "type": "decimal"
+                },
+                {
+                    "name": "total_debit_octet_unit",
+                    "type": "decimal"
+                },
+                {
+                    "name": "total_free_octet_unit",
+                    "type": "decimal"
+                },
+                {
+                    "name": "gpp_imsi_mcc_mnc_3",
+                    "type": "string"
+                },
+                {
+                    "name": "called_station_id",
+                    "type": "string"
+                },
+                {
+                    "name": "gpp_sgsn_mcc_mnc_3",
+                    "type": "string"
+                },
+                {
+                    "name": "rating_group",
+                    "type": "string"
+                },
+                {
+                    "name": "gpp_pdp_type",
+                    "type": "string"
+                },
+                {
+                    "name": "equipment_info_imsi",
+                    "type": "string"
+                },
+                {
+                    "name": "e_location_mcc_mnc",
+                    "type": "string"
+                },
+                {
+                    "name": "geo_location_eci",
+                    "type": "string"
+                },
+                {
+                    "name": "geo_location_tac",
+                    "type": "string"
+                },
+                {
+                    "name": "gpp_rat_type_3",
+                    "type": "string"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "data_usage_signal",
+            "postprocesses": [
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_data_usage_by_msidn",
+                            "schemaName": "rollup_data_usage_by_msidn"
+                        }
+                    ],
+                    "view": "data_usage_by_msidn"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_aggregated_data_usage",
+                            "schemaName": "rollup_aggregated_data_usage"
+                        }
+                    ],
+                    "view": "aggregated_data_usage"
+                }
+            ],
+            "preprocesses": [],
+            "type": "signal",
+            "version": 1572609070901,
+            "views": [
+                {
+                    "attributes": [
+                        "usage_counter_change"
+                    ],
+                    "groupBy": [
+                        "msidn",
+                        "usage_counter_id"
+                    ],
+                    "name": "data_usage_by_msidn"
+                },
+                {
+                    "attributes": [
+                        "usage_counter_change"
+                    ],
+                    "groupBy": [
+                        "usage_counter_id"
+                    ],
+                    "name": "aggregated_data_usage"
+                }
+            ]
+        },
+        {
+            "attributes": [
+                {
+                    "name": "cust_type_key",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_type_obj_id",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_type_ref_id",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_type_description",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_type_state_code",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_sub_type_id",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_sub_type_obj_id",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_sub_type_description",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_sub_type_state_code",
+                    "type": "string"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "customer_type_context",
+            "type": "context",
+            "version": 1572609064430
+        },
+        {
+            "attributes": [
+                {
+                    "name": "cust_key",
+                    "type": "number"
+                },
+                {
+                    "name": "crm_account_id",
+                    "type": "string"
+                },
+                {
+                    "name": "crm_account_name",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_legal_name",
+                    "type": "string"
+                },
+                {
+                    "name": "phone_number",
+                    "type": "number"
+                },
+                {
+                    "name": "website_name",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_state_key",
+                    "type": "string"
+                },
+                {
+                    "name": "revenue_range_name",
+                    "type": "string"
+                },
+                {
+                    "name": "established_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "employee_count",
+                    "type": "number"
+                },
+                {
+                    "name": "bill_cycle_key",
+                    "type": "number"
+                },
+                {
+                    "defaultValue": "Unknown",
+                    "allowedValues": [
+                        "AGR_SERVICE_CHANGE",
+                        "CANSUB",
+                        "CHANGE_CUST_SUBTYPE",
+                        "CHANGE_CUSTOMER_GENERAL",
+                        "CHANGE_SUBSCR_DIST",
+                        "CHGCYC",
+                        "CHGCYC_COMPLETE",
+                        "MOVE_SUBSCRIBER",
+                        "NEW_ACCOUNT",
+                        "NEW_CUSTOMER",
+                        "NEW_SUB_ACTIVATION",
+                        "NotRelevant",
+                        "OD_CANCEL_ACCOUNT",
+                        "REDIRECT_PAY_CHANNEL",
+                        "RENEW_SUB",
+                        "SERVICE_CHANGE",
+                        "Unknown"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "last_activity_code",
+                    "type": "string"
+                },
+                {
+                    "defaultValue": "Unknown",
+                    "allowedValues": [
+                        "02",
+                        "45",
+                        "75",
+                        "AP",
+                        "CD",
+                        "CDT",
+                        "CEFNBN",
+                        "CG",
+                        "CHBNM",
+                        "CHNM",
+                        "CHNO",
+                        "CHRPL",
+                        "CHSUB",
+                        "CHUN",
+                        "CHVAS",
+                        "CPS",
+                        "CREQ",
+                        "CS2K",
+                        "CSIM",
+                        "CSRVC",
+                        "DE",
+                        "DEVRET",
+                        "FLTSIM",
+                        "FRAUD",
+                        "FS",
+                        "FTVI",
+                        "INSOL",
+                        "LONOT",
+                        "MFA",
+                        "MIG",
+                        "MOAES",
+                        "MRGCUS",
+                        "NLR",
+                        "NNSRV",
+                        "NOS",
+                        "Not Relevant",
+                        "NU",
+                        "OII",
+                        "PCE",
+                        "POTOPR",
+                        "POUT",
+                        "PRTOPO",
+                        "PRV",
+                        "PSLCR",
+                        "PV",
+                        "RECON",
+                        "REFNBN",
+                        "RESST",
+                        "SCPOUT",
+                        "SCPR",
+                        "SD",
+                        "TECRS",
+                        "UCOS",
+                        "Unknown",
+                        "YCC"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "last_activity_reason_code",
+                    "type": "string"
+                },
+                {
+                    "defaultValue": "Unknown",
+                    "allowedValues": [
+                        "N",
+                        "Not Relevant",
+                        "R",
+                        "Unknown"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "change_cycle_req_status_code",
+                    "type": "string"
+                },
+                {
+                    "name": "change_cycle_req_ts",
+                    "type": "integer"
+                },
+                {
+                    "defaultValue": "N",
+                    "allowedValues": [
+                        "Y",
+                        "N"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "hold_flag",
+                    "type": "string"
+                },
+                {
+                    "name": "new_cycle_run_num",
+                    "type": "number"
+                },
+                {
+                    "name": "old_cycle_code",
+                    "type": "number"
+                },
+                {
+                    "name": "old_cycle_expiry_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "industry_type_key",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_type_key",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_address_key",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_value",
+                    "type": "string"
+                },
+                {
+                    "name": "account_manager_emp_key",
+                    "type": "number"
+                },
+                {
+                    "name": "conversion_run_num",
+                    "type": "number"
+                },
+                {
+                    "name": "external_id",
+                    "type": "string"
+                },
+                {
+                    "name": "migration_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "crm_account_type_key",
+                    "type": "number"
+                },
+                {
+                    "name": "first_subscriber_activation_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "cust_source_id",
+                    "type": "number"
+                },
+                {
+                    "name": "line_of_business_combination",
+                    "type": "string"
+                },
+                {
+                    "name": "fax_number",
+                    "type": "string"
+                },
+                {
+                    "name": "alias_name",
+                    "type": "string"
+                },
+                {
+                    "name": "abn_identifier",
+                    "type": "string"
+                },
+                {
+                    "name": "acn_identifier",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_id",
+                    "type": "number"
+                },
+                {
+                    "name": "identification_type_1_code",
+                    "type": "string"
+                },
+                {
+                    "name": "identification_doc_1_num",
+                    "type": "string"
+                },
+                {
+                    "name": "identification_type_2_code",
+                    "type": "string"
+                },
+                {
+                    "name": "identification_doc_2_num",
+                    "type": "string"
+                },
+                {
+                    "name": "account_verfy_status_name",
+                    "type": "string"
+                },
+                {
+                    "name": "account_verfy_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "cust_segment_description",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_secure_flag",
+                    "type": "string"
+                },
+                {
+                    "name": "premium_mngd_service_type_name",
+                    "type": "string"
+                },
+                {
+                    "name": "business_cust_tier_code",
+                    "type": "string"
+                },
+                {
+                    "name": "business_cust_end_date_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "corp_account_type_name",
+                    "type": "string"
+                },
+                {
+                    "name": "registered_name",
+                    "type": "string"
+                },
+                {
+                    "name": "parent_org_id",
+                    "type": "string"
+                },
+                {
+                    "defaultValue": "NA",
+                    "missingValuePolicy": "use_default",
+                    "name": "unit_value_id",
+                    "type": "string"
+                },
+                {
+                    "name": "company_value_id",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_market_segment_code",
+                    "type": "string"
+                },
+                {
+                    "name": "hold_by_emp_key",
+                    "type": "number"
+                },
+                {
+                    "name": "collection_agent_emp_key",
+                    "type": "number"
+                },
+                {
+                    "name": "offer_currency_key",
+                    "type": "number"
+                },
+                {
+                    "allowedValues": [
+                        "UNKN",
+                        "CON",
+                        "SMB",
+                        "CEP",
+                        "OB"
+                    ],
+                    "name": "cust_classification_code",
+                    "type": "string"
+                },
+                {
+                    "name": "access_driver_id",
+                    "type": "number"
+                },
+                {
+                    "name": "update_process_run_num",
+                    "type": "number"
+                },
+                {
+                    "name": "updated_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "org_unit_value_txt",
+                    "type": "string"
+                },
+                {
+                    "name": "vip_flag",
+                    "type": "boolean"
+                },
+                {
+                    "name": "vip_reason_text",
+                    "type": "string"
+                },
+                {
+                    "name": "cust_sale_segment_key",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_credit_class_key",
+                    "type": "number"
+                },
+                {
+                    "name": "cust_main_contact_key",
+                    "type": "number"
+                },
+                {
+                    "name": "billing_open_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "large_cust_flag",
+                    "type": "boolean"
+                },
+                {
+                    "name": "billing_cycle_frequency",
+                    "type": "number"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "customer_context",
+            "type": "context",
+            "version": 1572609064593
+        },
+        {
+            "attributes": [
+                {
+                    "name": "msidn",
+                    "type": "number"
+                },
+                {
+                    "name": "status",
+                    "type": "number"
+                },
+                {
+                    "name": "start_time",
+                    "type": "string"
+                },
+                {
+                    "name": "start_time_local",
+                    "type": "string"
+                },
+                {
+                    "name": "end_time",
+                    "type": "string"
+                },
+                {
+                    "name": "end_time_local",
+                    "type": "string"
+                },
+                {
+                    "name": "service_session_id",
+                    "type": "string"
+                },
+                {
+                    "name": "msidn_other_party",
+                    "type": "number"
+                },
+                {
+                    "name": "roaming",
+                    "type": "boolean"
+                },
+                {
+                    "name": "rate_plan_id",
+                    "type": "number"
+                },
+                {
+                    "name": "rate_plan_name",
+                    "type": "string"
+                },
+                {
+                    "name": "imsi",
+                    "type": "string"
+                },
+                {
+                    "allowedValues": [
+                        "incoming",
+                        "outgoing",
+                        "forwarding"
+                    ],
+                    "name": "direction",
+                    "type": "string"
+                },
+                {
+                    "name": "on_net",
+                    "type": "boolean"
+                },
+                {
+                    "name": "sp_id",
+                    "type": "number"
+                },
+                {
+                    "name": "timezone",
+                    "type": "string"
+                },
+                {
+                    "name": "account_group_id",
+                    "type": "number"
+                },
+                {
+                    "name": "main_account_balance_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "main_account_balance_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_group_id",
+                    "type": "number"
+                },
+                {
+                    "name": "dedicated_account_balance_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_balance_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_balance_change",
+                    "type": "decimal"
+                },
+                {
+                    "allowedValues": [
+                        "Unknown",
+                        "time",
+                        "money"
+                    ],
+                    "name": "dedicated_account_type",
+                    "type": "string"
+                },
+                {
+                    "name": "rated_debit_unit",
+                    "type": "decimal"
+                },
+                {
+                    "name": "rated_credit_unit",
+                    "type": "decimal"
+                },
+                {
+                    "name": "rated_free_unit",
+                    "type": "decimal"
+                },
+                {
+                    "name": "state_prefix",
+                    "type": "string"
+                },
+                {
+                    "name": "call_type",
+                    "type": "string"
+                },
+                {
+                    "name": "bearer_cap",
+                    "type": "string"
+                },
+                {
+                    "name": "range_set_id",
+                    "type": "string"
+                },
+                {
+                    "name": "range_id",
+                    "type": "string"
+                },
+                {
+                    "name": "international",
+                    "type": "boolean"
+                },
+                {
+                    "name": "tz",
+                    "type": "string"
+                },
+                {
+                    "name": "location_id",
+                    "type": "string"
+                },
+                {
+                    "name": "v_apn",
+                    "type": "string"
+                },
+                {
+                    "name": "gpp_ggsn_mcc_mnc_3",
+                    "type": "string"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "call_usage_signal",
+            "postprocesses": [
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_call_counts_by_msidn",
+                            "schemaName": "rollup_call_counts_by_msidn"
+                        }
+                    ],
+                    "view": "call_counts_by_msidn"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_aggregated_call_counts",
+                            "schemaName": "rollup_aggregated_call_counts"
+                        }
+                    ],
+                    "view": "aggregated_call_counts"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_aggregated_call_revenue",
+                            "schemaName": "rollup_aggregated_call_revenue"
+                        }
+                    ],
+                    "view": "aggregated_call_revenue"
+                }
+            ],
+            "preprocesses": [],
+            "type": "signal",
+            "version": 1572609067420,
+            "views": [
+                {
+                    "attributes": [],
+                    "groupBy": [
+                        "msidn",
+                        "direction",
+                        "international"
+                    ],
+                    "name": "call_counts_by_msidn"
+                },
+                {
+                    "attributes": [],
+                    "groupBy": [
+                        "direction",
+                        "international"
+                    ],
+                    "name": "aggregated_call_counts"
+                },
+                {
+                    "attributes": [
+                        "main_account_balance_before",
+                        "main_account_balance_after"
+                    ],
+                    "groupBy": [
+                        "direction",
+                        "international"
+                    ],
+                    "name": "aggregated_call_revenue"
+                }
+            ]
+        },
+        {
+            "attributes": [
+                {
+                    "name": "customer_contact_identity_key",
+                    "type": "number"
+                },
+                {
+                    "name": "customer_contact_key",
+                    "type": "number"
+                },
+                {
+                    "allowedValues": [
+                        "Additional Docs",
+                        "Alternate Primary ID",
+                        "Armed Forces ID",
+                        "Driving Licence",
+                        "Learners Driving Licence",
+                        "Medicare",
+                        "Not Relevant",
+                        "Overseas Passport",
+                        "Passport",
+                        "Photo Card",
+                        "Proof Of Age",
+                        "Reverse of Card",
+                        "Secondary ID",
+                        "Service",
+                        "Telesales",
+                        "Unknown"
+                    ],
+                    "name": "doc_type_code",
+                    "type": "string"
+                },
+                {
+                    "name": "agency_name",
+                    "type": "string"
+                },
+                {
+                    "name": "validity_start_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "validity_end_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "is_default",
+                    "type": "boolean"
+                },
+                {
+                    "name": "document_number",
+                    "type": "number"
+                },
+                {
+                    "name": "customer_contact_identity_source_id",
+                    "type": "number"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "customer_contact_identity_context",
+            "type": "context",
+            "version": 1572609063893
+        },
+        {
+            "attributes": [
+                {
+                    "name": "msidn",
+                    "type": "number"
+                },
+                {
+                    "name": "status",
+                    "type": "number"
+                },
+                {
+                    "name": "start_time",
+                    "type": "string"
+                },
+                {
+                    "name": "start_time_local",
+                    "type": "string"
+                },
+                {
+                    "allowedValues": [
+                        "SMS",
+                        "MMS",
+                        "PMS"
+                    ],
+                    "name": "message_type",
+                    "type": "string"
+                },
+                {
+                    "name": "service_session_id",
+                    "type": "string"
+                },
+                {
+                    "name": "service_spcific_unit",
+                    "type": "string"
+                },
+                {
+                    "name": "roaming",
+                    "type": "boolean"
+                },
+                {
+                    "name": "rate_plan_id",
+                    "type": "number"
+                },
+                {
+                    "name": "rate_plan_name",
+                    "type": "string"
+                },
+                {
+                    "name": "sp_id",
+                    "type": "number"
+                },
+                {
+                    "name": "timezone",
+                    "type": "string"
+                },
+                {
+                    "name": "account_group_id",
+                    "type": "number"
+                },
+                {
+                    "name": "main_account_balance_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "main_account_balance_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_group_id",
+                    "type": "number"
+                },
+                {
+                    "name": "dedicated_account_balance_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_balance_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "dedicated_account_balance_change",
+                    "type": "decimal"
+                },
+                {
+                    "allowedValues": [
+                        "Unknown",
+                        "time",
+                        "money"
+                    ],
+                    "name": "dedicated_account_type",
+                    "type": "string"
+                },
+                {
+                    "name": "usage_counter_id",
+                    "type": "number"
+                },
+                {
+                    "name": "usage_counter_change",
+                    "type": "number"
+                },
+                {
+                    "name": "usage_counter_value_before",
+                    "type": "decimal"
+                },
+                {
+                    "name": "usage_counter_value_after",
+                    "type": "decimal"
+                },
+                {
+                    "name": "charging_context_columns",
+                    "type": "string"
+                },
+                {
+                    "name": "call_type",
+                    "type": "string"
+                },
+                {
+                    "name": "bearer_cap",
+                    "type": "string"
+                },
+                {
+                    "name": "range_set_id",
+                    "type": "string"
+                },
+                {
+                    "name": "range_id",
+                    "type": "string"
+                },
+                {
+                    "name": "international",
+                    "type": "boolean"
+                },
+                {
+                    "name": "tz",
+                    "type": "string"
+                },
+                {
+                    "name": "location_id",
+                    "type": "string"
+                },
+                {
+                    "name": "v_apn",
+                    "type": "string"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "sms_usage_signal",
+            "postprocesses": [
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_sms_counts_by_msidn",
+                            "schemaName": "rollup_sms_counts_by_msidn"
+                        }
+                    ],
+                    "view": "sms_counts_by_msidn"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_aggregated_sms_counts",
+                            "schemaName": "rollup_aggregated_sms_counts"
+                        }
+                    ],
+                    "view": "aggregated_sms_counts"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_aggregated_sms_revenue",
+                            "schemaName": "rollup_aggregated_sms_revenue"
+                        }
+                    ],
+                    "view": "aggregated_sms_revenue"
+                }
+            ],
+            "preprocesses": [],
+            "type": "signal",
+            "version": 1572609068953,
+            "views": [
+                {
+                    "attributes": [],
+                    "groupBy": [
+                        "msidn",
+                        "message_type",
+                        "international"
+                    ],
+                    "name": "sms_counts_by_msidn"
+                },
+                {
+                    "attributes": [],
+                    "groupBy": [
+                        "message_type",
+                        "international"
+                    ],
+                    "name": "aggregated_sms_counts"
+                },
+                {
+                    "attributes": [
+                        "main_account_balance_before",
+                        "main_account_balance_after"
+                    ],
+                    "groupBy": [
+                        "message_type",
+                        "international"
+                    ],
+                    "name": "aggregated_sms_revenue"
+                }
+            ]
+        },
+        {
+            "attributes": [
+                {
+                    "name": "tfos_node",
+                    "type": "string"
+                },
+                {
+                    "name": "tfos_version",
+                    "type": "string"
+                },
+                {
+                    "name": "tenant",
+                    "type": "string"
+                },
+                {
+                    "name": "stream",
+                    "type": "string"
+                },
+                {
+                    "name": "type",
+                    "type": "string"
+                },
+                {
+                    "name": "operation",
+                    "type": "string"
+                },
+                {
+                    "name": "ops_count",
+                    "type": "integer"
+                },
+                {
+                    "name": "ops_min",
+                    "type": "decimal"
+                },
+                {
+                    "name": "ops_max",
+                    "type": "decimal"
+                },
+                {
+                    "name": "mean",
+                    "type": "decimal"
+                },
+                {
+                    "name": "stdev",
+                    "type": "decimal"
+                },
+                {
+                    "name": "variance",
+                    "type": "decimal"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "_system_operational_metrics",
+            "postprocesses": [
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "_rollup_operation_metrics_on_node",
+                            "schemaName": "_rollup_operation_metrics_on_node"
+                        }
+                    ],
+                    "view": "_operation_metrics_on_node"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "_rollup_operation_metrics",
+                            "schemaName": "_rollup_operation_metrics"
+                        }
+                    ],
+                    "view": "_operation_metrics"
+                }
+            ],
+            "type": "metrics",
+            "version": 1572609062001,
+            "views": [
+                {
+                    "attributes": [
+                        "ops_count",
+                        "ops_min",
+                        "ops_max"
+                    ],
+                    "groupBy": [
+                        "tfos_version",
+                        "type",
+                        "operation",
+                        "stream"
+                    ],
+                    "name": "_operation_metrics"
+                },
+                {
+                    "attributes": [
+                        "ops_count",
+                        "ops_min",
+                        "ops_max"
+                    ],
+                    "groupBy": [
+                        "tfos_node",
+                        "tfos_version",
+                        "type",
+                        "operation",
+                        "stream"
+                    ],
+                    "name": "_operation_metrics_on_node"
+                }
+            ]
+        },
+        {
+            "attributes": [
+                {
+                    "name": "origin_node_type",
+                    "type": "string"
+                },
+                {
+                    "name": "origin_host_name",
+                    "type": "string"
+                },
+                {
+                    "name": "origin_transction_id",
+                    "type": "string"
+                },
+                {
+                    "name": "origin_operator_id",
+                    "type": "string"
+                },
+                {
+                    "name": "origin_timestamp",
+                    "type": "integer"
+                },
+                {
+                    "name": "timestamp",
+                    "type": "integer"
+                },
+                {
+                    "name": "hostname",
+                    "type": "string"
+                },
+                {
+                    "name": "local_sequence_number",
+                    "type": "number"
+                },
+                {
+                    "name": "current_service_class",
+                    "type": "number"
+                },
+                {
+                    "name": "voucher_based_refill",
+                    "type": "boolean"
+                },
+                {
+                    "allowedValues": [
+                        "Voucher Recharge",
+                        "Activation",
+                        "Etopup Recharge"
+                    ],
+                    "name": "transaction_type",
+                    "type": "string"
+                },
+                {
+                    "allowedValues": [
+                        "Standard",
+                        "Order E Top Up",
+                        "Etopup"
+                    ],
+                    "name": "transaction_code",
+                    "type": "string"
+                },
+                {
+                    "name": "transaction_amount",
+                    "type": "decimal"
+                },
+                {
+                    "name": "transaction_currency",
+                    "type": "string"
+                },
+                {
+                    "name": "refill_type",
+                    "type": "integer"
+                },
+                {
+                    "name": "refill_profile_id",
+                    "type": "string"
+                },
+                {
+                    "name": "segmentation_id",
+                    "type": "string"
+                },
+                {
+                    "name": "msidn",
+                    "type": "number"
+                },
+                {
+                    "name": "account_currency",
+                    "type": "string"
+                },
+                {
+                    "name": "aibr_account_flags",
+                    "type": "number"
+                },
+                {
+                    "name": "aibr_account_balance",
+                    "type": "decimal"
+                },
+                {
+                    "name": "aibr_credit_clearance_period",
+                    "type": "number"
+                },
+                {
+                    "name": "aibr_permanent_service_class",
+                    "type": "number"
+                },
+                {
+                    "name": "aibr_service_removal_grace_period",
+                    "type": "number"
+                },
+                {
+                    "name": "aibr_service_offering",
+                    "type": "number"
+                },
+                {
+                    "name": "aibr_service_fee_expiry_date",
+                    "type": "string"
+                },
+                {
+                    "name": "aibr_supervision_expiry_date",
+                    "type": "string"
+                },
+                {
+                    "name": "aiar_account_flags",
+                    "type": "number"
+                },
+                {
+                    "name": "aiar_account_balance",
+                    "type": "decimal"
+                },
+                {
+                    "name": "aiar_credit_clearance_period",
+                    "type": "number"
+                },
+                {
+                    "name": "aiar_permanent_service_class",
+                    "type": "number"
+                },
+                {
+                    "name": "aiar_service_removal_grace_period",
+                    "type": "number"
+                },
+                {
+                    "name": "aiar_service_offering",
+                    "type": "number"
+                },
+                {
+                    "name": "aiar_service_fee_expiry_date",
+                    "type": "string"
+                },
+                {
+                    "name": "aiar_supervision_expiry_date",
+                    "type": "string"
+                },
+                {
+                    "name": "max_service_fee_period",
+                    "type": "number"
+                },
+                {
+                    "name": "max_supervision_fee_period",
+                    "type": "number"
+                },
+                {
+                    "name": "external_data1",
+                    "type": "string"
+                },
+                {
+                    "name": "external_data2",
+                    "type": "string"
+                },
+                {
+                    "name": "external_data3",
+                    "type": "string"
+                },
+                {
+                    "name": "external_data4",
+                    "type": "string"
+                },
+                {
+                    "name": "product_name",
+                    "type": "string"
+                },
+                {
+                    "name": "spid_name",
+                    "type": "string"
+                },
+                {
+                    "name": "wb",
+                    "type": "string"
+                },
+                {
+                    "name": "service_id",
+                    "type": "string"
+                },
+                {
+                    "name": "charge_type",
+                    "type": "string"
+                },
+                {
+                    "name": "product_id",
+                    "type": "number"
+                },
+                {
+                    "name": "voucher_name",
+                    "type": "string"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "refill_signal",
+            "postprocesses": [
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_num_refills_by_account",
+                            "schemaName": "rollup_num_refills_by_account"
+                        }
+                    ],
+                    "view": "num_refills_by_account"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_total_refill_amount_by_acccount_and_type",
+                            "schemaName": "rollup_total_refill_amount_by_acccount_and_type"
+                        }
+                    ],
+                    "view": "refill_amt_by_acccount_and_type"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_refill_amount_by_transaction_type_and_code",
+                            "schemaName": "rollup_refill_amount_by_transaction_type_and_code"
+                        }
+                    ],
+                    "view": "refill_amt_by_transaction_type_and_code"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_refill_amount_by_segmentation_id",
+                            "schemaName": "rollup_refill_amount_by_segmentation_id"
+                        }
+                    ],
+                    "view": "refill_amt_by_segmentation_id"
+                },
+                {
+                    "rollups": [
+                        {
+                            "horizon": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "interval": {
+                                "timeunit": "minute",
+                                "value": 5
+                            },
+                            "name": "rollup_refill_amt_by_service_and_charge_type",
+                            "schemaName": "rollup_refill_amt_by_service_and_charge_type"
+                        }
+                    ],
+                    "view": "refill_amt_by_service_and_charge_type"
+                }
+            ],
+            "preprocesses": [],
+            "type": "signal",
+            "version": 1572609064916,
+            "views": [
+                {
+                    "attributes": [],
+                    "groupBy": [
+                        "msidn"
+                    ],
+                    "name": "num_refills_by_account"
+                },
+                {
+                    "attributes": [
+                        "transaction_amount"
+                    ],
+                    "groupBy": [
+                        "msidn",
+                        "refill_type"
+                    ],
+                    "name": "refill_amt_by_acccount_and_type"
+                },
+                {
+                    "attributes": [
+                        "transaction_amount"
+                    ],
+                    "groupBy": [
+                        "transaction_type",
+                        "transaction_code"
+                    ],
+                    "name": "refill_amt_by_transaction_type_and_code"
+                },
+                {
+                    "attributes": [
+                        "transaction_amount"
+                    ],
+                    "groupBy": [
+                        "segmentation_id"
+                    ],
+                    "name": "refill_amt_by_segmentation_id"
+                },
+                {
+                    "attributes": [
+                        "transaction_amount"
+                    ],
+                    "groupBy": [
+                        "service_id",
+                        "charge_type"
+                    ],
+                    "name": "refill_amt_by_service_and_charge_type"
+                }
+            ]
+        },
+        {
+            "attributes": [
+                {
+                    "name": "customer_contact_key",
+                    "type": "number"
+                },
+                {
+                    "name": "customer_contact_id",
+                    "type": "string"
+                },
+                {
+                    "name": "email_id",
+                    "type": "string"
+                },
+                {
+                    "name": "first_name",
+                    "type": "string"
+                },
+                {
+                    "name": "last_name",
+                    "type": "string"
+                },
+                {
+                    "name": "legal_name",
+                    "type": "string"
+                },
+                {
+                    "name": "birth_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "salutation",
+                    "type": "string"
+                },
+                {
+                    "name": "fax_num",
+                    "type": "string"
+                },
+                {
+                    "name": "middle_name",
+                    "type": "string"
+                },
+                {
+                    "name": "phone_num",
+                    "type": "string"
+                },
+                {
+                    "name": "mobile_num",
+                    "type": "string"
+                },
+                {
+                    "allowedValues": [
+                        "-1",
+                        "Female",
+                        "Gender Diverse",
+                        "Male",
+                        "Not Relavant",
+                        "Not Specified/Unknown",
+                        "Unknown"
+                    ],
+                    "name": "gender",
+                    "type": "string"
+                },
+                {
+                    "allowedValues": [
+                        "Additional Docs",
+                        "Alternate Primary ID's",
+                        "Armed Forces ID's",
+                        "Driving Licence",
+                        "Learners Driving Licence",
+                        "Medicare",
+                        "Not Relevant",
+                        "Overseas Passport",
+                        "Passport",
+                        "Photo Card",
+                        "Proof Of Age",
+                        "Reverse of Card",
+                        "Secondary ID's",
+                        "Service",
+                        "Telesales",
+                        "Unknown"
+                    ],
+                    "name": "identification_type_1_code",
+                    "type": "string"
+                },
+                {
+                    "name": "identification_doc_1_num",
+                    "type": "string"
+                },
+                {
+                    "defaultValue": "Unknown",
+                    "allowedValues": [
+                        "Additional Docs",
+                        "Alternate Primary ID's",
+                        "Armed Forces ID's",
+                        "Driving Licence",
+                        "Learners Driving Licence",
+                        "Medicare",
+                        "Not Relevant",
+                        "Overseas Passport",
+                        "Passport",
+                        "Photo Card",
+                        "Proof Of Age",
+                        "Reverse of Card",
+                        "Secondary ID's",
+                        "Service",
+                        "Telesales",
+                        "Unknown"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "identification_type_2_code",
+                    "type": "string"
+                },
+                {
+                    "name": "identification_doc_2_num",
+                    "type": "string"
+                },
+                {
+                    "name": "preferred_name",
+                    "type": "string"
+                },
+                {
+                    "name": "nationality",
+                    "type": "string"
+                },
+                {
+                    "name": "blacklist_reason",
+                    "type": "string"
+                },
+                {
+                    "name": "contact_add_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "preferred_contact_mode",
+                    "type": "string"
+                },
+                {
+                    "name": "preferred_contact_time",
+                    "type": "string"
+                },
+                {
+                    "name": "preferred_contact_lang",
+                    "type": "string"
+                },
+                {
+                    "name": "address_key",
+                    "type": "number"
+                },
+                {
+                    "name": "job_title_name",
+                    "type": "string"
+                },
+                {
+                    "name": "contact_source_id",
+                    "type": "number"
+                },
+                {
+                    "name": "previous_contact_name",
+                    "type": "string"
+                },
+                {
+                    "defaultValue": "Unknown",
+                    "allowedValues": [
+                        "Additional Docs",
+                        "Alternate Primary ID's",
+                        "Armed Forces ID's",
+                        "Driving Licence",
+                        "Learners Driving Licence",
+                        "Medicare",
+                        "Not Relevant",
+                        "Overseas Passport",
+                        "Passport",
+                        "Photo Card",
+                        "Proof Of Age",
+                        "Reverse of Card",
+                        "Secondary ID's",
+                        "Service",
+                        "Telesales",
+                        "Unknown"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "prev_identification_type_1_code",
+                    "type": "string"
+                },
+                {
+                    "name": "prev_identification_doc_1_num",
+                    "type": "string"
+                },
+                {
+                    "defaultValue": "Unverified",
+                    "allowedValues": [
+                        "Invalid",
+                        "Unverified",
+                        "Verified"
+                    ],
+                    "missingValuePolicy": "use_default",
+                    "name": "email_status_code",
+                    "type": "string"
+                },
+                {
+                    "name": "email_status_updated_ts",
+                    "type": "integer"
+                },
+                {
+                    "name": "email_status_source_name",
+                    "type": "string"
+                },
+                {
+                    "name": "phone_num_type_name",
+                    "type": "string"
+                },
+                {
+                    "name": "residential_status_description",
+                    "type": "string"
+                }
+            ],
+            "missingValuePolicy": "strict",
+            "name": "customer_contact_context",
+            "type": "context",
+            "version": 1572609064154
+        }
+    ],
+    "version": 1572609062001
+}

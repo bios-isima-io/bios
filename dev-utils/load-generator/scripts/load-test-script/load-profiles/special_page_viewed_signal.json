@@ -1,0 +1,159 @@
+  {
+    "signalName": "specialPageViewedSignal",
+    "peakRequestSize": 3125,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "userId",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "funnel",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "email",
+          "blogpost",
+          "google ad",
+          "facebook ad",
+          "twitter ad"
+        ]
+      },
+      {
+        "attributeName": "section",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "subsection",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "funnelTile",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "Kitchen",
+          "Shoes",
+          "Apparel",
+          "Dairy",
+          "ReadyToEat",
+          "Meat",
+          "Fruits",
+          "Vegetables"
+        ]
+      },
+      {
+        "attributeName": "funnelRow",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-49"
+      },
+      {
+        "attributeName": "sortbar",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "sortbarGroup",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "funnelSection",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "receivedAt",
+        "type": "integer",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "attributeName": "from_feed_size",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-999"
+      },
+      {
+        "attributeName": "from_location",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "from_screen",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "from_section",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "id",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "name",
+        "type": "string",
+        "attrValType": "NAME",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "plp",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "position",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-999"
+      },
+      {
+        "attributeName": "row",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-999"
+      },
+      {
+        "attributeName": "sort_by",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "track",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "universal",
+        "type": "string",
+        "attrValType": "PRODUCT_NAME",
+        "range": "5-5"
+      }
+    ]
+  }

@@ -1,0 +1,62 @@
+{
+  "signals": [
+    {
+      "signalName": "alertsSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "signalName",
+          "type": "String"
+        },
+        {
+          "attributeName": "featureName",
+          "type": "String"
+        },
+        {
+          "attributeName": "alertName",
+          "type": "String"
+        },
+        {
+          "attributeName": "condition",
+          "type": "String"
+        },
+        {
+          "attributeName": "year",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "month",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "day",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "hour",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "minute",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "second",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "windowLength",
+          "type": "String"
+        },
+        {
+          "attributeName": "event",
+          "type": "String"
+        },
+        {
+          "attributeName": "alertRaisedTimestamp",
+          "type": "Integer"
+        }
+      ]
+    }
+  ]
+}

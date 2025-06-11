@@ -1,0 +1,16 @@
+---
+BasedOnStyle: Google
+Language: Cpp
+ColumnLimit: 100
+DerivePointerAlignment: true
+IncludeBlocks:   Regroup
+IncludeCategories:
+  - Regex:           '^<ext/.*\.h>'
+    Priority:        20
+  - Regex:           '^<.*\.h>'
+    Priority:        10
+  - Regex:           '^<.*'
+    Priority:        20
+  - Regex:           '.*'
+    Priority:        30
+...

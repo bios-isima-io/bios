@@ -1,0 +1,29 @@
+{
+  "name": "secondLevelEnrichedContext",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    { "name": "secondId", "type": "string" },
+    { "name": "resourceId", "type": "string" }
+  ],
+  "globalLookupPolicy" : "fail_parent_lookup",
+  "enrichments": [
+    {
+      "enrichmentName": "resource",
+      "foreignKey": ["resourceId"],
+      "enrichedAttributes": [
+        { "value": "enrichedContext.resourceTypeNum" },
+        { "value": "enrichedContext.zipcode"},
+        { "value": "enrichedContext.resourceTypeCode"},
+        { "value": "enrichedContext.myResourceCategory"}
+      ]
+    },
+    {
+      "enrichmentName": "resourceType",
+      "foreignKey": ["resourceTypeNum"],
+      "enrichedAttributes": [
+        { "value": "resourceType.resourceCategory"}
+      ]
+    }
+  ]
+}

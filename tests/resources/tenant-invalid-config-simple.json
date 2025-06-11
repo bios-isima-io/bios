@@ -1,0 +1,16 @@
+{
+    "streams":
+    [{
+        "name": "simple",
+        "_description": [
+            "Event for this stream includes all supported attributetypes."
+        ],
+        "attributes": [{
+            "name": "first",
+            "type": "string"
+        }, {
+            "name": "second",
+            "type": "int"
+        }]
+    }]
+}

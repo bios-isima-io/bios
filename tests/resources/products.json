@@ -1,0 +1,78 @@
+{
+  "contextName": "products",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "productId",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "country",
+      "type": "String"
+    },
+    {
+      "attributeName": "productName",
+      "type": "String"
+    },
+    {
+      "attributeName": "productUrl",
+      "type": "String"
+    },
+    {
+      "attributeName": "rating",
+      "type": "Decimal"
+    },
+    {
+      "attributeName": "numReviews",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "brand",
+      "type": "String"
+    },
+    {
+      "attributeName": "categoryId",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "categoryName",
+      "type": "String"
+    }
+  ],
+  "primaryKey": [
+    "productId"
+  ],
+  "missingLookupPolicy": "FailParentLookup",
+  "enrichments": [
+    {
+      "enrichmentName": "pdpViewsEnrichment",
+      "foreignKey": [
+        "productId"
+      ],
+      "enrichedAttributes": [
+        {
+          "value": "pdpViews_cityByProductId.cityCollection",
+          "as": "recentCitiesViewedBy",
+          "fillIn": ""
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "featureName": "byBrand",
+      "dimensions": [
+        "brand"
+      ],
+      "attributes": [
+        "rating",
+        "numReviews"
+      ],
+      "featureInterval": 300000,
+      "aggregated": true,
+      "indexed": true,
+      "indexType": "RangeQuery"
+    }
+  ],
+  "auditEnabled": "true"
+}

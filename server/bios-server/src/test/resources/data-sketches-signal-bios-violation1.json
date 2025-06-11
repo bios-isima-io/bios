@@ -1,0 +1,27 @@
+{
+  "signalName": "dataSketchesSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "orderId",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "orderAmount",
+      "type": "Decimal",
+      "category": "Additive",
+      "unit": "$",
+      "unitPosition": "Prefix"
+    }
+  ],
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "repeatedSketches",
+        "attributes": ["orderId", "orderAmount"],
+        "dataSketches": ["Moments", "Moments"],
+        "featureInterval": 300000
+      }
+    ]
+  }
+}

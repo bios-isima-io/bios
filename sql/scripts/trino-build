@@ -1,0 +1,4 @@
+set -e
+pushd $ROOT/trino-bios
+./mvnw clean install -Dbios-version=${BUILD_VERSION}
+popd

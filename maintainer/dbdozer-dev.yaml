@@ -1,0 +1,87 @@
+# If one_shot tables are set, the process only maintains the specified tables and suspend
+# one_shot:
+#   - keyspace: tfos_d_8e9939f4503b3047a22ee723fe53cb67
+#     table: evt_f76b73c7330f325b92f98358df02b38f
+#   - keyspace: tfos_d_8e9939f4503b3047a22ee723fe53cb67
+#     table: evt_3dc893351e673841bf70cf5aff128168
+repair_intervals:
+  - keyspace_category: KEYSPACE_ADMIN
+    interval_seconds: 600
+  - keyspace_category: KEYSPACE_DATA
+    interval_seconds: 1800
+  - keyspace_category: KEYSPACE_MISC
+    interval_seconds: 10800
+  - keyspace_category: CONTEXT
+    interval_seconds: 86400
+run_options:
+  steps_per_token: 1
+  concurrency: 1
+  nodetool_path: ${CASSANDRA_HOME}/bin/nodetool
+  nodetool_initial_port: 10105
+  nodetool_use_ssl: true
+  nodetool_credentials_file: ../../docker/jmxremote.password
+  db_port: 10109
+  db_credentials_file: ../../docker/db_credentials.yaml
+  db_client_use_ssl: false
+  db_cert_file: /var/lib/dbdozer/db.cert.pem
+  db_key_file: /var/lib/dbdozer/db.key.pem
+  garbagecollect_enabled: false
+  log_filename: target/logs/dbdozer.log
+  log_rotate_size: 1048576
+  log_backup_count: 16
+  debug: false
+  progress_filename: target/dbdozer_progress.yaml
+  # output_file: /opt/dbdozer/logs/current.out
+  # We can also put parameters to files as follows, but recommendation is to put status to the same file.
+  # output_file: /opt/dbdozer/logs/details/{timestamp}.{datacenter}.{node}.{keyspace}.out
+  dry_run: false
+  # backoff seconds for maintaining a keyspace that was terminated in the middle in the previous
+  # execution, default=14400
+  failure_backoff_seconds: 120
+  status_collection_interval: 30
+  status_collection_file_count_local_command: docker exec bios-storage find /var/lib/db/data{num} -type f | grep -v /backups/ | wc -l
+  backup_command: docker exec tfosdb /var/ext_resources/snapshot-scripts/backup.sh -n -e load
+  keypair_file: /opt/ganymede-prod-key.pem
+  ssh_user: ubuntu
+  # every alternate day do a complete snapshot
+  backup_days: [0, 2, 4, 6]
+  # Do setup all necessary keyspaces to backup
+  backup_keyspaces:
+    - system
+    - system_schema
+    - tfos_admin
+    - tfos_bi_meta
+  bios_initial_endpoint: https://172.18.0.11:8443
+  bios_sysadmin_user: superadmin
+  bios_sysadmin_password: superadmin
+  bios_db_status_signal: "dbStatus"
+  bios_db_tables_signal: "dbTables"
+  # Set up following for frequent context maintenance
+  # contexts:
+  #     - tenant_name: testTenant
+  #       context_name: contextA
+  #     - tenant_name: testTenant
+  #       context_name: contextB
+  nodetool_initial_hosts:
+    - 192.168.1.111
+  host_data_file_directories:
+    192.168.1.111:
+      - /mnt/disks/data1/data/data1
+      - /mnt/disks/data2/data/data2
+
+  table_info_collection_interval_seconds: 3600
+
+  ###############################
+  # DB rolling restart parameters
+  ###############################
+  db_restart_enabled: false
+  db_container_name: bios-storage
+  db_restart_wait_timeout_seconds: 60
+  db_rolling_restart_gap_seconds: 30
+  db_restart_interval_hours: 22
+  db_restart_allowed_time_range: 0000-0500
+  db_restart_pause_status_collection: true
+  # for india
+  # db_restart_allowed_time_range: 1900-2500
+  # for US
+  # db_restartable_time_of_day: 0830-1130

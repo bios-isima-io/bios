@@ -1,0 +1,211 @@
+syntax = "proto3";
+
+package com.isima.bios.models.proto;
+
+option java_package = "io.isima.bios.models.proto";
+option java_outer_classname = "DataProto";
+
+// UUID in network byte order -- i.e big endian
+// ** Deprecated **
+message Uuid {
+  uint64 hi = 1;
+  uint64 lo = 2;
+}
+
+message Dimensions {
+  repeated string dimensions = 1;
+}
+
+message OrderBy {
+  string by = 1;
+  bool reverse = 2;
+  bool case_sensitive = 3;
+}
+
+enum MetricFunction {
+  SUM = 0;
+  COUNT = 1;
+  MIN = 2;
+  MAX = 3;
+  LAST = 4;
+  AVG = 5;
+  VARIANCE = 6;
+  STDDEV = 7;
+  SKEWNESS = 8;
+  KURTOSIS = 9;
+  SUM2 = 10;
+  SUM3 = 11;
+  SUM4 = 12;
+  MEDIAN = 31;
+  P0_01 = 32;
+  P0_1 = 33;
+  P1 = 34;
+  P10 = 35;
+  P25 = 36;
+  P50 = 37;
+  P75 = 38;
+  P90 = 39;
+  P99 = 40;
+  P99_9 = 41;
+  P99_99 = 42;
+  DISTINCTCOUNT = 61;
+  DCLB1 = 62;
+  DCUB1 = 63;
+  DCLB2 = 64;
+  DCUB2 = 65;
+  DCLB3 = 66;
+  DCUB3 = 67;
+  NUMSAMPLES = 81;
+  SAMPLINGFRACTION = 82;
+  SAMPLECOUNTS = 83;
+  SYNOPSIS = 101;
+}
+
+message Metric {
+  MetricFunction function = 1;
+  string of = 2;
+  string as = 3;
+  string name = 4;
+}
+
+enum ContentRepresentation {
+  NATIVE = 0;
+  CSV = 1;
+  UNTYPED = 2;
+}
+
+enum AttributeType {
+  UNKNOWN = 0;
+  INTEGER = 1;
+  DECIMAL = 2;
+  STRING = 3;
+  BLOB = 4;
+  BOOLEAN = 5;
+}
+
+// Used as lookup table for all attributes in record
+// kept outside the record to remove duplication as it is assumed by design that
+// all records have the same order of attributes and multiple versions will be
+// encoded in different event batches.
+message ColumnDefinition {
+  AttributeType type = 1;
+  string name = 2;
+  int32 index_in_value_array = 3;
+}
+
+message AttributeList {
+  repeated string attributes = 1;
+}
+
+// Assumed that new types will always be added at the end
+message Record {
+  bytes event_id = 1;  // optional..only for select * in time range (event dumps)
+  int64 timestamp = 2;  // optional..only for select * in time range
+
+  repeated int64 long_values = 10;
+  repeated double double_values = 11;
+  repeated string string_values = 12;
+  repeated bytes blob_values = 13;
+  repeated bool boolean_values = 14;
+}
+
+message InsertRequest {
+  ContentRepresentation content_rep = 1;
+  Record record = 2;
+  int64 schema_version = 10;     // optional
+}
+
+message InsertSuccessResponse {
+  bytes event_id = 1;
+  int64 insert_timestamp = 2;
+}
+
+message InsertBulkRequest {
+  ContentRepresentation content_rep = 1;
+  repeated Record record = 2;
+  string signal = 5;
+  int64 schema_version = 10;   // optional
+}
+
+message InsertBulkSuccessResponse {
+  repeated InsertSuccessResponse responses = 1;
+}
+
+// on partial errors, some ingests may fail and some may succeed.
+message InsertSuccessOrError {
+  string event_id = 1;
+  int64 insert_timestamp = 2;
+  string error_message = 10;
+  string server_error_code = 11;
+}
+
+message InsertBulkErrorResponse {
+  string server_error_code = 1;
+  string server_error_message = 2;
+  repeated InsertSuccessOrError results_with_error = 4;
+}
+
+enum WindowType {
+  GLOBAL_WINDOW = 0;   // handle extract like queries
+  SLIDING_WINDOW = 1;  // handles sliding window
+  TUMBLING_WINDOW = 2; // handles tumbling window
+}
+
+message SlidingWindow {
+  int64 slide_interval = 1;            // should be a multiple of rollup interval
+  int32 window_slides = 2;             // total window size = window_slides * slide_interval
+}
+
+message TumblingWindow {
+  int64 window_size_ms = 1;
+}
+
+message Window {
+  WindowType window_type = 1;
+  oneof window_details {
+    SlidingWindow sliding = 10;
+    TumblingWindow tumbling = 11;
+  }
+}
+
+message SelectQuery {
+  // If start_time is not aligned with the rollup interval in the time zone specified in signal
+  // definition AND window type is NOT GLOBAL_WINDOW return error.
+  int64 start_time = 1; // inclusive lower bound. && start_time < end_time
+  int64 end_time = 2;   // exclusive upper bound
+
+  // SQL-Like order to make the message more clearer, since it is an SQL-like query
+  // Leave gaps for future growth. eg. having after groupBy
+
+  bool distinct = 10;                  // unique combination in attribute list
+  AttributeList attributes = 11;       // projection
+  repeated Metric metrics = 12;
+  string from = 15;
+  string where = 20;
+  Dimensions group_by = 30;
+  repeated Window windows = 40;
+  OrderBy order_by = 50;
+  optional int32 limit = 60;
+  bool on_the_fly = 70;
+}
+
+message SelectRequest {
+  repeated SelectQuery queries = 1;
+}
+
+message QueryResult {
+  int64 window_begin_time = 1;     // optional..only for window queries
+  repeated Record records = 10;
+}
+
+message SelectQueryResponse {
+  repeated QueryResult data = 1;  // 1 or more elements for windowed response, exactly 1 for non-windowed.
+  repeated ColumnDefinition definitions = 2;
+  bool is_windowed_response = 3;  // If data above has only 1 element it may or may not be windowed.
+  int32 request_query_num = 4;    // The query number in the request that this response corresponds to. Some queries
+                  // may have more than one response.
+}
+
+message SelectResponse {
+  repeated SelectQueryResponse responses = 1;
+}

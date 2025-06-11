@@ -1,0 +1,26 @@
+[
+  {
+    "email": "systemadmin@isima.io",
+    "fullName": "Default System Administrator",
+    "tenantName": "/",
+    "roles": [
+      "TenantAdmin",
+      "SystemAdmin",
+      "Report"
+    ],
+    "status": "Active",
+    "password": "systemadmin",
+    "passwordHashed": false
+  },
+  {
+    "email": "ingest@isima.io",
+    "fullName": "Default System Ingest User",
+    "tenantName": "/",
+    "roles": [
+      "Ingest"
+    ],
+    "status": "Active",
+    "password": "ingest",
+    "passwordHashed": false
+  }
+]

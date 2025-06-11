@@ -1,0 +1,40 @@
+--- standalone.xml.orig	2020-12-27 20:58:37.082999999 -0800
++++ standalone.xml	2020-12-29 15:54:59.062474544 -0800
+@@ -489,7 +489,14 @@
+                 <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
+                 <host name="default-host" alias="localhost">
+                     <location name="/" handler="welcome-content"/>
+-                    <filter-ref name="rewrite-bios" predicate="regex('/bios/(.*)')"/>
++                    <filter-ref name="server-header"/>
++                    <filter-ref name="x-powered-by-header"/>
++                    <filter-ref name="access-control-allow-methods-header"/>
++                    <filter-ref name="access-control-allow-headers-header"/>
++                    <filter-ref name="access-control-allow-credentials-header"/>
++                    <filter-ref name="access-control-max-age-header"/>
++		    <filter-ref name="rewrite-bios" predicate="regex('/bios/(.*)')"/>
++		    <filter-ref name="rewrite-selfserve" predicate="regex('/selfserve/(.*)')"/>
+                     <http-invoker security-realm="ApplicationRealm"/>
+                 </host>
+             </server>
+@@ -501,7 +508,14 @@
+                 <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
+             </handlers>
+             <filters>
++	        <response-header name="server-header" header-name="Server" header-value="WildFly/16"/>
++                <response-header name="x-powered-by-header" header-name="X-Powered-By" header-value="Undertow/2"/>
++                <response-header name="access-control-allow-methods-header" header-name="Access-Control-Allow-Methods" header-value="GET, POST, OPTIONS, PUT, FETCH, DELETE, PATCH"/>
++                <response-header name="access-control-allow-headers-header" header-name="Access-Control-Allow-Headers" header-value="accept, authorization, content-type, x-requested-with, xsrfToken, x-bios-version, x-user-name, x-invalidate-cache, x-tenant-name"/>
++                <response-header name="access-control-allow-credentials-header" header-name="Access-Control-Allow-Credentials" header-value="true"/>
++                <response-header name="access-control-max-age-header" header-name="Access-Control-Max-Age" header-value="1"/>
+                 <expression-filter name="rewrite-bios" expression="regex('/bios(.*)') -> rewrite('/tfos/bios$${1}')"/>
++		<expression-filter name="rewrite-selfserve" expression="regex('/selfserve(.*)') -> rewrite('/tfos/selfserve$${1}')"/>
+             </filters>
+         </subsystem>
+         <subsystem xmlns="urn:jboss:domain:webservices:2.0" statistics-enabled="${wildfly.webservices.statistics-enabled:${wildfly.statistics-enabled:false}}">
+@@ -536,4 +550,4 @@
+             <remote-destination host="localhost" port="25"/>
+         </outbound-socket-binding>
+     </socket-binding-group>
+-</server>
+\ No newline at end of file
++</server>

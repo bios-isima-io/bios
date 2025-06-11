@@ -1,0 +1,2 @@
+#!/bin/bash
+ps axu | grep java | grep io.isima.bios.server.BiosServer | awk '{print $2}' | xargs kill -TERM

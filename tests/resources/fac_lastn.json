@@ -1,0 +1,235 @@
+{
+  "signals": [
+    {
+      "signalName": "addToCart",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "targetId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "objectId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sessionId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "rxRequired",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "platform",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "hasActiveSubscription",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "isDiagCartEmpty",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "discountPercent",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "customProductFlag",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "isPrescriptionAvailable",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "hasDeliveredOrder",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "medicineStatus",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "isCartEmpty",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "isChronic",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "isFirstAppLaunch",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "isOutOfStock",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "priceToBeUpdated",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "isLoggedIn",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "hasPlacedOrder",
+          "type": "Boolean",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": false
+        },
+        {
+          "attributeName": "appVersion",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "ctSource",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "intent_ID",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "product_Id",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "userId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productId",
+          "type": "Integer",
+          "tags": {
+            "category": "Dimension",
+            "firstSummary": "NONE"
+          },
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "intent_flag",
+          "type": "Integer",
+          "tags": {
+            "category": "Dimension",
+            "firstSummary": "WORD_CLOUD"
+          },
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        }
+      ],
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "byCtSource",
+            "dimensions": [
+              "ctSource"
+            ],
+            "attributes": [],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byIntentFlag",
+            "dimensions": [
+              "intent_flag"
+            ],
+            "attributes": [],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byIntentAndPlatform",
+            "dimensions": [
+              "intent_flag",
+              "platform"
+            ],
+            "attributes": [],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "productIdByObjectId",
+            "dimensions": [
+              "objectId"
+            ],
+            "attributes": [
+              "productId"
+            ],
+            "featureInterval": 300000,
+            "indexed": true
+          }
+        ]
+      }
+    }
+  ],
+  "contexts": [
+    {
+      "contextName": "addToCart_last15ProductIdbyObjectId",
+      "version": 1644818865328,
+      "biosVersion": 1644818865328,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "objectId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productIdCollection",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "objectId"
+      ]
+    }
+  ]
+}

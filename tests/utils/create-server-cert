@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR="$(cd $(dirname "$0"); pwd)"
+CURRENT_DIR="${PWD}"
+
+function usage()
+{
+    echo "Usage: create-server-cert <parameters>"
+    echo "  parameters:"
+    echo "    --root-ca       : Root CA PEM file"
+    echo "    --root-key      : Root CA private key PEM file"
+    echo "    --output-prefix : Prefix of output file names. Directory may be included"
+    echo "    --key-file      : (optional) Private key file. default=\${output_prefix}.key.pem"
+    echo "    --domain | --common-name :"
+    echo "                      Sub-domain name to certificate for or"
+    echo "                      Server name to certificate for. default=*.\${domain}"
+    echo "    --subject       : (optional) Certificate subject. Common name is ignored if set. default=/C=US/ST=California/L=Palo Alto/CN=*.\${domain}"
+    echo "    --password      : (optional) Password for the certificate. default=secret"
+    exit 1
+}
+
+VALID_ARGS=$(getopt -o h --long help,root-ca:,root-key:,output-prefix:,key-file:,domain:,common-name:,password:,subject: -- "$@")
+if [[ $? -ne 0 ]]; then
+    usage
+fi
+
+eval set -- "${VALID_ARGS}"
+while [ : ]; do
+    case "$1" in
+        -h | --help)
+            usage
+            ;;
+        --root-ca)
+            ROOT_CA=$2
+            ;;
+        --root-key)
+            ROOT_KEY=$2
+            ;;
+        --output-prefix)
+            OUTPUT_PREFIX=$2
+            ;;
+        --key-file)
+            KEY_FILE=$2
+            ;;
+        --domain)
+            DOMAIN=$2
+            ;;
+        --common-name)
+            COMMON_NAME=$2
+            ;;
+        --password)
+            PASSWORD=$2
+            ;;
+        --subject)
+            SUBJECT=$2
+            ;;
+        --)
+            break
+            ;;
+    esac
+    shift
+done
+
+#
+# Sanity checks
+#
+
+# Check required parameters
+for param_name in root-ca root-key output-prefix; do
+    varname=$(echo ${param_name^^} | sed 's/-/_/g')
+    if [ -z "${!varname}" ]; then
+        echo "Parameter ${param_name} is missing."
+        echo ""
+        usage
+    fi
+done
+
+if [ -z "${DOMAIN}" ] && [ -z "${COMMON_NAME}" ]; then
+    echo "Either parameter domain or common-name is required"
+    echo ""
+    usage
+fi
+
+# Set default values of optional parameters
+: ${KEY_FILE:=${OUTPUT_PREFIX}.key.pem}
+: ${COMMON_NAME:=*.${DOMAIN}}
+: ${PASSWORD:=secret}
+: ${SUBJECT:="/C=US/ST=CA/L=NB/O=None/CN=${COMMON_NAME}"}
+
+SUBJECT="$(echo ${SUBJECT} | sed -r 's|/CN=[a-zA-Z0-9\.,]*(/?)|\1|g')/CN=${COMMON_NAME}"
+
+# Check if required resources are available
+if [ ! -f "${ROOT_CA}" ]; then
+    echo "Root CA file ${ROOT_CA} is missing."
+    echo 'Please run "create-root-ca" first, and try again!'
+    exit 1;
+fi
+
+if [ ! -f "${ROOT_KEY}" ]; then
+    echo "Root CA key file ${ROOT_KEY} is missing."
+    echo 'Please run "create-root-ca" first, and try again!'
+    exit 1;
+fi
+
+V3_FILE="${SCRIPT_DIR}/v3.ext"
+if [ ! -f ${V3_FILE} ]; then
+  echo 'Please download the "v3.ext" file and try again!'
+  exit 1;
+fi
+
+# Create a new private key if one doesnt exist, or use the xeisting one if it does
+if [ -f ${KEY_FILE} ]; then
+    KEY_OPT="-key"
+    KEY_MAYBEREUSED=" -- not generated but reused"
+else
+    KEY_OPT="-newkey rsa:2048 -keyout"
+fi
+
+NUM_OF_DAYS=9999
+
+#
+# Generate output names
+#
+REQUEST_FILE=${OUTPUT_PREFIX}.csr
+EXT_FILE=/tmp/__$$v3.ext
+CERT_PEM=${OUTPUT_PREFIX}.cert.pem
+CERT_P12=${OUTPUT_PREFIX}.p12
+
+OUTPUT_DIR="$(dirname "${OUTPUT_PREFIX}")"
+if [[ "${OUTPUT_DIR}" != '.' ]]; then
+    mkdir -p "${OUTPUT_DIR}"
+fi
+
+# Generate the server certificate
+openssl req -new -sha256 -nodes $KEY_OPT ${KEY_FILE} -subj "$SUBJECT" -out ${REQUEST_FILE}
+cat ${V3_FILE} | sed s/%%DOMAIN%%/"$COMMON_NAME"/g > ${EXT_FILE}
+openssl x509 -req -in ${REQUEST_FILE} -CA ${ROOT_CA} -CAkey ${ROOT_KEY} -CAcreateserial \
+        -out ${CERT_PEM} -days ${NUM_OF_DAYS} -sha256 -extfile ${EXT_FILE}
+
+# Convert the certificate to PKCS12 file
+openssl pkcs12 -export -passin pass:${PASSWORD} -passout pass:${PASSWORD} \
+        -in ${CERT_PEM} -inkey ${KEY_FILE} -out ${CERT_P12}
+
+# remove temp file
+rm -f ${REQUEST_FILE} ${EXT_FILE}
+
+GENERATED_SUBJECT=$(openssl x509 -in ${CERT_PEM} -subject | head -n 1 | sed 's/subject=//g')
+
+echo
+echo "###########################################################################"
+echo Done!
+echo ""
+echo "Generated certificate files as follows:"
+echo ""
+echo "  subject            : ${GENERATED_SUBJECT}"
+echo "  certificate PEM    : ${CERT_PEM}"
+echo "  privat key         : ${KEY_FILE}${KEY_MAYBEREUSED}"
+echo "  certificate PKCS12 : ${CERT_P12}"
+echo "  CA certificate PEM : ${ROOT_CA}"
+echo ""

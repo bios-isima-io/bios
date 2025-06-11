@@ -1,0 +1,83 @@
+{
+  "name": "secondLevelEnrichedSignal",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {"name": "signalId", "type": "long"},
+    {"name": "secondId", "type": "string"}
+  ],
+  "preprocesses": [
+    {
+      "name": "resourceDetails",
+      "condition": "secondId",
+      "missingLookupPolicy": "strict",
+      "actions": [
+        {
+          "actionType": "merge",
+          "context": "secondLevelEnrichedContext",
+          "attribute": "resourceId"
+        },
+        {
+          "actionType": "merge",
+          "context": "secondLevelEnrichedContext",
+          "attribute": "resourceTypeNum"
+        },
+        {
+          "actionType": "merge",
+          "context": "secondLevelEnrichedContext",
+          "attribute": "zipcode"
+        },
+        {
+          "actionType": "merge",
+          "context": "secondLevelEnrichedContext",
+          "attribute": "resourceTypeCode"
+        },
+        {
+          "actionType": "merge",
+          "context": "secondLevelEnrichedContext",
+          "attribute": "myResourceCategory"
+        },
+        {
+          "actionType": "merge",
+          "context": "secondLevelEnrichedContext",
+          "attribute": "resourceCategory"
+        }
+      ]
+    },
+    {
+      "name": "resourceDetails2",
+      "condition": "resourceId",
+      "missingLookupPolicy": "use_default",
+      "actions": [
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "resourceTypeNum",
+          "as": "resourceTypeNum2",
+          "defaultValue" : "0"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "zipcode",
+          "as": "zipcode2",
+          "defaultValue" : "00000"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "resourceTypeCode",
+          "as": "resourceTypeCode2",
+          "defaultValue" : "None"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "myResourceCategory",
+          "as": "myResourceCategory2",
+          "defaultValue" : "0"
+        }
+      ]
+    }
+  ]
+}

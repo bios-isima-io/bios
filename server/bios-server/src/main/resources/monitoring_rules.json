@@ -1,0 +1,13 @@
+[
+    "(tfos_cpu_load > 1)",
+    "(db_cpu_load > 1)",
+    "(tfos_physical_memory_used > 1)",
+    "(db_physical_memory_used > 1)",
+    "(root_disk_usage > 1)",
+    "(data_disk_usage > 1)",
+    "(db_storage_used > 1)",
+    "(tfos_memory_usage > 1)",
+    "(tfos_memory_usage_non_heap > 1)",
+    "(db_memory_usage > 1)",
+    "(db_memory_usage_non_heap > 1)"
+]

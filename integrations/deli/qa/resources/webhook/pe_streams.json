@@ -1,0 +1,2232 @@
+{
+  "signals": [
+    {
+      "signalName": "clickSignal",
+      "version": 1611839778329,
+      "biosVersion": 1611839778329,
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "impressionTrigger",
+          "type": "String",
+          "allowedValues": [
+            "on_page_load",
+            "on_scroll",
+            "UNKNOWN"
+          ],
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "destination",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "destinationId",
+          "type": "Integer",
+          "default": -1
+        },
+        {
+          "attributeName": "clickId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sourcePage",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sourceId",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "sessionId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sessionIdFlag",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "referrer",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "cleverTapId",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "cleverTapSource",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "appPlatform",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "appVersion",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "customerId",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "isCustomerLoggedIn",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "isCartEmpty",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "isIpReverseCity",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "selectedPinCode",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "isPinCodeCourier",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "selectedCity",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemRank",
+          "type": "Integer",
+          "default": -1
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemSubType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemPrice",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemDiscountAmount",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemDiscountPercent",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemImageURL",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "parentItemType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "parentItemId",
+          "type": "String",
+          "default": "MISSING"
+        }
+      ],
+      "enrich": {
+        "missingLookupPolicy": "StoreFillInValue",
+        "enrichments": [
+          {
+            "enrichmentName": "enrichCustomerInfo",
+            "foreignKey": [
+              "customerId"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "customerContext",
+            "contextAttributes": [
+              {
+                "attributeName": "isPriority",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "isChronic",
+                "as": "custIsChronic",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasPlacedOneOrder",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasFulfilledOneOrder",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasPlacedOneDiagOrder",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasFulfilledOneDiagOrder",
+                "fillIn": "false"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "customerId",
+            "foreignKey": [
+              "customerId"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "cxSegmentationContext",
+            "contextAttributes": [
+              {
+                "attributeName": "segmentName",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "totalOrders",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "deliveredOrders",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "chronicOrders",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "mrpRevenue",
+                "fillIn": 0.0
+              },
+              {
+                "attributeName": "discMrpRevenue",
+                "fillIn": 0.0
+              },
+              {
+                "attributeName": "aov",
+                "fillIn": 0.0
+              },
+              {
+                "attributeName": "cxNpsBucket",
+                "fillIn": "0.0"
+              },
+              {
+                "attributeName": "loyaltyEnrolled",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "updateDateIST",
+                "fillIn": 1589500800000
+              }
+            ]
+          },
+          {
+            "enrichmentName": "enrichElementInfo",
+            "foreignKey": [
+              "elementUniqueNameAndPlatform"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "elementContext",
+            "contextAttributes": [
+              {
+                "attributeName": "elementUniqueName",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "elementName",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "elementType",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "elementSubType",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "numItemsWithinElement",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "elementScrollType",
+                "fillIn": "no_scroll"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "enrichCatalogInfo",
+            "foreignKey": [
+              "itemID"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "catalogContext",
+            "contextAttributes": [
+              {
+                "attributeName": "ucode",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_brand",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "manufacturer_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "dosage_form",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "packform_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "molecule_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_type",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_category",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "therapy",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "variant_type",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "variant_flavour",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_super_category",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "mdm_uuid",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "procurement_channel",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "system",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "pack_quantity_value",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_rx_required",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_chronic",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_banned",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_undeliverable",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_refrigerated",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_discontinued",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_active",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_live",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "group_id",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "product_substitute_group_id",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "product_mrp",
+                "fillIn": 0.0
+              }
+            ]
+          },
+          {
+            "enrichmentName": "enrichBannerInfo",
+            "foreignKey": [
+              "itemID"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "bannerContext",
+            "contextAttributes": [
+              {
+                "attributeName": "segments",
+                "as": "banner_segments",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "name",
+                "as": "banner_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "entity_type",
+                "as": "banner_entity_type",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "entity_id",
+                "as": "banner_entity_id",
+                "fillIn": "MISSING"
+              }
+            ]
+          }
+        ]
+      },
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "byItemRank",
+            "dimensions": [
+              "itemRank"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byItemTypes",
+            "dimensions": [
+              "itemType",
+              "itemSubType"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byElementTypes",
+            "dimensions": [
+              "elementType",
+              "elementSubType"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byCustomer",
+            "dimensions": [
+              "customerId"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byAppPlatform",
+            "dimensions": [
+              "appPlatform"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byCTSource",
+            "dimensions": [
+              "cleverTapSource"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byUniqElemAndPlat",
+            "dimensions": [
+              "elementUniqueNameAndPlatform"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byCustSegment",
+            "dimensions": [
+              "segmentName"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byElementUniqueName",
+            "dimensions": [
+              "elementUniqueName"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byProcurementChannel",
+            "dimensions": [
+              "procurement_channel"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "ByBannerEntityType",
+            "dimensions": [
+              "banner_entity_type"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          }
+        ]
+      },
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "signalName": "impressionSignal",
+      "version": 1611945786998,
+      "biosVersion": 1611945786998,
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "impressionTrigger",
+          "type": "String",
+          "allowedValues": [
+            "on_page_load",
+            "on_scroll",
+            "UNKNOWN"
+          ],
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "clickId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sourcePage",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sourceId",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "sessionId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sessionIdFlag",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "referrer",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "cleverTapId",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "cleverTapSource",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "appPlatform",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "appVersion",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "customerId",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "isCustomerLoggedIn",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "isCartEmpty",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "isIpReverseCity",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "selectedPinCode",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "isPinCodeCourier",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "selectedCity",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemRank",
+          "type": "Integer",
+          "default": -1
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemSubType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemPrice",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemDiscountAmount",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemDiscountPercent",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemImageURL",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "parentItemType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "parentItemId",
+          "type": "String",
+          "default": "MISSING"
+        }
+      ],
+      "enrich": {
+        "enrichments": [
+          {
+            "enrichmentName": "enrichCustomerInfo",
+            "foreignKey": [
+              "customerId"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "customerContext",
+            "contextAttributes": [
+              {
+                "attributeName": "isPriority",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "isChronic",
+                "as": "custIsChronic",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasPlacedOneOrder",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasFulfilledOneOrder",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasPlacedOneDiagOrder",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "hasFulfilledOneDiagOrder",
+                "fillIn": "false"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "customerId",
+            "foreignKey": [
+              "customerId"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "cxSegmentationContext",
+            "contextAttributes": [
+              {
+                "attributeName": "segmentName",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "totalOrders",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "deliveredOrders",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "chronicOrders",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "mrpRevenue",
+                "fillIn": 0.0
+              },
+              {
+                "attributeName": "discMrpRevenue",
+                "fillIn": 0.0
+              },
+              {
+                "attributeName": "aov",
+                "fillIn": 0.0
+              },
+              {
+                "attributeName": "cxNpsBucket",
+                "fillIn": "0.0"
+              },
+              {
+                "attributeName": "loyaltyEnrolled",
+                "fillIn": "false"
+              },
+              {
+                "attributeName": "updateDateIST",
+                "fillIn": 1589500800000
+              }
+            ]
+          },
+          {
+            "enrichmentName": "enrichElementInfo",
+            "foreignKey": [
+              "elementUniqueNameAndPlatform"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "elementContext",
+            "contextAttributes": [
+              {
+                "attributeName": "elementUniqueName",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "elementName",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "elementType",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "elementSubType",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "numItemsWithinElement",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "elementScrollType",
+                "fillIn": "no_scroll"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "enrichCatalogInfo",
+            "foreignKey": [
+              "itemId"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "catalogContext",
+            "contextAttributes": [
+              {
+                "attributeName": "ucode",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_brand",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "manufacturer_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "dosage_form",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "packform_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "molecule_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_type",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_category",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "therapy",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "variant_type",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "variant_flavour",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "product_super_category",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "mdm_uuid",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "procurement_channel",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "system",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "pack_quantity_value",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_rx_required",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_chronic",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_banned",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_undeliverable",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_refrigerated",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_discontinued",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_active",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "is_live",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "group_id",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "product_substitute_group_id",
+                "fillIn": 0
+              },
+              {
+                "attributeName": "product_mrp",
+                "fillIn": 0.0
+              }
+            ]
+          },
+          {
+            "enrichmentName": "enrichBannerInfo",
+            "foreignKey": [
+              "itemId"
+            ],
+            "missingLookupPolicy": "StoreFillInValue",
+            "contextName": "bannerContext",
+            "contextAttributes": [
+              {
+                "attributeName": "segments",
+                "as": "banner_segments",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "name",
+                "as": "banner_name",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "entity_type",
+                "as": "banner_entity_type",
+                "fillIn": "MISSING"
+              },
+              {
+                "attributeName": "entity_id",
+                "as": "banner_entity_id",
+                "fillIn": "MISSING"
+              }
+            ]
+          }
+        ]
+      },
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "byItemRank",
+            "dimensions": [
+              "itemRank"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byItemTypes",
+            "dimensions": [
+              "itemType",
+              "itemSubType"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byElementTypes",
+            "dimensions": [
+              "elementType",
+              "elementSubType"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byCustomer",
+            "dimensions": [
+              "customerId"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byAppPlatform",
+            "dimensions": [
+              "appPlatform"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byCTSource",
+            "dimensions": [
+              "cleverTapSource"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byUniqElemAndPlat",
+            "dimensions": [
+              "elementUniqueNameAndPlatform"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byCustSegment",
+            "dimensions": [
+              "segmentName"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byElementUniqueName",
+            "dimensions": [
+              "elementUniqueName"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "byProcurementChannel",
+            "dimensions": [
+              "procurement_channel"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          },
+          {
+            "featureName": "ByBannerEntityType",
+            "dimensions": [
+              "banner_entity_type"
+            ],
+            "attributes": [
+              "itemPrice",
+              "itemDiscountAmount"
+            ],
+            "featureInterval": 300000
+          }
+        ]
+      },
+      "dataSynthesisStatus": "Disabled"
+    }
+  ],
+  "contexts": [
+    {
+      "contextName": "retailerContext",
+      "version": 1588678662732,
+      "biosVersion": 1588678662732,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "retailerId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "retailerName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "cityId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "externalStoreId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isActive",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "allowDosageDigitisation",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "requirePrescriptionDate",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isCentralizeCalling",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "pauseCalling",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "procuresFromThea",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isLogisticsIntegrated",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "supportsCarrierDelivery",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isSlottedDelivery",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        }
+      ],
+      "primaryKey": [
+        "retailerId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "warehouseContext",
+      "version": 1588672565668,
+      "biosVersion": 1588672565668,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "warehouseId",
+          "type": "String"
+        },
+        {
+          "attributeName": "warehouseCity",
+          "type": "String"
+        },
+        {
+          "attributeName": "warehouseName",
+          "type": "String"
+        },
+        {
+          "attributeName": "city_id",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "isActive",
+          "type": "Integer"
+        }
+      ],
+      "primaryKey": [
+        "warehouseId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "stateContext",
+      "version": 1588678348732,
+      "biosVersion": 1588678348732,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "stateId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "stateName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "stateCode",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        }
+      ],
+      "primaryKey": [
+        "stateId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "cxSegmentationContext",
+      "version": 1591270040255,
+      "biosVersion": 1591270040255,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "customerId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "segmentName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "cxChronicFlag",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "totalOrders",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "deliveredOrders",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "chronicOrders",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "mrpRevenue",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "discMrpRevenue",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "aov",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "cxNpsBucket",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "loyaltyEnrolled",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "No"
+        },
+        {
+          "attributeName": "updateDateIST",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1589500800000
+        }
+      ],
+      "primaryKey": [
+        "customerId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "orderStatusContext",
+      "version": 1588672715147,
+      "biosVersion": 1588672715147,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "statusId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "statusName",
+          "type": "String"
+        },
+        {
+          "attributeName": "department",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "statusId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "bannerContext",
+      "version": 1610566543134,
+      "biosVersion": 1610566543134,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "banner_id",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "segments",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "name",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "entity_type",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "entity_id",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "ingested_at_ist",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        }
+      ],
+      "primaryKey": [
+        "banner_id"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "cityContext",
+      "version": 1588673166722,
+      "biosVersion": 1588673166722,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "cityId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "cityName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "stateId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "latitude",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "longitude",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "radius",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "supplierCityId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "minPathlabDiscount",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "isVerified",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isMedicine",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isPathlab",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isPickupRequired",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isOnlyDrRxValid",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isVisibleOnApp",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isAutoAssignHold",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isDoctorFacility",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "doesCarrierDelivery",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isEcommerce",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "medicineDiscount",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isPopular",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "servesCourierCOD",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        }
+      ],
+      "primaryKey": [
+        "cityId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "elementContext",
+      "version": 1605861545380,
+      "biosVersion": 1605861545380,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementUniqueName",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementName",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementType",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementSubType",
+          "type": "String"
+        },
+        {
+          "attributeName": "numItemsWithinElement",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "elementScrollType",
+          "type": "String",
+          "allowedValues": [
+            "vertical",
+            "horizontal",
+            "no_scroll"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "elementUniqueNameAndPlatform"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "whProductContext",
+      "version": 1590693398382,
+      "biosVersion": 1590693398382,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "whIDProductId",
+          "type": "String"
+        },
+        {
+          "attributeName": "org",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "tenant",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "namespace",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "warehouseID",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "productId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "ucode",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "medicineName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "banned",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "refrigerated",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "dpUpdateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        }
+      ],
+      "primaryKey": [
+        "whIDProductId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "whProductLotContext",
+      "version": 1590779923292,
+      "biosVersion": 1590779923292,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "whIDProductLotId",
+          "type": "String"
+        },
+        {
+          "attributeName": "org",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "tenant",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "namespace",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "warehouseID",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "productLotId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "productId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "whIDProductId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "batch",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "mrp",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "expiry",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        }
+      ],
+      "primaryKey": [
+        "whIDProductLotId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "neighbourhoodContext",
+      "version": 1588679365045,
+      "biosVersion": 1588679365045,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "neighborhoodId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "neighborhoodName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "cityId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "latitude",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "longitude",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "radius",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "createTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "updateTime",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        },
+        {
+          "attributeName": "pincode",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isNewLogistics",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "sameDayDelivery",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isVerified",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isSlottedDelivery",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        }
+      ],
+      "primaryKey": [
+        "neighborhoodId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "customerContext",
+      "version": 1605859556785,
+      "biosVersion": 1605859556785,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "customerId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "isPriority",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "attributeName": "isChronic",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "attributeName": "hasPlacedOneOrder",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "attributeName": "hasFulfilledOneOrder",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "attributeName": "hasPlacedOneDiagOrder",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ]
+        },
+        {
+          "attributeName": "hasFulfilledOneDiagOrder",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ]
+        }
+      ],
+      "primaryKey": [
+        "customerId"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    },
+    {
+      "contextName": "catalogContext",
+      "version": 1610375803419,
+      "biosVersion": 1610375803419,
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "product_id",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "ucode",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "product_name",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "product_brand",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "manufacturer_name",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "dosage_form",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "packform_name",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "molecule_name",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "product_type",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "product_category",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "therapy",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "variant_type",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "variant_flavour",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "product_super_category",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "mdm_uuid",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "procurement_channel",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "system",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "pack_quantity_value",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_rx_required",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_chronic",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_banned",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_undeliverable",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_refrigerated",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_discontinued",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_active",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "is_live",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "group_id",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "product_substitute_group_id",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "product_mrp",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "business_category",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "business_sub_category",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "NA"
+        },
+        {
+          "attributeName": "ingested_at_ist",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 1427826600000
+        }
+      ],
+      "primaryKey": [
+        "product_id"
+      ],
+      "dataSynthesisStatus": "Disabled"
+    }
+  ]
+}

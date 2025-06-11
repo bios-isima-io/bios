@@ -1,0 +1,108 @@
+signals:
+  - signalName: inventoryCounterUpdates
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: itemNumber
+        type: Integer
+        tags:
+          category: Dimension
+          firstSummary: WORD_CLOUD
+      - attributeName: fulfillmentCenter
+        type: Integer
+        tags:
+          category: Dimension
+          firstSummary: WORD_CLOUD
+      - attributeName: operation
+        type: String
+        allowedValues:
+          - delta
+          - set
+        tags:
+          category: Dimension
+          firstSummary: WORD_CLOUD
+      - attributeName: onHandValue
+        type: Decimal
+        tags:
+          category: Quantity
+          kind: Dimensionless
+          unit: Count
+      - attributeName: demandValue
+        type: Decimal
+        tags:
+          category: Quantity
+          kind: Dimensionless
+          unit: Count
+    postStorageStage:
+      features:
+        - featureName: byAll
+          dimensions:
+            - itemNumber
+            - fulfillmentCenter
+          attributes:
+            - onHandValue
+            - demandValue
+          featureInterval: 5000
+          snapshot: true
+          featureAsContextName: inventoryCounterSnapshots
+
+contexts:
+  - contextName: inventoryCounterSnapshots
+    missingAttributePolicy: Reject
+    attributes:
+      - attributeName: allDimensions
+        type: String
+        tags:
+          category: Dimension
+          firstSummary: WORD_CLOUD
+      - attributeName: itemNumber
+        type: Integer
+        tags:
+          category: Dimension
+          firstSummary: WORD_CLOUD
+      - attributeName: fulfillmentCenter
+        type: Integer
+        tags:
+          category: Dimension
+          firstSummary: WORD_CLOUD
+      - attributeName: timestamp
+        type: Integer
+        tags:
+          category: Quantity
+          kind: Timestamp
+          unit: UnixMillisecond
+      - attributeName: onHandSnapshot
+        type: Decimal
+        tags:
+          category: Quantity
+          kind: Dimensionless
+          unit: Count
+      - attributeName: demandSnapshot
+        type: Decimal
+        tags:
+          category: Quantity
+          kind: Dimensionless
+          unit: Count
+    primaryKey:
+      - allDimensions
+    features:
+      - featureName: byAll
+        dimensions:
+          - itemNumber
+          - fulfillmentCenter
+        attributes: [ onHandSnapshot, demandSnapshot ]
+        featureInterval: 60000
+        aggregated: true
+        indexed: true
+        indexType: ExactMatch
+    auditEnabled: true
+  # - contextName: checkpointTimestamps
+  #   missingAttributePolicy: Reject
+  #   attributes:
+  #     - attributeName: realm
+  #       type: String
+  #     - attributeName: timestamp
+  #       type: Integer
+  #     # - attributeName: metadata
+  #     #   type: Blob
+  #   primaryKey:
+  #     - realm

@@ -1,0 +1,63 @@
+{
+  "context": {
+    "contextName": "inventory",
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "productId",
+        "type": "Integer"
+      },
+      {
+        "attributeName": "unitPrice",
+        "type": "String"
+      },
+      {
+        "attributeName": "quantity",
+        "type": "Integer"
+      },
+      {
+        "attributeName": "location",
+        "type": "String",
+        "default": "MISSING"
+      }
+    ],
+    "primaryKey": ["productId"],
+    "auditEnabled": true
+  },
+  "flow": {
+    "importFlowName": "Inventory Flow",
+    "importFlowId": "328",
+    "sourceDataSpec": {
+      "importSourceId": "231",
+      "webhookSubPath": "/inventory",
+      "payloadType": "JSON"
+    },
+    "destinationDataSpec": {
+      "importDestinationId": "101",
+      "type": "CONTEXT",
+      "name": "inventory"
+    },
+    "dataPickupSpec": {
+      "attributeSearchPath": "",
+      "deletionSpec": {
+        "sourceAttributeName": "clear",
+        "condition": "lambda value: value"
+      },
+      "attributes": [
+        {
+          "sourceAttributeName": "productId"
+        },
+        {
+          "sourceAttributeName": "unitPrice"
+        },
+        {
+          "sourceAttributeName": "quantity"
+        },
+        {
+          "sourceAttributeName": "location"
+        }
+      ]
+    },
+    "acknowledgementEnabled": true
+  }
+}

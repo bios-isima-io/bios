@@ -1,0 +1,49 @@
+{
+  "signalName": "dataSketchesSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "orderId",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "orderAmount",
+      "type": "Decimal",
+      "category": "Additive",
+      "unit": "$",
+      "unitPosition": "Prefix"
+    },
+    {
+      "attributeName": "deliveryTime",
+      "type": "Integer",
+      "category": "Additive",
+      "unit": "minutes",
+      "positiveIndicator": "Low"
+    },
+    {
+      "attributeName": "zipcode",
+      "type": "String"
+    },
+    {
+      "attributeName": "gender",
+      "type": "String",
+      "allowedValues": ["Male", "Female", "Unknown"]
+    }
+  ],
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "QuantitativeSketchFor2Attributes",
+        "attributes": ["deliveryTime", "orderAmount"],
+        "dataSketches": ["Moments", "Quantiles", "DistinctCount", "SampleCounts"],
+        "featureInterval": 100
+      },
+      {
+        "featureName": "NonQuantitativeSketches",
+        "attributes": ["zipcode", "gender"],
+        "dataSketches": ["DistinctCount", "SampleCounts"],
+        "featureInterval": 100
+      }
+    ]
+  }
+}

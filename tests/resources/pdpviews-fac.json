@@ -1,0 +1,39 @@
+{
+  "contextName": "pdpViews_cityByProductId",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "productId",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "cityCollection",
+      "type": "String"
+    }
+  ],
+  "primaryKey": [
+    "productId"
+  ],
+  "missingLookupPolicy": "FailParentLookup",
+  "enrichments": [
+    {
+      "enrichmentName": "productsEnrichment",
+      "foreignKey": [
+        "productId"
+      ],
+      "enrichedAttributes": [
+        {
+          "value": "products.productName",
+          "as": "productName",
+          "fillIn": ""
+        },
+        {
+          "value": "products.brand",
+          "as": "brand",
+          "fillIn": ""
+        }
+      ]
+    }
+  ],
+  "auditEnabled": "true"
+}

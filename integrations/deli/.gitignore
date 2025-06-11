@@ -1,0 +1,13 @@
+__pycache__
+logs
+dev
+venv
+.env
+temp
+tmp
+build/*
+target/*
+.eggs/*
+dist/*
+deli.egg-info/*
+deli/_version.py

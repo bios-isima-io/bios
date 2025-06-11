@@ -1,0 +1,10 @@
+{
+  "contextName": "venue",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "String" },
+    { "attributeName": "cost", "type": "Decimal" },
+    { "attributeName": "venueId", "type": "String" }
+  ],
+  "primaryKey": ["resourceId"]
+}

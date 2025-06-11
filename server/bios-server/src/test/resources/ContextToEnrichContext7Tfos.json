@@ -1,0 +1,10 @@
+{
+  "name": "workspace",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    { "name": "resourceId", "type": "string" },
+    { "name": "rent", "type": "double" },
+    { "name": "workspaceId", "type": "string" }
+  ]
+}

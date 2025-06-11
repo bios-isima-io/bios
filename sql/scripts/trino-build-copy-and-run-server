@@ -1,0 +1,7 @@
+set -e
+
+SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd)"
+
+${SCRIPT_PATH}/trino-build
+${SCRIPT_PATH}/trino-copy-plugin
+${SCRIPT_PATH}/trino-run-server

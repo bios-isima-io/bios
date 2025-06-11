@@ -1,0 +1,44 @@
+{
+  "name": "patientVisits",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {"name": "resourceId",    "type": "string"},
+    {"name": "patientId",     "type": "long"},
+    {"name": "newAttribute1",    "type": "double", "defaultValue":  0}
+  ],
+  "preprocesses": [
+    {
+      "name": "resourceDetails",
+      "condition": "resourceId",
+      "missingLookupPolicy": "strict",
+      "actions": [
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "resourceTypeNum"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "resourceTypeCode"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "zipcode"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "myResourceCategory"
+        },
+        {
+          "actionType": "merge",
+          "context": "enrichedContext",
+          "attribute": "resourceValue"
+        }
+      ]
+    }
+  ]
+}

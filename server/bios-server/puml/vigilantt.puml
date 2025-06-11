@@ -1,0 +1,77 @@
+@startuml Vigilantt
+!define LIGHTORANGE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+'This helps fit the UML diagram on a letter/A4 page much better than the alternative,
+' which tends to be too wide.
+left to right direction
+
+
+class AlertConfig {
+  : JSON config
+  condition
+  webhookUrl
+}
+FeatureConfig *-- "0..n" AlertConfig
+Rollup *-- "0..n" AlertConfig
+
+class AlertNotification {
+  EventJson event
+  rollupName
+  viewDimensions
+}
+AlertNotification --|> EventJson
+AlertNotification *-- EventJson
+AlertNotification --> "1" AlertConfig
+
+abstract class NotificationContents {
+  *** JSON Message Sent to Customer
+  alertName
+  signalName
+  featureName
+  event
+  timestamp
+}
+
+interface Notifier {
+  void sendNotification()
+}
+class WebhookNotifier {
+  static OkHttpClient
+  webhookUrl
+}
+WebhookNotifier ..|> Notifier
+
+class DataEngineMaintenance {
+  -processAlerts()
+  -void dispatchAlert(AlertNotification)
+}
+DataEngineMaintenance ..> AlertNotification
+DataEngineMaintenance ..> NotificationContents
+DataEngineMaintenance *-- WebhookNotifier: sendNotification
+
+
+class ClassificationInfo {
+  boolean isAnomaly
+  List<String> violatedRules
+}
+interface EventClassifier {
+  ClassificationInfo classify(Event)
+}
+class AnomalyDetector {
+  ClassificationInfo classify(Event)
+}
+AnomalyDetector ..|> EventClassifier
+AnomalyDetector --> ClassificationInfo
+
+class AnomalyEventProcessor {
+  EventClassifier anomalyDetector
+  void processEvent(AlertNotification)
+}
+AnomalyEventProcessor *-- WebhookNotifier : sendNotification
+AnomalyEventProcessor *-- AnomalyDetector
+AnomalyEventProcessor ..> NotificationContents
+DataEngineMaintenance -right-> AnomalyEventProcessor
+
+
+@enduml

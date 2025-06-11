@@ -1,0 +1,68 @@
+{
+  "name": "allTypes",
+  "missingValuePolicy": "STRICT",
+  "attributes": [
+    {
+      "name": "stringAttribute",
+      "type": "STRING"
+    },
+    {
+      "name": "integerAttribute",
+      "type": "LONG"
+    },
+    {
+      "name": "decimalAttribute",
+      "type": "DOUBLE"
+    },
+    {
+      "name": "booleanAttribute",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "blobAttribute",
+      "type": "BLOB"
+    },
+    {
+      "name": "enumAttribute",
+      "type": "ENUM",
+      "enum": ["ONE", "TWO", "THREE", "FOUR", "FIVE"]
+    },
+    {
+      "name": "stringAttributeWithDefault",
+      "type": "String",
+      "missingValuePolicy": "USE_DEFAULT",
+      "defaultValue": "n/a"
+    },
+    {
+      "name": "integerAttributeWithDefault",
+      "type": "Long",
+      "missingValuePolicy": "USE_DEFAULT",
+      "defaultValue": -1
+    },
+    {
+      "name": "decimalAttributeWithDefault",
+      "type": "DOUBLE",
+      "missingValuePolicy": "USE_DEFAULT",
+      "defaultValue": -1.0
+    },
+    {
+      "name": "booleanAttributeWithDefault",
+      "type": "BOOLEAN",
+      "missingValuePolicy": "USE_DEFAULT",
+      "defaultValue": true
+    },
+    {
+      "name": "blobAttributeWithDefault",
+      "type": "Blob",
+      "missingValuePolicy": "USE_DEFAULT",
+      "defaultValue": "aGVsbG8gd29ybGQ="
+    },
+    {
+      "name": "enumAttributeWithDefault",
+      "type": "ENUM",
+      "enum": ["ONE", "TWO", "THREE", "FOUR", "FIVE"],
+      "missingValuePolicy": "USE_DEFAULT",
+      "defaultValue": "THREE"
+    }
+  ]
+}

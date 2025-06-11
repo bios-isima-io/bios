@@ -1,0 +1,11 @@
+{
+  "contextName": "proxiesContext",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "resourceId", "type": "String"},
+    {"attributeName": "attr1", "type": "Decimal"},
+    {"attributeName": "attr2", "type": "Integer", "default": "0"},
+    {"attributeName": "attr3", "type": "String"}
+  ],
+  "primaryKey": ["resourceId"]
+}

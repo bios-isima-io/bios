@@ -1,0 +1,41 @@
+{
+  "contextName": "customerContext",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "customerId",
+      "type": "String"
+    },
+    {
+      "attributeName": "isPriority",
+      "type": "String",
+      "allowedValues": ["true", "false"]
+    },
+    {
+      "attributeName": "isChronic",
+      "type": "String",
+      "allowedValues": ["true", "false"]
+    },
+    {
+      "attributeName": "hasPlacedOneOrder",
+      "type": "String",
+      "allowedValues": ["true", "false"]
+    },
+    {
+      "attributeName": "hasFulfilledOneOrder",
+      "type": "String",
+      "allowedValues": ["true", "false"]
+    },
+    {
+      "attributeName": "hasPlacedOneDiagOrder",
+      "type": "String",
+      "allowedValues": ["true", "false"]
+    },
+    {
+      "attributeName": "hasFulfilledOneDiagOrder",
+      "type": "String",
+      "allowedValues": ["true", "false"]
+    }
+  ],
+  "primaryKey": ["customerId"]
+}

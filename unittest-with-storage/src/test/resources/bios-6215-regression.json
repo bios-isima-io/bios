@@ -1,0 +1,1185 @@
+{
+  "tenantName": "isima",
+  "history": [
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "employee",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "category",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "uniqueProducts",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "category",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "uniqueProducts",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "categoryName",
+            "type": "String",
+            "missingAttributePolicy": "StoreDefaultValue",
+            "default": "MISSING"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "categoryEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.categoryName",
+                "fillIn": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "categoryEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.categoryName",
+                "as": "test",
+                "fillIn": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "test",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "name1",
+                "fillIn": ""
+              },
+              {
+                "value": "category.categoryName",
+                "as": "name2",
+                "fillIn": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "newName",
+                "fillIn": "MISSING"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "fillIn": "0"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "a",
+                "fillIn": "MISSING"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "fillIn": "0"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "employee",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "test",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "test",
+                "fillIn": "mis"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "employee",
+        "missingAttributePolicy": "StoreDefaultValue",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer",
+            "default": 0
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String",
+            "default": "MISSING"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "test",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "test",
+                "fillIn": "mis"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "g",
+                "fillIn": "1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "a",
+                "fillIn": "MISSING"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "fillIn": "0"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "testContext",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.uniqueProducts",
+                "as": "test",
+                "fillIn": "10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "employee",
+        "missingAttributePolicy": "StoreDefaultValue",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer",
+            "default": 0
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "isactive",
+            "type": "Boolean",
+            "default": false
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "test",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.name",
+                "as": "test",
+                "fillIn": "mis"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "g",
+                "fillIn": "1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "category",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "uniqueProducts",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "categoryName",
+            "type": "String",
+            "missingAttributePolicy": "StoreDefaultValue",
+            "default": "MISSING"
+          },
+          {
+            "attributeName": "isActive",
+            "type": "Boolean",
+            "missingAttributePolicy": "StoreDefaultValue",
+            "default": false
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.isActive",
+                "fillIn": "true"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "fillIn": "0"
+              },
+              {
+                "value": "category.desc",
+                "as": "xx",
+                "fillIn": "MISSING"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "testContext",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.uniqueProducts",
+                "as": "test",
+                "fillIn": "10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.isActive",
+                "as": "isActive1",
+                "fillIn": "true"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "uniqueProducts1",
+                "fillIn": "0"
+              },
+              {
+                "value": "category.desc",
+                "as": "desc1",
+                "fillIn": "MISSING"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "testContext",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.uniqueProducts",
+                "as": "test",
+                "fillIn": "10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.isActive",
+                "as": "isActive1",
+                "fillIn": "true"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "uniqueProducts1",
+                "fillIn": "11"
+              },
+              {
+                "value": "category.desc",
+                "as": "desc1",
+                "fillIn": "MISSING1"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "testContext",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.uniqueProducts",
+                "as": "test",
+                "fillIn": "10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "product",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "name",
+            "type": "String"
+          },
+          {
+            "attributeName": "desc",
+            "type": "String"
+          },
+          {
+            "attributeName": "price",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "quantity",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "contextEnrich",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.isActive",
+                "as": "isActive1",
+                "fillIn": "false"
+              },
+              {
+                "value": "category.uniqueProducts",
+                "as": "uniqueProducts1",
+                "fillIn": "0"
+              },
+              {
+                "value": "category.desc",
+                "as": "desc1",
+                "fillIn": "MISSING1"
+              }
+            ]
+          },
+          {
+            "enrichmentName": "testContext",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "category.uniqueProducts",
+                "as": "test",
+                "fillIn": "10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "create",
+      "schema": {
+        "contextName": "test",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "value",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "test",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "value",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "enr",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "value": "product.quantity",
+                "fillIn": "990"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "test",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "value",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "update",
+      "schema": {
+        "contextName": "test",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "value",
+            "type": "Integer"
+          }
+        ],
+        "primaryKey": [
+          "id"
+        ],
+        "missingLookupPolicy": "FailParentLookup",
+        "enrichments": [
+          {
+            "enrichmentName": "x1",
+            "foreignKey": [
+              "id"
+            ],
+            "enrichedAttributes": [
+              {
+                "valuePickFirst": [
+                  "employee.first_name",
+                  "product.name"
+                ],
+                "as": "bb",
+                "fillIn": "MISSING"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "context",
+      "operation": "delete",
+      "schema": {
+        "contextName": "test"
+      }
+    },
+    {
+      "type": "context",
+      "operation": "delete",
+      "schema": {
+        "contextName": "employee"
+      }
+    },
+    {
+      "type": "signal",
+      "operation": "create",
+      "schema": {
+        "signalName": "employee",
+        "missingAttributePolicy": "Reject",
+        "attributes": [
+          {
+            "attributeName": "id",
+            "type": "Integer"
+          },
+          {
+            "attributeName": "first_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "last_name",
+            "type": "String"
+          },
+          {
+            "attributeName": "gender",
+            "type": "String"
+          },
+          {
+            "attributeName": "hire_date",
+            "type": "String"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+set -e
+
+SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd)"
+
+if [ $# -lt 2 ]; then
+    echo "Usage: "$(basename "$0")" <TRINO_CONFIG_FILE_DIR> <TRINO_BIOS_ROOT>"
+    exit 1
+fi
+
+TRINO_CONFIG_FILES_DIR="$1"
+TRINO_BIOS_ROOT="$2"
+
+echo "...   Copying trino config templates to destination:" ${TRINO_CONFIG_FILES_DIR}
+echo "...   Getting trino config templates from source:" ${TRINO_BIOS_ROOT}/config-templates
+
+rm -rf ${TRINO_CONFIG_FILES_DIR}
+mkdir -p ${TRINO_CONFIG_FILES_DIR}
+cd ${TRINO_CONFIG_FILES_DIR}
+cp -rf ${TRINO_BIOS_ROOT}/config-templates/* .

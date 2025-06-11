@@ -1,0 +1,18 @@
+  {
+    "signalName": "sessionStartedSignal",
+    "peakRequestSize": 9375,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "sessionStartedDate",
+        "type": "integer",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      }
+    ]
+  }

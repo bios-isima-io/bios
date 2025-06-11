@@ -1,0 +1,20 @@
+{
+  "parentOrderId": "100",
+  "customerId": "1001",
+  "childOrders": [
+    {
+      "status": "CREATED",
+      "childOrderId": "1000",
+      "vertical": "PRODUCT",
+      "items": [
+        {
+          "itemId": "I44637",
+          "itemType": "COSMETICS",
+          "name": "soap",
+          "quantity": 3
+        }
+      ]
+    }
+  ],
+  "couponCode": "ABC123"
+}

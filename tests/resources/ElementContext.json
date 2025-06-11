@@ -1,0 +1,34 @@
+{
+  "contextName": "elementContext",
+  "missingAttributePolicy": "Reject",
+  "dataSynthesisStatus": "Disabled",
+
+  "attributes": [
+    {
+      "attributeName": "elementUniqueName",
+      "type": "String"
+    },
+    {
+      "attributeName": "elementName",
+      "type": "String"
+    },
+    {
+      "attributeName": "elementType",
+      "type": "String"
+    },
+    {
+      "attributeName": "elementSubType",
+      "type": "String"
+    },
+    {
+      "attributeName": "numItemsWithinElement",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "elementScrollType",
+      "type": "String",
+      "allowedValues":["vertical","horizontol","no_scroll"]
+    }
+  ],
+  "primaryKey": ["elementUniqueName"]
+}

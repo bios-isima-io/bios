@@ -1,0 +1,24 @@
+#!/bin/bash
+# Script to generate java sourcecode for class
+# com.tieredfractals.tfos.common.BuildVersion under the specified directory.
+
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+project_root="$(cd "${script_dir}/.." && pwd)"
+cd "${project_root}"
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $(basename $0) <target_directory>"
+    exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname $0)" && pwd)"
+ROOT="$(cd "${SCRIPT_DIR}/.."; pwd)"
+BUILD_VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='properties']/*[local-name()='revision']/text()" "${ROOT}/pom.xml" | tr -d '\n')
+
+TARGET_DIR="$1/io/isima/bios/common"
+
+mkdir -p "${TARGET_DIR}"
+
+TARGET_FILE="${TARGET_DIR}/BuildVersion.java"
+
+sed 's/${BUILD_VERSION}/'${BUILD_VERSION}'/g' "${script_dir}/BuildVersion.java.tmpl" > "${TARGET_FILE}"

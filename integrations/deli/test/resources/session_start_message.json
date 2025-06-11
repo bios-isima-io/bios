@@ -1,0 +1,121 @@
+{
+    "targetId": 1628862519,
+    "key_values": {
+        "user": "support+test@isima.io",
+        "pass": "P@55W0RD",
+        "signal": "sessionStartSignal"
+    },
+    "profiles": [
+        {
+            "key_values": {
+                "user": "support+test@isima.io",
+                "pass": "P@55W0RD",
+                "signal": "sessionStartSignal"
+            },
+            "objectId": "1eae7553e2d940aaacd654135756cc80",
+            "event_properties": {
+                "session_id": "t_x_Nqrd7rzmQBOFANY_pwlmC_2903740709000",
+                "session_id_flag": "ct_id",
+                "referrer": "",
+                "landing_page_name": "p_home",
+                "landing_page_url": "/",
+                "is_first_session": true,
+                "User Agent": "Mozilla/5.0 (Linux; Android 12; SM-N970U Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/112.0.5615.101 Mobile Safari/537.36",
+                "ip": "",
+                "no_of_tries_for_ct_id": 0,
+                "client_event_timestamp": "1682510710733",
+                "platform": "mweb",
+                "vendor": "MISSING",
+                "app_version": "1.00.11",
+                "selected_city": "",
+                "is_logged_in": false,
+                "is_cart_empty": true,
+                "selected_pincode": 0,
+                "user_agent": "Mozilla/5.0 (Linux; Android 12; SM-N970U Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/112.0.5615.101 Mobile Safari/537.36",
+                "CT Source": "Web"
+            },
+            "session_props": {}
+        },
+        {
+            "key_values": {
+                "user": "support+test@isima.io",
+                "pass": "P@55W0RD",
+                "signal": "sessionStartSignal"
+            },
+            "objectId": "937fc83018f549b5ba3ed12e10bdd70a",
+            "event_properties": {
+                "platform": "web",
+                "vendor": "MISSING",
+                "selected_city": "Mumbai",
+                "is_pincode_courier": false,
+                "selected_pincode": 400001,
+                "is_cart_empty": true,
+                "is_logged_in": true,
+                "ip_reverse_city": false,
+                "has_placed_diag_order": false,
+                "has_diag_fulfilled_order": false,
+                "intent_id": null,
+                "click_id": null,
+                "is_diag_cart_empty": true,
+                "session_id": "t_x_504e549cf74a4c70add2-158b23471c87",
+                "session_id_flag": "ct_id",
+                "referrer": "",
+                "landing_page_name": "p_diagnostic_tests",
+                "landing_page_url": "/diagnostics",
+                "is_first_session": true,
+                "User Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
+                "ip": "20.204.138.159, 96.17.150.127",
+                "no_of_tries_for_ct_id": 1,
+                "source_url": "/diagnostics",
+                "source": "p_diagnostic_tests",
+                "page_name": "p_diagnostic_tests",
+                "CT Source": "Web"
+            },
+            "session_props": {}
+        },
+        {
+            "key_values": {
+                "user": "support+test@isima.io",
+                "pass": "P@55W0RD",
+                "signal": "sessionStartSignal"
+            },
+            "objectId": "f4558cd96b564fcfa613994f45c83f6f",
+            "event_properties": {
+                "User Agent": "Mozilla/5.0 (Linux; Android 13; CPH2505) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Mobile Safari/537.36",
+                "selected_city": "Mumbai",
+                "pincode_selection_mode": "",
+                "is_pincode_courier": false,
+                "selected_pincode": 400001,
+                "is_cart_empty": true,
+                "is_logged_in": false,
+                "ip_reverse_city": false,
+                "has_delivered_order": false,
+                "has_placed_order": false,
+                "has_placed_diag_order": false,
+                "has_diag_fulfilled_order": false,
+                "intent_id": null,
+                "click_id": null,
+                "is_diag_cart_empty": true,
+                "is_priority": false,
+                "is_chronic": false,
+                "is_oms_enabled_user": true,
+                "is_express_pincode": true,
+                "platform": "mweb",
+                "vendor": "MISSING",
+                "session_id": "t_x_e978545a4bd043c3bb8addb153c13210",
+                "session_id_flag": "ct_id",
+                "referrer": "https://www.google.com/",
+                "landing_page_name": "p_medicine_details",
+                "landing_page_url": "/online-medicine-order/calcium-sandoz-choco-30-s-98765",
+                "is_first_session": true,
+                "ip": "",
+                "no_of_tries_for_ct_id": 2,
+                "source_url": "/online-medicine-order/calcium-sandoz-choco-30-s-98765",
+                "source": "p_medicine_details",
+                "page_name": "p_medicine_details",
+                "CT Source": "Web"
+            },
+            "session_props": {}
+        }
+    ]
+}

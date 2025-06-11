@@ -1,0 +1,32 @@
+{
+  "name": "orderDeliveries",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {"name": "orderId",        "type": "long"},
+    {"name": "customerId",     "type": "long"},
+    {"name": "zipCode",         "type": "string"}
+  ],
+  "preprocesses": [{
+    "missingLookupPolicy": "USE_DEFAULT",
+    "name": "deliveryTime",
+    "condition": "zipCode",
+    "actions": [{
+      "actionType": "merge",
+      "context": "ordersNew:byZipCodeNew",
+      "attribute": "count",
+      "defaultValue": 0
+    }, {
+      "actionType": "merge",
+      "context": "ordersNew:byZipCodeNew",
+      "attribute": "deliveryTime_sum",
+      "defaultValue": 0
+    }, {
+      "actionType": "merge",
+      "context": "ordersNew:byZipCodeNew",
+      "attribute": "deliveryTime_max",
+      "defaultValue": 0
+    }]
+  }],
+  "dataSynthesisStatus":"Disabled"
+}

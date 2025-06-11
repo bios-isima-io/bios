@@ -1,0 +1,18 @@
+{
+  "signalName": "dataSketchesSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "attrInteger",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "attrDecimal",
+      "type": "Decimal"
+    },
+    {
+      "attributeName": "attrString",
+      "type": "String"
+    }
+  ]
+}

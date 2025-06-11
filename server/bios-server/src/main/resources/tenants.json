@@ -1,0 +1,1384 @@
+[
+  {
+    "name": "_system",
+    "streams": [
+      {
+        "name": "_failureReport",
+        "attributes": [
+          {
+            "name": "timestamp",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "endpoint",
+            "type": "string"
+          },
+          {
+            "name": "nodeId",
+            "type": "string"
+          },
+          {
+            "name": "operation",
+            "type": "string"
+          },
+          {
+            "name": "payload",
+            "type": "string"
+          },
+          {
+            "name": "reason",
+            "type": "string"
+          },
+          {
+            "name": "reporter",
+            "type": "string"
+          }
+        ],
+        "views": [
+          {
+            "name": "_failureRepView_nodeId",
+            "groupBy": [
+              "nodeId"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "_failureRepView_reporter",
+            "groupBy": [
+              "reporter"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "_failureRepView_multiple",
+            "groupBy": [
+              "nodeId",
+              "reporter"
+            ],
+            "attributes": []
+          }
+        ],
+        "postprocesses": [
+          {
+            "view": "_failureRepView_nodeId",
+            "rollups": [
+              {
+                "name": "_failureRepRollup_nodeId",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "_failureRepView_reporter",
+            "rollups": [
+              {
+                "name": "_failureRepRollup_reporter",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "_failureRepView_multiple",
+            "rollups": [
+              {
+                "name": "_failureRepRollup_multiple",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "audit_log",
+        "type": "signal",
+        "missingValuePolicy": "strict",
+        "attributes": [
+          {
+            "name": "operation_starts_at",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "operation_finished_at",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "operation",
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "type": "long",
+            "tags": {
+              "category": "Dimension"
+            }
+          },
+          {
+            "name": "org_id",
+            "type": "long",
+            "tags": {
+              "category": "Dimension"
+            }
+          },
+          {
+            "name": "tenant",
+            "type": "string"
+          },
+          {
+            "name": "stream",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "name": "permission",
+            "type": "string"
+          },
+          {
+            "name": "request",
+            "type": "string"
+          },
+          {
+            "name": "response",
+            "type": "string"
+          }
+        ],
+        "views": [
+          {
+            "name": "gby_operation",
+            "groupBy": [
+              "operation"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "gby_user",
+            "groupBy": [
+              "user"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "gby_tenant",
+            "groupBy": [
+              "tenant"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "gby_stream",
+            "groupBy": [
+              "stream"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "gby_status",
+            "groupBy": [
+              "status"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "gby_permission",
+            "groupBy": [
+              "permission"
+            ],
+            "attributes": []
+          },
+          {
+            "name": "gby_multiple",
+            "groupBy": [
+              "operation",
+              "user",
+              "tenant",
+              "stream",
+              "status"
+            ],
+            "attributes": []
+          }
+        ],
+        "postprocesses": [
+          {
+            "view": "gby_operation",
+            "rollups": [
+              {
+                "name": "rlp_operation",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "gby_user",
+            "rollups": [
+              {
+                "name": "rlp_user",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "gby_tenant",
+            "rollups": [
+              {
+                "name": "rlp_tenant",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "gby_stream",
+            "rollups": [
+              {
+                "name": "rlp_stream",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "gby_status",
+            "rollups": [
+              {
+                "name": "rlp_status",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "gby_permission",
+            "rollups": [
+              {
+                "name": "rlp_permission",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "gby_multiple",
+            "rollups": [
+              {
+                "name": "rlp_multiple",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "_operations",
+        "missingValuePolicy": "strict",
+        "attributes": [
+          {
+            "name": "tenant",
+            "type": "string"
+          },
+          {
+            "name": "stream",
+            "type": "string"
+          },
+          {
+            "name": "request",
+            "type": "string"
+          },
+          {
+            "name": "node",
+            "type": "string"
+          },
+          {
+            "name": "appName",
+            "type": "string"
+          },
+          {
+            "name": "appType",
+            "type": "enum",
+            "enum": [
+              "Unknown",
+              "Realtime",
+              "Batch",
+              "Adhoc",
+              "Internal"
+            ]
+          },
+          {
+            "name": "numSuccessfulOperations",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "numValidationErrors",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "numTransientErrors",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "numWrites",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "bytesWritten",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "DataSize",
+              "unit": "Byte"
+            }
+          },
+          {
+            "name": "numReads",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "bytesRead",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "DataSize",
+              "unit": "Byte"
+            }
+          },
+          {
+            "name": "latencyMin",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MIN"
+            }
+          },
+          {
+            "name": "latencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "latencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          },
+          {
+            "name": "numStorageAccesses",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "storageLatencyMin",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MIN"
+            }
+          },
+          {
+            "name": "storageLatencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "storageLatencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          },
+          {
+            "name": "numDecodes",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "decodeLatencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "decodeLatencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          },
+          {
+            "name": "numValidations",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "validationLatencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "validationLatencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          },
+          {
+            "name": "numPreProcesses",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "preProcessLatencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "preProcessLatencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          },
+          {
+            "name": "numPostProcesses",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "postProcessLatencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "postProcessLatencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          },
+          {
+            "name": "numEncodes",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "encodeLatencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            }
+          },
+          {
+            "name": "encodeLatencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            }
+          }
+        ],
+        "views": [
+          {
+            "name": "byAllDimensions",
+            "groupBy": [
+              "tenant",
+              "stream",
+              "request",
+              "node",
+              "appName",
+              "appType"
+            ],
+            "attributes": [
+              "numSuccessfulOperations",
+              "numValidationErrors",
+              "numTransientErrors",
+              "numWrites",
+              "bytesWritten",
+              "numReads",
+              "bytesRead",
+              "latencyMin",
+              "latencyMax",
+              "latencySum",
+              "numStorageAccesses",
+              "storageLatencyMin",
+              "storageLatencyMax",
+              "storageLatencySum",
+              "numDecodes",
+              "decodeLatencyMax",
+              "decodeLatencySum",
+              "numValidations",
+              "validationLatencyMax",
+              "validationLatencySum",
+              "numPreProcesses",
+              "preProcessLatencyMax",
+              "preProcessLatencySum",
+              "numPostProcesses",
+              "postProcessLatencyMax",
+              "postProcessLatencySum",
+              "numEncodes",
+              "encodeLatencyMax",
+              "encodeLatencySum"
+            ]
+          }
+        ],
+        "postprocesses": [
+          {
+            "view": "byAllDimensions",
+            "rollups": [
+              {
+                "name": "_operations.rollup.byAllDimensions",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "_query",
+        "missingValuePolicy": "strict",
+        "attributes": [
+          {
+            "name": "tenant",
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "type": "string"
+          },
+          {
+            "name": "client",
+            "type": "string"
+          },
+          {
+            "name": "node",
+            "type": "string"
+          },
+          {
+            "name": "queryType",
+            "type": "enum",
+            "enum": [
+              "Extract",
+              "Summarize",
+              "ComplexQuery"
+            ]
+          },
+          {
+            "name": "select",
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "name": "where",
+            "type": "string"
+          },
+          {
+            "name": "groupBy",
+            "type": "string"
+          },
+          {
+            "name": "orderBy",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "type": "long"
+          },
+          {
+            "name": "windowType",
+            "type": "enum",
+            "enum": [
+              "GlobalWindow",
+              "SlidingWindow",
+              "TumblingWindow"
+            ]
+          },
+          {
+            "name": "startTime",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "endTime",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "interval",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Millisecond"
+            }
+          },
+          {
+            "name": "timezoneOffset",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Millisecond"
+            }
+          },
+          {
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "name": "requestReceivedTime",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "responseSentTime",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "queryLatency",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond"
+            }
+          },
+          {
+            "name": "numDbQueries",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "numDbRowsRead",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "dbQueryAvgLatency",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond"
+            }
+          },
+          {
+            "name": "dbTotalLatency",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond"
+            }
+          },
+          {
+            "name": "postDbLatency",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond"
+            }
+          },
+          {
+            "name": "numRecordsReturned",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "numTimeWindowsReturned",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            }
+          },
+          {
+            "name": "details",
+            "type": "blob",
+            "missingValuePolicy": "use_default",
+            "defaultValue": ""
+          }
+        ],
+        "views": [
+          {
+            "name": "byMultiple",
+            "groupBy": [
+              "tenant",
+              "node",
+              "queryType",
+              "from",
+              "groupBy",
+              "limit",
+              "interval",
+              "status"
+            ],
+            "attributes": [
+              "queryLatency",
+              "numDbQueries",
+              "numDbRowsRead",
+              "dbQueryAvgLatency",
+              "dbTotalLatency",
+              "postDbLatency",
+              "numRecordsReturned",
+              "numTimeWindowsReturned"
+            ]
+          },
+          {
+            "name": "byAllDimensions",
+            "groupBy": [
+              "tenant",
+              "user",
+              "client",
+              "node",
+              "queryType",
+              "select",
+              "from",
+              "groupBy",
+              "orderBy",
+              "limit",
+              "windowType",
+              "interval",
+              "status"
+            ],
+            "attributes": [
+              "queryLatency",
+              "numDbQueries",
+              "numDbRowsRead",
+              "dbQueryAvgLatency",
+              "dbTotalLatency",
+              "postDbLatency",
+              "numRecordsReturned",
+              "numTimeWindowsReturned"
+            ]
+          }
+        ],
+        "postprocesses": [
+          {
+            "view": "byMultiple",
+            "rollups": [
+              {
+                "name": "_query.rollup.byMultiple",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          },
+          {
+            "view": "byAllDimensions",
+            "rollups": [
+              {
+                "name": "_query.rollup.byAllDimensions",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "_allClientMetrics",
+        "type": "signal",
+        "missingValuePolicy": "strict",
+        "attributes": [
+          {
+            "name": "tenant",
+            "type": "string"
+          },
+          {
+            "name": "stream",
+            "type": "string",
+            "missingValuePolicy": "use_default",
+            "defaultValue": ""
+          },
+          {
+            "name": "request",
+            "type": "string"
+          },
+          {
+            "name": "appName",
+            "type": "string"
+          },
+          {
+            "name": "appType",
+            "type": "enum",
+            "enum": [
+              "Unknown",
+              "Realtime",
+              "Batch",
+              "Adhoc",
+              "Internal"
+            ],
+            "missingValuePolicy": "use_default",
+            "defaultValue": "Unknown"
+          },
+          {
+            "name": "serverEndpoint",
+            "type": "string",
+            "missingValuePolicy": "use_default",
+            "defaultValue": ""
+          },
+          {
+            "name": "numSuccessfulOperations",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numFailedOperations",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "latencySum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "latencyMin",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MIN"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "latencyMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "latencyInternalSum",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "SUM"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "latencyInternalMin",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MIN"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "latencyInternalMax",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Duration",
+              "unit": "Microsecond",
+              "firstSummary": "MAX"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numReads",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numWrites",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numThreads",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numQosRetryConsidered",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numQosRetrySent",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          },
+          {
+            "name": "numQosRetryResponseUsed",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Dimensionless",
+              "unit": "Count"
+            },
+            "missingValuePolicy": "use_default",
+            "defaultValue": 0
+          }
+        ],
+        "views": [
+          {
+            "name": "byAllDimensions",
+            "groupBy": [
+              "tenant",
+              "stream",
+              "request",
+              "appType",
+              "appName",
+              "serverEndpoint"
+            ],
+            "attributes": [
+              "numSuccessfulOperations",
+              "numFailedOperations",
+              "latencySum",
+              "latencyMin",
+              "latencyMax",
+              "latencyInternalSum",
+              "latencyInternalMin",
+              "latencyInternalMax",
+              "numReads",
+              "numWrites",
+              "numThreads",
+              "numQosRetryConsidered",
+              "numQosRetrySent",
+              "numQosRetryResponseUsed"
+            ]
+          }
+        ],
+        "postprocesses": [
+          {
+            "view": "byAllDimensions",
+            "rollups": [
+              {
+                "name": "_allClientMetrics.rollup.byAllDimensions",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "_allOperationFailure",
+        "type": "signal",
+        "missingValuePolicy": "strict",
+        "attributes": [
+          {
+            "name": "timestamp",
+            "type": "long",
+            "tags": {
+              "category": "Quantity",
+              "kind": "Timestamp",
+              "unit": "UnixMillisecond"
+            }
+          },
+          {
+            "name": "tenant",
+            "type": "string"
+          },
+          {
+            "name": "stream",
+            "type": "string",
+            "missingValuePolicy": "use_default",
+            "defaultValue": ""
+          },
+          {
+            "name": "request",
+            "type": "string",
+            "missingValuePolicy": "use_default",
+            "defaultValue": ""
+          },
+          {
+            "name": "errorName",
+            "type": "string"
+          },
+          {
+            "name": "errorMessage",
+            "type": "string"
+          },
+          {
+            "name": "appType",
+            "type": "string",
+            "missingValuePolicy": "use_default",
+            "defaultValue": "MISSING"
+          },
+          {
+            "name": "appName",
+            "type": "string",
+            "missingValuePolicy": "use_default",
+            "defaultValue": "MISSING"
+          }
+        ],
+        "views": [
+          {
+            "name": "byAllDimensions",
+            "groupBy": [
+              "tenant",
+              "stream",
+              "request",
+              "appType",
+              "appName"
+            ],
+            "attributes": []
+          }
+        ],
+        "postprocesses": [
+          {
+            "view": "byAllDimensions",
+            "rollups": [
+              {
+                "name": "_allOperationFailure.rollup.byAllDimensions",
+                "interval": {
+                  "value": 5,
+                  "timeunit": "minute"
+                },
+                "horizon": {
+                  "value": 5,
+                  "timeunit": "minute"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "_emailDomains",
+        "type": "context",
+        "missingValuePolicy": "strict",
+        "attributes": [
+          {
+            "name": "domain",
+            "type": "string",
+            "tags": {
+              "category": "Dimension"
+            }
+          },
+          {
+            "name": "approvalAction",
+            "type": "enum",
+            "enum": [
+              "Reject",
+              "Warn"
+            ],
+            "tags": {
+              "category": "Description"
+            }
+          }
+        ],
+        "primaryKey": [
+          "domain"
+        ]
+      }
+    ]
+  }
+]

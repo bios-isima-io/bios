@@ -1,0 +1,48 @@
+{
+  "contextName": "product",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "productId", "type": "Integer"},
+    {"attributeName": "name", "type": "String"},
+    {"attributeName": "category", "type": "String"},
+    {"attributeName": "inventory", "type": "Integer"},
+    {"attributeName": "targetAge", "type": "Integer"},
+    {"attributeName": "targetGender", "type": "String", "allowedValues": ["Male", "Female"]},
+    {"attributeName": "description", "type": "String"}
+  ],
+  "primaryKey": ["productId"],
+  "auditEnabled": true,
+  "features": [
+    {
+      "featureName": "indexByInventory",
+      "dimensions": ["inventory"],
+      "attributes": ["name", "category"],
+      "indexed": true,
+      "indexType": "RangeQuery",
+      "featureInterval": 30000
+    },
+    {
+      "featureName": "indexByTarget",
+      "dimensionsWrongField": ["targetGender", "targetAge"],
+      "attributes": ["name"],
+      "indexed": true,
+      "indexType": "RangeQuery",
+      "featureInterval": 30000
+    },
+    {
+      "featureName": "indexByProductId",
+      "dimensions": ["productId"],
+      "attributesWrongField": ["name"],
+      "indexed": true,
+      "indexType": "RangeQuery",
+      "featureInterval": 30000
+    },
+    {
+      "featureName": "indexByCategory",
+      "dimensions": ["category"],
+      "attributes": ["name", "inventory"],
+      "indexType": "ExactMatch",
+      "featureInterval": 30000
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "signalName": "warehouseOrderSignal",
+  "peakRequestSize": 315,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "warehouseOrderId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "100000-999999"
+  },
+    {
+      "attributeName": "orderId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "100000-999999"
+  },
+  {
+    "attributeName": "priority",
+    "type": "string",
+    "attrValType": "ENUM",
+    "allowedValues": [
+      "LOW",
+      "NORMAL",
+      "HIGH",
+      "EXPRESS"
+    ]
+  },
+  {
+    "attributeName": "status",
+    "type": "string",
+    "attrValType": "ENUM",
+    "allowedValues": [
+      "READY_FOR_BILLING",
+      "PENDING_FOR_STOCK",
+      "CANCELLED",
+      "PICKING_IN_PROGRESS",
+      "RECEIVED_AT_STORE",
+      "INVENTORY_BLOCK_PENDING",
+      "CANCELLED_PENDING_FOR_RETURN",
+      "STORE_INVOICE_GENERATED"
+    ]
+    },
+    {
+      "attributeName": "createdBy",
+      "type": "string",
+      "attrValType": "NAME"
+    },
+    {
+      "attributeName": "createdAt",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "updatedBy",
+      "type": "string",
+      "attrValType": "NAME"
+    },
+    {
+      "attributeName": "updatedAt",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "orderEDD",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "warehouseTDD",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "totalAmount",
+      "type": "decimal",
+      "attrValType": "PRICE",
+      "range": "100-99999"
+    },
+    {
+      "attributeName": "payableAmount",
+      "type": "decimal",
+      "attrValType": "PRICE",
+      "range": "100-99999"
+    },
+    {
+      "attributeName": "deliveryCharge",
+      "type": "decimal",
+      "attrValType": "PRICE",
+      "range": "10-999"
+    },
+    {
+      "attributeName": "codCharge",
+      "type": "decimal",
+      "attrValType": "PRICE",
+      "range": "10-999"
+    },
+    {
+      "attributeName": "isCourierOrder",
+      "type": "boolean",
+      "attrValType": "BOOLEAN"
+    },
+    {
+      "attributeName": "addressId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "10000-99999"
+    },
+    {
+      "attributeName": "storeId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "10000-99999"
+    },
+    {
+      "attributeName": "pickerTaskId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "100000-999999"
+    },
+    {
+      "attributeName": "warehouseId",
+      "type": "string",
+      "attrValType": "REGEX",
+      "pattern": "[W]{1}[H]{1}[1-9]{1}"    
+    }
+  ]
+}

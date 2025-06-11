@@ -1,0 +1,213 @@
+{
+    "filters": [
+        {
+            "sourceAttributeName": "event/com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar2/data",
+            "filter": "lambda value:not ( (not value) or not ('Product Detail' in value))"
+        }
+    ],
+    "attributeSearchPath": "event",
+    "attributes": [
+        {
+            "sourceAttributeName": "/event_id",
+            "as": "eventId"
+        },
+        {
+            "sourceAttributeName": "createTime",
+            "as": "createTime"
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/header/sentTime",
+            "as": "sentTime"
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/header/properties",
+            "processes": [
+                {
+                    "processorName": "ts_utils",
+                    "method": "get_sft"
+                }
+            ],
+            "as": "sourceFirstTimestamp"
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar2/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "pageType"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar1/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "pageName"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar74/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "url"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar63/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "topLevelCategory"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar64/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "fullCategory"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar6/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "navigationElement"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar14/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "interfaceInteraction"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar5/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "espotLinkName"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar90/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "productFindingMethod"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar82/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "activityId"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar10/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "searchTerm"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar95/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "actualSearchTerm"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar76/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "productRecos"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar78/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "productRecosType"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar37/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "userInterfaceMessage"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar33/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "socialReferralCode"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar30/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "emailTrackingCode"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar35/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "adButlerId"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "com.adobe.mcloud.pipeline.pipelineMessage/com.adobe.mcloud.protocol.trigger/enrichments/analyticsHitSummary/dimensions/eVar32/data/*",
+            "transforms": [
+                {
+                    "rule": "lambda val: val or 'MISSING'",
+                    "as": "costcoReferralCode"
+                }
+            ]
+        },
+        {
+            "sourceAttributeName": "${x-real-ip}",
+            "transforms": [
+                {
+                    "rule": "lambda val: val.split(',')[0].strip() if val else '192.168.0.1'",
+                    "as": "clientIP"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,88 @@
+{
+  "name": "_usage",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "stream",
+      "type": "string"
+    },
+    {
+      "name": "request",
+      "type": "string"
+    },
+    {
+      "name": "appName",
+      "type": "string"
+    },
+    {
+      "name": "appType",
+      "type": "enum",
+      "enum": ["Unknown", "Realtime", "Batch", "Adhoc"]
+    },
+    {
+      "name": "numSuccessfulOperations",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      }
+    },
+    {
+      "name": "numWrites",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      }
+    },
+    {
+      "name": "numValidationErrors",
+      "type": "long",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      }
+    },
+    {
+      "name": "numReads",
+      "type": "long",
+      "defaultValue": 0,
+      "tags": {
+        "category": "Quantity",
+        "kind": "Dimensionless",
+        "unit": "Count"
+      }
+    }
+  ],
+  "views": [
+    {
+      "name": "byAllDimensions",
+      "groupBy": ["stream", "request", "appType", "appName"],
+      "attributes": [
+        "numSuccessfulOperations", "numWrites", "numValidationErrors", "numReads"
+      ]
+    }
+  ],
+  "postprocesses": [
+    {
+      "view": "byAllDimensions",
+      "rollups": [
+        {
+          "name": "_usage.rollup.byAllDimensions",
+          "interval": {
+            "value": 5,
+            "timeunit": "minute"
+          },
+          "horizon": {
+            "value": 5,
+            "timeunit": "minute"
+          }
+        }
+      ]
+    }
+  ]
+}

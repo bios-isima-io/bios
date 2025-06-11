@@ -1,0 +1,72 @@
+@startuml DeliArchitecture
+
+left to right direction
+
+class ImportSourceConfig
+
+class DestinationConfig
+
+class Configuration
+Configuration "1" *-- "n" ImportSourceConfig
+Configuration "1" *-- "n" DestinationConfig
+Configuration "1" *-- "n" DataFlowConfig
+
+class ConfigLoader
+class FileConfigLoader implements ConfigLoader
+class PullConfigLoader implements ConfigLoader
+
+abstract class SourceFilter
+
+abstract class SourceTranslator
+
+abstract class EndpointHandler {}
+class WebhookServiceHandler extends EndpointHandler
+EndpointHandler "1" o--> "1..n" DataPipe : <<pushes>>
+EndpointHandler "1" o--> "1..n" SourceFilter
+EndpointHandler "1" o--> "1..n" SourceTranslator
+SourceFilter .. DataPipe
+SourceTranslator .. DataPipe
+
+abstract class DataImporter
+class WebhookDataImporter extends DataImporter
+class FileDataImporter extends DataImporter
+DataImporter "1" *-- "n" EndpointHandler
+
+class Processor
+
+class DataFeeder {
+  A Multi-producer
+  single-consumer queue.
+  Dispatches messages
+  to registered Deliverers.
+}
+DataFeeder "1" *--> "x" DeliveryChannel
+
+abstract class DeliveryChannel {
+Per-destination delivery channel.
+Maintains a connection to the destination.
+}
+class BiosDeliveryChannel extends DeliveryChannel
+BiosDeliveryChannel "1" *-- "1" bios.Client
+
+abstract class Deliverer {
+Takes care of transforming data to the destination.
+}
+class BiosDeliverer extends Deliverer
+DeliveryChannel ..> Deliverer : <<generates>>
+DataFeeder "1" o--> "y" Deliverer : <<delivers>>
+BiosDeliverer ..> BiosDeliveryChannel : <<pushes>>
+
+class DataPipe
+DataPipe *-- Processor
+DataPipe ..> DataFeeder : <<feeds>>
+DataPipe ..> DeliveryChannel : <<registers>>
+
+class Deli {
+}
+Deli "1" *-- "1" Configuration
+Deli "1" *-- "1" ConfigLoader
+Deli o-- DataImporter
+Deli "1" *-- "1" DataFeeder
+
+@enduml

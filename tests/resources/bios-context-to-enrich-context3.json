@@ -1,0 +1,10 @@
+{
+  "contextName": "doctor",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "String" },
+    { "attributeName": "salary", "type": "Decimal" },
+    { "attributeName": "aliasName", "type": "String" }
+  ],
+  "primaryKey": ["resourceId"]
+}

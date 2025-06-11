@@ -1,0 +1,74 @@
+{
+  "signalName": "covidDataSignal",
+  "peakRequestSize": 1250,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "reportedDate",
+      "type": "String",
+      "attrValType": "REGEX",
+      "pattern": "[0-2]{1}[0-9]{1}/[0-1]{1}[1-2]{1}/2019"
+    },
+    {
+      "attributeName": "countryCode",
+      "type": "String",
+      "attrValType": "REGEX",
+      "pattern": "[A-Z]{2}"
+    },
+    {
+      "attributeName": "reportedCases",
+      "type": "Integer",
+      "attrValType": "REGEX",
+      "pattern": "[0-9]{4}"
+    },
+    {
+      "attributeName": "reportedDeaths",
+      "type": "Integer",
+      "attrValType": "REGEX",
+      "pattern": "[0-9]{3}"
+    }
+  ],
+  "enrich": {
+    "missingLookupPolicy": "StoreFillInValue",
+    "enrichments": [
+      {
+        "enrichmentName": "countryJoin",
+        "foreignKeys": [
+          "countryCode"
+        ],
+        "missingLookupPolicy": "Reject",
+        "contextName": "countryContext",
+        "contextAttributes": [
+          {
+            "attributeName": "name",
+            "as": "countryName"
+          },
+          {
+            "attributeName": "population"
+          },
+          {
+            "attributeName": "continent"
+          }
+        ]
+      }
+    ]
+  },
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "by_country",
+        "dimensions": ["countryCode", "countryName"],
+        "attributes": ["reportedCases", "reportedDeaths"],
+        "metrics": ["count()", "sum(reportedCases)", "sum(reportedDeaths)"],
+        "rollupInterval": 300000
+      },
+      {
+        "featureName": "by_continent",
+        "dimensions": ["continent"],
+        "attributes": ["reportedCases", "reportedDeaths"],
+        "metrics": ["count()", "sum(reportedCases)", "sum(reportedDeaths)"],
+        "rollupInterval": 300000
+      }
+    ]
+  }
+}

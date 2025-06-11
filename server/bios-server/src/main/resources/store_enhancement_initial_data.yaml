@@ -1,0 +1,9 @@
+contexts:
+  - name: widgets
+    entries:
+      - 1,Continue Your Shopping,Home,AppBlock
+      - 2,Trending Products,Home,AppBlock
+      - 3,Continue Where You Left (popup),Home,EmbedBlock
+      - 4,Trending Products by Type,Product,AppBlock
+      - 5,Number of People Viewing,Product,AppBlock
+      - 6,People Also Viewed,Product,AppBlock

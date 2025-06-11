@@ -1,0 +1,160 @@
+# collected by collect_insights.py
+
+reports:
+  - reportId: 0b30bc8b-9e19-4a4c-b5a6-5d5a7fc08c98
+    reportName: Trending Products
+    metrics:
+      - measurement: auditProductViews.count() / window_size_hours
+        as: Views
+        type: derived
+        defaultGraphType: bar
+        yAxisPosition: left
+    dimensions:
+      - productName
+      - ''
+    defaultTimeRange: 3600000
+    defaultWindowLength: 300000
+    defaultStartTime: 0
+    existingReport: true
+    filters: { }
+    filterOrder: [ ]
+    topX: 15
+    topY: 20
+    forecast: false
+  - reportId: 2370b602-2a6f-4b23-958d-7c95142968bb
+    reportName: Product Views per Visit
+    metrics:
+      - measurement: auditProductViews.count() / auditProductViews.distinctcount(clientId)
+        as: Product Views
+        type: derived
+        defaultGraphType: bar
+        yAxisPosition: left
+    dimensions:
+      - ''
+      - ''
+    defaultTimeRange: 3600000
+    defaultWindowLength: 300000
+    defaultStartTime: 0
+    existingReport: true
+    filters: { }
+    filterOrder: [ ]
+    topX: 10
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Daily
+  - reportId: 97932395-36d2-4abf-9e7d-93c5c5745759
+    reportName: Orders
+    metrics:
+      - measurement: orders.count() / window_size_seconds * 3600
+        as: Orders
+        type: derived
+        defaultGraphType: bar
+        yAxisPosition: left
+    dimensions:
+      - ''
+      - ''
+    defaultTimeRange: 259200000
+    defaultWindowLength: 3600000
+    defaultStartTime: 0
+    existingReport: false
+    filters: { }
+    filterOrder: [ ]
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Weekly
+  - reportId: b10fa8cb-0639-455c-8ef2-3f34020807a0
+    reportName: Trending Types
+    metrics:
+      - as: auditProductViews.count()
+        defaultGraphType: bar
+        measurement: auditProductViews.count()
+        type: simple
+        yAxisPosition: left
+    dimensions:
+      - productType
+      - ''
+    defaultTimeRange: 3600000
+    defaultWindowLength: 300000
+    defaultStartTime: 0
+    existingReport: true
+    filters: { }
+    filterOrder: [ ]
+    topX: 10
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Hourly
+  - reportId: dcf764ad-8b2b-4982-9450-97976caf9b81
+    reportName: Widget CTR
+    metrics:
+      - measurement: widgetClicks.count() / widgetImpressions.count()
+        as: CTR
+        type: derived
+        defaultGraphType: bar
+        yAxisPosition: left
+        showPercentage: true
+    dimensions:
+      - widgetName
+      - ''
+    defaultTimeRange: 3600000
+    defaultWindowLength: 300000
+    defaultStartTime: 0
+    existingReport: true
+    filters:
+      widgetName:
+        - Trending Products by Type
+        - People Also Viewed
+        - Continue Your Shopping
+        - Continue Where You Left (popup)
+        - Trending Products
+    filterOrder:
+      - widgetName
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Hourly
+insights:
+  signal:
+    sections:
+      - sectionId: 84bddeac-cd3d-4d7d-8352-96b06b85b2bf
+        timeRange: 3600000
+        insightConfigs:
+          - insightId: b6f72cbe-2088-4bda-8588-650a35f4c144
+            reportId: dcf764ad-8b2b-4982-9450-97976caf9b81
+            fav: true
+          - insightId: 3cc2199b-6431-4b0c-9e3b-b948041a9e83
+            reportId: 0b30bc8b-9e19-4a4c-b5a6-5d5a7fc08c98
+            fav: true
+          - insightId: f0cfa2d6-964d-4db6-8b8c-880beebd0b65
+            reportId: 2370b602-2a6f-4b23-958d-7c95142968bb
+            fav: true
+      - sectionId: 84bddeac-cd3d-4d7d-8352-96b06b85b2bb
+        timeRange: 86400000
+        insightConfigs:
+          - insightId: f2cf1fef-78cd-4a4e-980f-a006e33870b4
+            reportId: dcf764ad-8b2b-4982-9450-97976caf9b81
+            fav: false
+          - insightId: a49f9236-9510-4c87-90b4-e869dcbb869f
+            reportId: 0b30bc8b-9e19-4a4c-b5a6-5d5a7fc08c98
+            fav: false
+          - insightId: fb2a265a-1639-4cc3-8b58-d5aee01737ec
+            reportId: 2370b602-2a6f-4b23-958d-7c95142968bb
+            fav: false
+      - sectionId: bafb38be-1b75-4760-a3ad-4cee8a1e98a1
+        timeRange: 259200000
+        insightConfigs:
+          - insightId: ae2ee4d6-d630-46f8-bb50-a5996c0776c9
+            reportId: 0b30bc8b-9e19-4a4c-b5a6-5d5a7fc08c98
+            fav: false
+          - insightId: 988bc6b8-50e1-44a3-829e-67dc271ff296
+            reportId: 97932395-36d2-4abf-9e7d-93c5c5745759
+            fav: false
+          - insightId: ec2a7608-c921-412d-b8ec-78f8d01faa50
+            reportId: b10fa8cb-0639-455c-8ef2-3f34020807a0
+            fav: false
+          - insightId: 9606cdf7-cf91-4986-b32b-3c9a870bd154
+            reportId: 2370b602-2a6f-4b23-958d-7c95142968bb
+            fav: false
+          - insightId: 79eace9a-686b-4f89-8864-7cdedbe8af80
+            reportId: dcf764ad-8b2b-4982-9450-97976caf9b81
+            fav: false

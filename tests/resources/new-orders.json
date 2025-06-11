@@ -1,0 +1,66 @@
+{
+  "name": "ordersNew",
+  "type": "signal",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {"name": "orderId",        "type": "long"},
+    {"name": "customerId",     "type": "long"},
+    {"name": "deliveryTime",    "type": "long"},
+    {"name": "zipCode",         "type": "string"}
+  ],
+  "views": [
+    {
+      "name": "byZipCodeNew",
+      "groupBy": ["zipCode"],
+      "attributes": ["deliveryTime"],
+      "featureAsContext": { "state": "Enabled" }
+    },
+    {
+      "name": "byCustomerNew",
+      "groupBy": ["customerId"],
+      "attributes": [],
+      "featureAsContext": { "state": "Disabled" }
+    },
+    {
+      "name": "byOrderNew",
+      "groupBy": ["orderId"],
+      "attributes": []
+    }
+  ],
+  "postprocesses": [
+    {
+      "view": "byZipCodeNew",
+      "rollups": [
+        {
+          "name": "rollup_byZipCodeNew",
+          "interval": {"value": 1, "timeunit": "minute"},
+          "horizon": {"value": 1, "timeunit": "minute"},
+          "schemaName": "rollupNew_byZipCode"
+        }
+      ]
+    },
+    {
+      "view": "byCustomerNew",
+      "rollups": [
+        {
+          "name": "rollup_byCustomerNew",
+          "interval": {"value": 5, "timeunit": "minute"},
+          "horizon": {"value": 5, "timeunit": "minute"},
+          "schemaName": "rollupNew_byCustomer"
+        }
+      ]
+    },
+    {
+      "view": "byOrderNew",
+      "rollups": [
+        {
+          "name": "rollup_byOrderNew",
+          "interval": {"value": 5, "timeunit": "minute"},
+          "horizon": {"value": 5, "timeunit": "minute"},
+          "schemaName": "rollupNew_byOrder"
+        }
+      ]
+    }
+  ],
+  "dataSynthesisStatus":"Disabled"
+}

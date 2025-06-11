@@ -1,0 +1,10 @@
+{
+  "contextName": "resourceType",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceTypeNum",  "type": "Integer" },
+    { "attributeName": "resourceTypeCode", "type": "String" },
+    { "attributeName": "resourceCategory", "type": "Integer" }
+  ],
+  "primaryKey": ["resourceTypeNum"]
+}

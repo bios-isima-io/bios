@@ -1,0 +1,10 @@
+{
+  "contextName": "machine",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "String" },
+    { "attributeName": "cost", "type": "Decimal" },
+    { "attributeName": "machineId", "type": "String" }
+  ],
+  "primaryKey": ["resourceId"]
+}

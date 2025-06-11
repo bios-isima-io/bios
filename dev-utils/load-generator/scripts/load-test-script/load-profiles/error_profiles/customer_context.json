@@ -1,0 +1,22 @@
+  {
+    "contextName": "customerContext",
+    "peakRequestSize": 625,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "deviceId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      }
+    ],
+    "primaryKeys": [
+      "visitorId"
+    ]
+  }

@@ -1,0 +1,39 @@
+{
+  "key_values": {
+    "user": "admin@webhookTest",
+    "pass": "admin",
+    "signal": "impressionSignal"
+  },
+  "profiles": [
+    {
+      "event_properties": {
+        "trigger": "Trigger_a",
+        "destination": "destination_a",
+        "destination_id": 6,
+        "click_id": 606,
+        "element_unique_name": "element0001",
+        "platform": "platform001"
+      }
+    },
+    {
+      "event_properties": {
+        "trigger": "trigger_b",
+        "destination": "destination_b",
+        "destination_id": 7,
+        "click_id": 707,
+        "element_unique_name": "element0002",
+        "platform": "platform002"
+      }
+    },
+    {
+      "event_properties": {
+        "trigger": "trigger_c",
+        "destination": "destination_c",
+        "destination_id": 8,
+        "click_id": 808,
+        "element_unique_name": "element0008",
+        "platform": "platform008"
+      }
+    }
+  ]
+}

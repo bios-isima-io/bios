@@ -1,0 +1,14 @@
+{
+  "contextName": "auxiliary",
+  "peakRequestSize": 625,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "string",
+      "attrValType": "REGEX", "pattern": "[r]{1}[e]{1}[s]{1}[4]{1}[a-z]{1}" },
+    { "attributeName": "cost", "type": "decimal",
+      "attrValType": "PRICE", "range": "5-500" },
+    { "attributeName": "auxiliaryId", "type": "string",
+      "attrValType": "REGEX", "pattern": "[a]{1}[k]{1}[a]{1}[1-6]{2}"}
+  ],
+  "primaryKeys": ["resourceId"]
+}

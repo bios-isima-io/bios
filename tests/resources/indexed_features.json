@@ -1,0 +1,163 @@
+{
+  "signalName": "indexedFeatureTest",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "targetId",
+      "type": "Integer",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": 0
+    },
+    {
+      "attributeName": "objectId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "isOutOfStock",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "hasPlacedOrder",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "source",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "isCartEmpty",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "productId",
+      "type": "Integer",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": 0
+    },
+    {
+      "attributeName": "hasActiveOrder",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "isPrescriptionAvailable",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "rxRequired",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "platform",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "isLoggedIn",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "sessionId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "hasDeliveredOrder",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "product_Id",
+      "type": "Integer",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": 0
+    },
+    {
+      "attributeName": "userId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "eventCategory",
+      "type": "String",
+      "allowedValues": ["GROUP_A", "GROUP_B", "GROUP_C", "GROUP_D"]
+    },
+    {
+      "attributeName": "clicks",
+      "type": "Integer"
+    }
+  ],
+  "enrich": {
+    "ingestTimeLag": []
+  },
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "byUserId",
+        "dimensions": [
+          "userId"
+        ],
+        "attributes": ["productId", "eventCategory", "clicks"],
+        "dataSketches": [],
+        "featureInterval": 60000,
+        "indexed": true,
+        "timeIndexInterval": 3600000
+      },
+      {
+        "featureName": "byUserIdEventCategory",
+        "dimensions": [
+          "userId",
+          "eventCategory"
+        ],
+        "attributes": ["productId"],
+        "featureInterval": 60000,
+        "indexed": true,
+        "timeIndexInterval": 3600000
+      },
+      {
+        "featureName": "byProductId",
+        "dimensions": [
+          "productId"
+        ],
+        "attributes": ["clicks"],
+        "featureInterval": 60000,
+        "indexed": true,
+        "indexType": "RangeQuery",
+        "timeIndexInterval": 3600000
+      },
+      {
+        "featureName": "byProductIdEventCategory",
+        "dimensions": [
+          "productId",
+          "eventCategory"
+        ],
+        "attributes": ["clicks"],
+        "featureInterval": 60000,
+        "indexed": true,
+        "indexType": "RangeQuery",
+        "timeIndexInterval": 3600000
+      }
+    ]
+  }
+}

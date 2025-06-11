@@ -1,0 +1,11 @@
+{
+    "version" : "1.0",
+    "name": "preprocess1",
+    "condition": "first==hello",
+    "actions" : [
+        {
+            "actionType" : "MERGE",
+            "attribute" : "first"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+set -e
+
+SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd)"
+
+# Optional parameter: the directory where trino server is installed.
+TRINO_STATIC_FILES_DIR="${1:-${SCRIPT_PATH}/../../../sql}"
+
+
+sudo mkdir -p /var/log/apps
+sudo chown ${USER} /var/log/apps
+
+echo "...   Running trino installed in location:" ${TRINO_STATIC_FILES_DIR}
+
+cd ${TRINO_STATIC_FILES_DIR}
+bin/launcher run

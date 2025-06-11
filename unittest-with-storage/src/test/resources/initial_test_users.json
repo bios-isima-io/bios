@@ -1,0 +1,152 @@
+[
+  {
+    "email": "superadmin",
+    "fullName": "Default System Administrator",
+    "tenantName": "/",
+    "roles": [
+      "SystemAdmin"
+    ],
+    "status": "Active",
+    "password": "$2a$11$vb6LbGludwv4Da5kmit4jO1Lh7/8nJMBvaelaDRTJXmPDeAKCHVoO",
+    "passwordHashed": true
+  },
+  {
+    "email": "admin@isima.io",
+    "fullName": "Default System Admin User",
+    "tenantName": "/",
+    "roles": [
+      "Ingest"
+    ],
+    "status": "Active",
+    "password": "admin",
+    "passwordHashed": false
+  },
+  {
+    "email": "ingest@isima.io",
+    "fullName": "Default System Ingest User",
+    "tenantName": "/",
+    "roles": [
+      "Ingest"
+    ],
+    "status": "Active",
+    "password": "ingest",
+    "passwordHashed": false
+  },
+  {
+    "email": "extract@_system",
+    "fullName": "Default System Extract User",
+    "tenantName": "/",
+    "roles": [
+      "Extract"
+    ],
+    "status": "Active",
+    "password": "extract",
+    "passwordHashed": false
+  },
+  {
+    "email": "admin@_system",
+    "fullName": "Default System Admin User",
+    "tenantName": "/",
+    "roles": [
+      "TenantAdmin"
+    ],
+    "status": "Active",
+    "password": "admin",
+    "passwordHashed": false
+  },
+  {
+    "email": "admin@${tenantName}",
+    "fullName": "Tenant ${tenantName} Administrator",
+    "roles": [
+      "TenantAdmin"
+    ],
+    "status": "Active",
+    "password": "admin"
+  },
+  {
+    "email": "admin+report@${tenantName}",
+    "fullName": "Tenant ${tenantName} Administrator + Report",
+    "roles": [
+      "TenantAdmin",
+      "Report"
+    ],
+    "status": "Active",
+    "password": "admin"
+  },
+  {
+    "email": "mlengineer@${tenantName}",
+    "fullName": "Test Machine Learning Engineer",
+    "roles": [
+      "SchemaExtractIngest"
+    ],
+    "status": "Active",
+    "password": "mlengineer"
+  },
+  {
+    "email": "mlengineer+report@${tenantName}",
+    "fullName": "Test Machine Learning Engineer + Report",
+    "roles": [
+      "SchemaExtractIngest",
+      "Report"
+    ],
+    "status": "Active",
+    "password": "mlengineer"
+  },
+  {
+    "email": "ingest@${tenantName}",
+    "fullName": "Test Ingest User",
+    "roles": [
+      "Ingest"
+    ],
+    "status": "Active",
+    "password": "ingest"
+  },
+  {
+    "email": "ingest+report@${tenantName}",
+    "fullName": "Test Ingest + Report User",
+    "roles": [
+      "Ingest",
+      "Report"
+    ],
+    "status": "Active",
+    "password": "ingest"
+  },
+  {
+    "email": "extract@${tenantName}",
+    "fullName": "Test Extract User",
+    "roles": [
+      "Extract"
+    ],
+    "status": "Active",
+    "password": "extract"
+  },
+  {
+    "email": "extract+report@${tenantName}",
+    "fullName": "Test Extract + Report User",
+    "roles": [
+      "Extract",
+      "Report"
+    ],
+    "status": "Active",
+    "password": "extract"
+  },
+  {
+    "email": "report@${tenantName}",
+    "fullName": "Report Only User",
+    "roles": [
+      "Report"
+    ],
+    "status": "Active",
+    "password": "report"
+  },
+  {
+    "email": "support+${tenantName}@isima.io",
+    "fullName": "Support user",
+    "roles": [
+      "TenantAdmin",
+      "Internal"
+    ],
+    "status": "Active",
+    "password": "support"
+  }
+]

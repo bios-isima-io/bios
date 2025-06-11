@@ -1,0 +1,289 @@
+{
+  "signalName": "impressionSignal1",
+  "missingAttributePolicy": "StoreDefaultValue",
+  "dataSynthesisStatus": "Disabled",
+  "attributes": [
+    {
+      "attributeName": "impressionTrigger",
+      "type": "String",
+      "allowedValues":["on_page_load","on_scroll", "UNKNOWN"],
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+    {
+      "attributeName": "clickId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "sourcePage",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "sourceId",
+      "type": "Integer",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": -1
+    },
+    {
+      "attributeName": "sessionId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "sessionIdFlag",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "referrer",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "cleverTapId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+    {
+      "attributeName": "cleverTapSource",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+
+    {
+      "attributeName": "appPlatform",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+    {
+      "attributeName": "appVersion",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+
+    {
+      "attributeName": "customerId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+    {
+      "attributeName": "isCustomerLoggedIn",
+      "type": "String",
+      "allowedValues":["true","false"],
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "false"
+    },
+    {
+      "attributeName": "isCartEmpty",
+      "type": "String",
+      "allowedValues":["true","false"],
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "false"
+    },
+    {
+      "attributeName": "isIpReverseCity",
+      "type": "String",
+      "allowedValues":["true","false"],
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "false"
+    },
+    {
+      "attributeName": "selectedPinCode",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+    {
+      "attributeName": "isPinCodeCourier",
+      "type": "String",
+      "allowedValues": ["true", "false"],
+      "missingAttributePolicy": "reject"
+    },
+    {
+      "attributeName": "selectedCity",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "UNKNOWN"
+    },
+    {
+      "attributeName": "elementUniqueName",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+
+    {
+      "attributeName": "itemId",
+      "type": "String",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "default": "MISSING"
+    },
+    {
+      "attributeName": "itemRank",
+      "type": "Integer",
+      "default": "-1"
+    }
+  ],
+
+  "enrich": {
+    "missingLookupPolicy": "StoreFillInValue",
+    "enrichments": [
+      {
+        "enrichmentName" : "enrichCustomerInfo",
+        "foreignKey" : ["customerId"],
+        "contextName" : "customerContext",
+        "contextAttributes" : [
+          {
+            "attributeName": "isPriority",
+            "fillIn": "false"
+          },
+          {
+            "attributeName": "isChronic",
+            "as": "custIsChronic",
+            "fillIn": "false"
+          },
+          {
+            "attributeName": "hasPlacedOneOrder",
+            "fillIn": "false"
+          },
+          {
+            "attributeName": "hasFulfilledOneOrder",
+            "fillIn": "false"
+          },
+          {
+            "attributeName": "hasPlacedOneDiagOrder",
+            "fillIn": "false"
+          },
+          {
+            "attributeName": "hasFulfilledOneDiagOrder",
+            "fillIn": "false"
+          }
+
+        ]
+      },
+      {
+        "enrichmentName" : "enrichItemInfo",
+        "foreignKey" : ["itemId"],
+        "contextName" : "itemContext",
+        "contextAttributes" : [
+          {
+            "attributeName": "itemName",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "itemType",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "itemSubType",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "itemPrice",
+            "fillIn": "0.0"
+          },
+          {
+            "attributeName": "itemDiscountAmount",
+            "fillIn": "0.0"
+          },
+          {
+            "attributeName": "itemDiscountPercent",
+            "fillIn": "0.0"
+          },
+          {
+            "attributeName": "itemImageURL",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "parentItemType",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "parentItemID",
+            "fillIn": "MISSING"
+          }
+        ]
+      },
+      {
+        "enrichmentName" : "enrichElementInfo",
+        "foreignKey" : ["elementUniqueName"],
+        "contextName" : "elementContext",
+        "contextAttributes" : [
+          {
+            "attributeName": "elementName",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "elementType",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "elementSubType",
+            "fillIn": "MISSING"
+          },
+          {
+            "attributeName": "numItemsWithinElement",
+            "fillIn": "0"
+          },
+          {
+            "attributeName": "elementScrollType",
+            "fillIn": "MISSING"
+          }
+        ]
+      }
+    ]
+  },
+
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "byItemRank",
+        "dimensions": ["itemRank"],
+        "attributes": ["itemPrice", "itemDiscountAmount"],
+        "featureInterval": 300000
+      },
+      {
+        "featureName": "byItemTypes",
+        "dimensions": ["itemType", "itemSubType"],
+        "attributes": ["itemPrice", "itemDiscountAmount"],
+        "featureInterval": 300000
+      },
+      {
+        "featureName": "byElementTypes",
+        "dimensions": ["elementType", "elementSubType"],
+        "attributes": ["itemPrice", "itemDiscountAmount"],
+        "featureInterval": 300000
+      },
+      {
+        "featureName": "byCustomer",
+        "dimensions": ["customerId"],
+        "attributes": ["itemPrice", "itemDiscountAmount"],
+        "featureInterval": 300000
+      },
+      {
+        "featureName": "byAppPlatform",
+        "dimensions": ["appPlatform"],
+        "attributes": ["itemPrice", "itemDiscountAmount"],
+        "featureInterval": 300000
+      },
+      {
+        "featureName": "byCTSource",
+        "dimensions": ["cleverTapSource"],
+        "attributes": ["itemPrice", "itemDiscountAmount"],
+        "featureInterval": 300000
+      }
+    ]
+  }
+}

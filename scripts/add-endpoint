@@ -1,0 +1,31 @@
+#!/bin/bash
+
+addendpoint()
+{
+    url=$1
+    user=$2
+    password=$3
+    nodetype=$4
+    # TODO: Use Bios SDK
+    echo "  ... registering endpoint ${url} nodetype ${nodetype}"
+    token=$(curl -k -s -d '{"email":"'${user}'","password":"'${password}'","appName":"add-endpoint","appType":"Realtime"}' \
+                 -H "Content-Type: application/json" \
+                 -X POST "${url}/bios/v1/auth/login" | jq -r .token)
+    curl -k -s -d '{"operation":"add", "endpoint":"'${url}'", "nodeType":"'${nodetype}'"}' \
+         -H "Content-Type: application/json" \
+         -H "Authorization: Bearer ${token}" \
+         -X POST "${url}/bios/v1/admin/endpoints"
+}
+
+if [ $# -lt 3 ]; then
+    echo "Usage: $(basename $0) <url> <user> <password> [node_type=signal|rollup|analysis>]"
+    exit 1
+fi
+
+ENDPOINT=$1
+USER=$2
+PASSWORD=$3
+NODE_TYPE=$4
+: ${NODE_TYPE:="signal"}
+
+addendpoint ${ENDPOINT} ${USER} ${PASSWORD} ${NODE_TYPE}

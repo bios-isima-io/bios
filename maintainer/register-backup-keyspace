@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+    echo "Usage $(basename "$0") <keyspace>"
+    exit 1
+fi
+
+KEYSPACE=$1
+
+: ${DOZER_CONTAINER:=dbdozer}
+
+docker exec ${DOZER_CONTAINER} /usr/local/bin/add_backup_keyspace /opt/dbdozer/dbdozer.yaml ${KEYSPACE}
+docker restart ${DOZER_CONTAINER}

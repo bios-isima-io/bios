@@ -1,0 +1,215 @@
+{
+  "name": "_ip2geo",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    {
+      "name": "ipAddress",
+      "type": "string"
+    },
+    {
+      "name": "city",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "geoNameId",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "countryIsoCode",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "isInEuropeanUnion",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "continent",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "continentCode",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "latitude",
+      "type": "double",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0.0
+    },
+    {
+      "name": "longitude",
+      "type": "double",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0.0
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "metroCode",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "averageIncome",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "populationDensity",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "accuracyRadius",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "postalCode",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "subdivisionName",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "subdivisionCode",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "autonomousSystemNumber",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "autonomousSystemOrganization",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "connectionType",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "isp",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "organization",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "staticIpScore",
+      "type": "double",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0.0
+    },
+    {
+      "name": "userCount",
+      "type": "long",
+      "missingValuePolicy": "use_default",
+      "defaultValue": 0
+    },
+    {
+      "name": "userType",
+      "type": "string",
+      "missingValuePolicy": "use_default",
+      "defaultValue": "MISSING"
+    },
+    {
+      "name": "isAnonymous",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "isAnonymousVpn",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "isHostingProvider",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "isLegitimateProxy",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "isPublicProxy",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "isResidentialProxy",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    },
+    {
+      "name": "isTorExitNode",
+      "type": "boolean",
+      "missingValuePolicy": "use_default",
+      "defaultValue": false
+    }
+  ],
+  "primaryKey": [
+    "ipAddress"
+  ],
+  "dataSynthesisStatus": "Disabled",
+  "missingLookupPolicy": "FailParentLookup",
+  "enrichments": []
+}

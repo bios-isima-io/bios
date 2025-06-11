@@ -1,0 +1,14 @@
+{
+  "contextName": "doctor",
+  "peakRequestSize": 315,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "string",
+      "attrValType": "REGEX", "pattern": "[r]{1}[e]{1}[s]{1}[2]{1}[a-z]{1}" },
+    { "attributeName": "salary", "type": "decimal",
+      "attrValType": "PRICE", "range": "10-999" },
+    { "attributeName": "aliasName", "type": "string",
+      "attrValType": "REGEX", "pattern": "[a]{1}[k]{1}[a]{1}[1-6]{4}" }
+  ],
+  "primaryKeys": ["resourceId"]
+}

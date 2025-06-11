@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d %-level [%t] %logger - %msg{nolookups}%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+    </Root>
+    <Logger name="io.isima" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="io.isima.bios.deli.importer.CdcEventHandler" level="debug" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+
+    <!-- info logs are disabled for following verbose classes -->
+    <Logger name="io.debezium.connector.mongodb" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="io.debezium.connector.postgres" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="org.mongodb.driver" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+  </Loggers>
+</Configuration>

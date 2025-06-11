@@ -1,0 +1,37 @@
+{
+    "name": "alltypes",
+    "_description": [
+        "Event for this stream includes all supported attributetypes."
+    ],
+    "attributes": [{
+        "name": "stringAttribute",
+        "type": "string"
+    }, {
+        "name": "intAttribute",
+        "type": "int"
+    }, {
+        "name": "numberAttribute",
+        "type": "number"
+    }, {
+        "name": "doubleAttribute",
+        "type": "double"
+    }, {
+        "name": "inetAttribute",
+        "type": "inet"
+    }, {
+        "name": "dateAttribute",
+        "type": "date"
+    }, {
+        "name": "timestampAttribute",
+        "type": "timestamp"
+    }, {
+        "name": "uuidAttribute",
+        "type": "uuid"
+    }, {
+        "name": "booleanAttribute",
+        "type": "boolean"
+    }, {
+        "name": "blobAttribute",
+        "type": "blob"
+    }]
+}

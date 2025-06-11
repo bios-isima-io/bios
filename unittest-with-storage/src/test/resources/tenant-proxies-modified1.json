@@ -1,0 +1,43 @@
+{
+  "name": "proxiesModifyTenantTest",
+  "streams": [
+    {
+      "name": "proxyContext",
+      "type": "context",
+      "attributes": [
+        {
+          "name": "city",
+          "type": "string"
+        }, {
+          "name": "state",
+          "type": "string"
+        }, {
+          "name": "country",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "proxySignal",
+      "attributes": [
+        {
+          "name": "first",
+          "type": "string"
+        }, {
+          "name": "third",
+          "type": "int"
+        }
+      ],
+      "preprocesses": [{
+        "name": "preprocess1",
+        "missingLookupPolicy": "strict",
+        "condition": "first",
+        "actions": [{
+          "actionType": "merge",
+          "context": "proxyContext",
+          "attribute": "state"
+        }]
+      }]
+    }
+  ]
+}

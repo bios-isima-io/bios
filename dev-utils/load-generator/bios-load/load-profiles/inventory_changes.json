@@ -1,0 +1,39 @@
+{
+  "signalName": "inventoryChanges",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "itemNumber",
+      "type": "Integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "1-30000"
+    },
+    {
+      "attributeName": "fulfillmentCenter",
+      "type": "Integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "1-60"
+    },
+    {
+      "attributeName": "operation",
+      "type": "String",
+      "attrValType": "ENUM",
+      "allowedValues": [
+        "change",
+        "set"
+      ]
+    },
+    {
+      "attributeName": "onHandValue",
+      "type": "Decimal",
+      "attrValType": "NUMERIC_ID",
+      "range": "1-1000"
+    },
+    {
+      "attributeName": "demandValue",
+      "type": "Decimal",
+      "attrValType": "NUMERIC_ID",
+      "range": "1-100"
+    }
+  ]
+}

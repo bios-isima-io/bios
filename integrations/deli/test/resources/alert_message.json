@@ -1,0 +1,22 @@
+{
+    "domainName": "bios.isima.io",
+    "tenantName": "_system",
+    "signalName": "exception",
+    "featureName": "exception.rollup.alertFeature",
+    "alertName": "logErrorTurbine2",
+    "condition": "(((serviceName == 'turbine') and (severity == 'Error')) and (count() >= 1))",
+    "windowStartTime": "2023-04-27T04:00:00Z",
+    "windowEndTime": "2023-04-27T04:05:00Z",
+    "windowLength": "5 mins",
+    "event": {
+        "hostFriendlyName": "deli-9",
+        "severity": "Error",
+        "serviceType": "apps",
+        "serviceName": "turbine",
+        "count()": 2
+    },
+    "timestamp": "2023-04-27 T 04:05:47.295 Z",
+    "timestampMillisSinceEpoch": 1682568347295,
+    "user": "observe_writer@isima.io",
+    "password": "P@55W0RD"
+}

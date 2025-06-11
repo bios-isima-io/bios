@@ -1,0 +1,195 @@
+  {
+    "signalName": "customerRegisteredSignal",
+    "peakRequestSize": 1250,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "authenticationType",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "email",
+          "phoneNumber",
+          "google",
+          "facebook",
+          "twitter"
+        ]
+      },
+      {
+        "attributeName": "fromLocation",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "fromRedirect",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "fromScreen",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "validationType",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "email",
+          "SMS",
+          "KYC"
+        ]
+      },
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      }
+    ],
+    "enrich": {
+      "missingLookupPolicy": "StoreFillInValue",
+      "enrichments": [
+        {
+          "enrichmentName": "deviceJoin",
+          "foreignKeys": [
+            "visitorId"
+          ],
+          "contextName": "device_context",
+          "contextAttributes": [
+            {
+              "attributeName": "os",
+              "fillIn": "default_os"
+            },
+            {
+              "attributeName": "osVersion",
+              "fillIn": "default_osVersion"
+            },
+            {
+              "attributeName": "browser",
+              "fillIn": "default_browser"
+            },
+            {
+              "attributeName": "ipAddress",
+              "fillIn": "127.0.0.1"
+            },
+            {
+              "attributeName": "advertisingTrackingEnabled",
+              "fillIn": "false"
+            },
+            {
+              "attributeName": "advertisingId",
+              "fillIn": "default_advertisingId"
+            },
+            {
+              "attributeName": "screenHeight",
+              "fillIn": "2"
+            },
+            {
+              "attributeName": "screenWidth",
+              "fillIn": "2"
+            },
+            {
+              "attributeName": "screenDensity",
+              "fillIn": "2"
+            },
+            {
+              "attributeName": "deviceManufacturer",
+              "fillIn": "default_deviceManufacturer"
+            },
+            {
+              "attributeName": "deviceModel",
+              "fillIn": "default_deviceModel"
+            },
+            {
+              "attributeName": "deviceName",
+              "fillIn": "default_deviceName"
+            },
+            {
+              "attributeName": "deviceType",
+              "fillIn": "default_deviceType"
+            },
+            {
+              "attributeName": "networkType",
+              "fillIn": "default_networkType"
+            },
+            {
+              "attributeName": "cellularNetwork",
+              "fillIn": "default_cellularNetwork"
+            }
+          ]
+        },
+        {
+          "enrichmentName": "visitorJoin",
+          "foreignKeys": [
+            "visitorId"
+          ],
+          "contextName": "visitor_context",
+          "contextAttributes": [
+            {
+              "attributeName": "utmSource",
+              "fillIn": "default_utm_source"
+            },
+            {
+              "attributeName": "utmContent",
+              "fillIn": "default_utmContent"
+            },
+            {
+              "attributeName": "utmMedium",
+              "fillIn": "default_utmMedium"
+            },
+            {
+              "attributeName": "customerId",
+              "fillIn": "-1000"
+            },
+            {
+              "attributeName": "utmCampaign",
+              "fillIn": "default_utmCampaign"
+            },
+            {
+              "attributeName": "utmTerm",
+              "fillIn": "default_utmTerm"
+            },
+            {
+              "attributeName": "deeplink",
+              "fillIn": "default_deeplink"
+            },
+            {
+              "attributeName": "daysSinceLastVisit",
+              "fillIn": "7"
+            },
+            {
+              "attributeName": "lastVisitDate",
+              "fillIn": "2018-10-16T15:11:27.028Z"
+            },
+            {
+              "attributeName": "visitorType",
+              "fillIn": "default_visitorType"
+            },
+            {
+              "attributeName": "hsSite",
+              "fillIn": "default_hsSite"
+            },
+            {
+              "attributeName": "segmentSource",
+              "fillIn": "default_segmentSource"
+            }
+          ]
+        }
+      ]
+    },
+    "postStorageStage": {
+      "features": [
+        {
+          "featureName": "customer_reg_by_loc_redirect",
+          "dimensions": [ "fromLocation", "fromRedirect" ],
+          "attributes": [],
+          "metrics": ["count()"],
+          "rollupInterval": 300000
+        }
+      ]
+    }
+  }

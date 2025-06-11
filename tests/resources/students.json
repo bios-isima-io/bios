@@ -1,0 +1,50 @@
+{
+  "name": "sections_demo",
+  "streams": [{
+    "name": "sections",
+    "_description": [
+      "This stream tracks sections events from students records.",
+      "An event only includes roll number, but we want to track the student having the same roll number."
+    ],
+    "attributes": [{
+      "name": "roll_no",
+      "type": "int"
+    }],
+    "preprocesses": [{
+      "_comment": "roll_no_students",
+      "name": "add_students",
+      "condition": "roll_no",
+      "actions": [{
+        "actionType": "merge",
+        "stream": "students",
+        "attribute": "first_name"
+      }, {
+        "actionType": "merge",
+        "stream": "students",
+        "attribute": "last_name"
+      }, {
+        "actionType": "merge",
+        "stream": "students",
+        "attribute": "marks"
+      }]
+    }]
+  }, {
+    "name": "students",
+    "type": "context",
+    "_description": [ "A mapping for the roll numbers in students" ],
+    "additionalAttributes": [{
+      "name": "roll_no",
+      "type": "int"
+    }, {
+      "name": "first_name",
+      "type": "string"
+    }, {
+      "name": "last_name",
+      "type": "string"
+    }, {
+      "name": "marks",
+      "type": "double"
+    }]
+  }]
+}
+

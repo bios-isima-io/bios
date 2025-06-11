@@ -1,0 +1,34 @@
+[
+  {
+    "targetVersion": "0.9.34",
+    "upgradeCommands": [
+      {
+        "tenantName": "_system",
+        "commands": [
+          "delete signal _operational_metrics",
+          "delete signal _operationalMetrics",
+          "delete signal _system_operational_metrics"
+        ]
+      },
+      {
+        "tenantName": "_ALL_USER_TENANTS",
+        "commands": [
+          "delete signal _operational_metrics",
+          "delete signal _operationalMetrics",
+          "delete signal _system_operational_metrics"
+        ]
+      }
+    ]
+  },
+  {
+    "targetVersion": "0.9.35",
+    "upgradeCommands": [
+      {
+        "tenantName": "_system",
+        "commands": [
+          "delete signal failureReport"
+        ]
+      }
+    ]
+  }
+]

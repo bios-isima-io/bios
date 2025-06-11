@@ -1,0 +1,64 @@
+  {
+    "contextName": "productContext",
+    "peakRequestSize": 625,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "productId",
+        "type": "string",
+        "attrValType": "REGEX",
+        "pattern": "[1-5]{4}"
+      },
+      {
+        "attributeName": "productName",
+        "type": "string",
+        "attrValType": "PRODUCT_NAME"
+      },
+      {
+        "attributeName": "active",
+        "type": "boolean",
+        "attrValType": "BOOLEAN"
+      },
+      {
+        "attributeName": "brandName",
+        "type": "string",
+        "attrValType": "COMPANY_NAME"
+      },
+      {
+        "attributeName": "gender",
+        "type": "string",
+        "attrValType": "GENDER"
+      },
+      {
+        "attributeName": "fromAge",
+        "type": "integer",
+        "attrValType": "AGE",
+        "pattern": "15-95"
+      },
+      {
+        "attributeName": "toAge",
+        "type": "integer",
+        "attrValType": "AGE",
+        "pattern": "15-95"
+      },
+      {
+        "attributeName": "categoryName",
+        "type": "string",
+        "attrValType": "DEPARTMENT"
+      },
+      {
+        "attributeName": "subCategoryName",
+        "type": "string",
+        "attrValType": "DEPARTMENT"
+      },
+      {
+        "attributeName": "productClassName",
+        "type": "string",
+        "attrValType": "REGEX",
+        "pattern": "[b-g]{1}utter-[1-9]{2}"
+      }
+    ],
+    "primaryKeys": [
+      "productId"
+    ]
+  }

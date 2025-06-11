@@ -1,0 +1,14 @@
+[
+  "creditcard",
+  "ssn",
+  "email",
+  "phonenumber",
+  "ipaddress",
+  "url",
+  "timestamp",
+  "date",
+  "zipcode",
+  "name",
+  "price"
+]
+

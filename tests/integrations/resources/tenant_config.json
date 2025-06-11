@@ -1,0 +1,1137 @@
+{
+  "tenantName": "test",
+  "signals": [
+    {
+      "signalName": "simpleMonitoringTarget",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "one",
+          "type": "String"
+        }
+      ],
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "monitor",
+            "dimensions": [],
+            "attributes": [],
+            "featureInterval": 60000,
+            "alerts": [
+              {
+                "alertName": "eventReceived",
+                "condition": "(count() > 1)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "CountAlertSlack",
+                "condition": "(count() > 1)",
+                "webhookUrl": "https://hooks.slack.com/services/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",
+                "userName": "admin@test",
+                "password": "admin"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "signalName": "monitoringTargetWithDimensions",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "one",
+          "type": "String"
+        },
+        {
+          "attributeName": "two",
+          "type": "String"
+        },
+        {
+          "attributeName": "value",
+          "type": "Integer"
+        }
+      ],
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "monitor",
+            "dimensions": [
+              "one",
+              "two"
+            ],
+            "attributes": [
+              "value"
+            ],
+            "featureInterval": 60000,
+            "alerts": [
+              {
+                "alertName": "CountAlertSlack",
+                "condition": "(count() > 3)",
+                "webhookUrl": "https://hooks.slack.com/services/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",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "CountAlert",
+                "condition": "(count() > 3)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "MaximumValue",
+                "condition": "(max(value) > 20)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "MinimumValue",
+                "condition": "(min(value) < 5)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "SumOfValues",
+                "condition": "(sum(value) > 30)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "signalName": "monitoringTargetWithDimensionsFloat",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "one",
+          "type": "String"
+        },
+        {
+          "attributeName": "two",
+          "type": "String"
+        },
+        {
+          "attributeName": "value",
+          "type": "Decimal"
+        }
+      ],
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "monitor",
+            "dimensions": [
+              "one",
+              "two"
+            ],
+            "attributes": [
+              "value"
+            ],
+            "featureInterval": 60000,
+            "alerts": [
+              {
+                "alertName": "floatMaximumValue",
+                "condition": "(max(value) > 20.0)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "floatMinimumValue",
+                "condition": "(min(value) < 5.0)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              },
+              {
+                "alertName": "floatSumOfValues",
+                "condition": "(sum(value) > 30.1)",
+                "webhookUrl": "${WEBHOOK_ENDPOINT}/system/alerts",
+                "userName": "admin@test",
+                "password": "admin"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "signalName": "alertsSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "signalName",
+          "type": "String"
+        },
+        {
+          "attributeName": "featureName",
+          "type": "String"
+        },
+        {
+          "attributeName": "alertName",
+          "type": "String"
+        },
+        {
+          "attributeName": "condition",
+          "type": "String"
+        },
+        {
+          "attributeName": "year",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "month",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "day",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "hour",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "minute",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "second",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "windowLength",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "event",
+          "type": "String"
+        },
+        {
+          "attributeName": "alertRaisedTimestamp",
+          "type": "Integer"
+        }
+      ]
+    },
+    {
+      "signalName": "simpleSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "testName",
+          "type": "String"
+        },
+        {
+          "attributeName": "testParam",
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "signalName": "covidDataSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "geoId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "cases",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "deaths",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "dataRep",
+          "type": "String"
+        },
+        {
+          "attributeName": "testName",
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "signalName": "impressionSignal",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "impressionTrigger",
+          "type": "String",
+          "allowedValues": [
+            "on_page_load",
+            "on_scroll",
+            "UNKNOWN"
+          ],
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "clickId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sourcePage",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sourceId",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "sessionId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "sessionIdFlag",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "referrer",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "cleverTapId",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "cleverTapSource",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "appPlatform",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "appVersion",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "customerId",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "isCustomerLoggedIn",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "isCartEmpty",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "isIpReverseCity",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "selectedPinCode",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "isPinCodeCourier",
+          "type": "String",
+          "allowedValues": [
+            "true",
+            "false"
+          ],
+          "default": "false"
+        },
+        {
+          "attributeName": "selectedCity",
+          "type": "String",
+          "default": "UNKNOWN"
+        },
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemRank",
+          "type": "Integer",
+          "default": -1
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemSubType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "itemPrice",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemDiscountAmount",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemDiscountPercent",
+          "type": "Decimal",
+          "default": 0.0
+        },
+        {
+          "attributeName": "itemImageURL",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "parentItemType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "parentItemId",
+          "type": "String",
+          "default": "MISSING"
+        }
+      ]
+    },
+    {
+      "signalName": "shoppingCart",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "visitorId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "productId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "quantity",
+          "type": "Integer"
+        }
+      ]
+    },
+    {
+      "signalName": "customerEnterAndExit",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "customerId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "firstName",
+          "type": "String"
+        },
+        {
+          "attributeName": "lastName",
+          "type": "String"
+        },
+        {
+          "attributeName": "email",
+          "type": "String"
+        },
+        {
+          "attributeName": "timestamp",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "action",
+          "type": "String",
+          "allowedValues": [
+            "Enter",
+            "Exit"
+          ]
+        }
+      ]
+    },
+    {
+      "signalName": "cartActivity",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "userId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "productId",
+          "type": "String"
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String"
+        },
+        {
+          "attributeName": "quantity",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "activity",
+          "type": "String"
+        },
+        {
+          "attributeName": "price",
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "signalName": "cartActivities",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "clientId",
+          "type": "String",
+          "missingAttributePolicy": "Reject"
+        },
+        {
+          "attributeName": "productId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "vendor",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "url",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productType",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "quantity",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "timestamp",
+          "type": "Integer",
+          "missingAttributePolicy": "Reject"
+        }
+      ]
+    },
+    {
+      "signalName": "orders",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "orderId",
+          "type": "String"
+        },
+        {
+          "attributeName": "clientId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productName",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "vendor",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "url",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "quantity",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "finalPrice",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0.0
+        },
+        {
+          "attributeName": "currency",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "timestamp",
+          "type": "Integer"
+        }
+      ]
+    },
+    {
+      "signalName": "widgetClicks",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "widgetId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "clientId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        }
+      ]
+    },
+    {
+      "signalName": "shopifyAppAudit",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "eventType",
+          "type": "String",
+          "missingAttributePolicy": "Reject"
+        },
+        {
+          "attributeName": "domain",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "webhookId",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "eventTimestamp",
+          "type": "Integer",
+          "missingAttributePolicy": "Reject"
+        },
+        {
+          "attributeName": "payload",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "slackNotification",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "status",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "response",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        }
+      ]
+    },
+    {
+      "signalName": "webhookNotification",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "payload",
+          "type": "String"
+        }
+      ]
+    }
+  ],
+  "contexts": [
+    {
+      "contextName": "simpleProductCatalog",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "productId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productName",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "productId"
+      ]
+    },
+    {
+      "contextName": "inventory",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "productId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "unitPrice",
+          "type": "String"
+        },
+        {
+          "attributeName": "quantity",
+          "type": "Integer"
+        }
+      ],
+      "primaryKey": [
+        "productId"
+      ],
+      "auditEnabled": true
+    },
+    {
+      "contextName": "customer",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "customerId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "firstName",
+          "type": "String"
+        },
+        {
+          "attributeName": "lastName",
+          "type": "String"
+        },
+        {
+          "attributeName": "email",
+          "type": "String"
+        },
+        {
+          "attributeName": "fullName",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "customerId"
+      ],
+      "auditEnabled": true
+    },
+    {
+      "contextName": "productCatalog",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "productId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productName",
+          "type": "String"
+        },
+        {
+          "attributeName": "price",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "productId"
+      ],
+      "auditEnabled": true
+    },
+    {
+      "contextName": "orderStatus",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "id",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "orderId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "userId",
+          "type": "String"
+        },
+        {
+          "attributeName": "status",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "orderId"
+      ],
+      "auditEnabled": true
+    },
+    {
+      "contextName": "warehouseStock",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "itemNumber",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String"
+        },
+        {
+          "attributeName": "quantity",
+          "type": "Integer"
+        }
+      ],
+      "primaryKey": [
+        "itemNumber"
+      ],
+      "auditEnabled": true
+    },
+    {
+      "contextName": "merchants",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "domain",
+          "type": "String"
+        },
+        {
+          "attributeName": "tenantName",
+          "type": "String"
+        },
+        {
+          "attributeName": "ownerEmail",
+          "type": "String"
+        },
+        {
+          "attributeName": "status",
+          "type": "String"
+        },
+        {
+          "attributeName": "createdAt",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "updatedAt",
+          "type": "Integer"
+        }
+      ],
+      "primaryKey": [
+        "domain"
+      ]
+    },
+    {
+      "contextName": "productViews",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "clientId",
+          "type": "String",
+          "description": "client ID"
+        },
+        {
+          "attributeName": "productId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productName",
+          "type": "String"
+        },
+        {
+          "attributeName": "vendor",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "url",
+          "type": "String",
+          "description": "Page URL",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "widgetId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": -1
+        },
+        {
+          "attributeName": "timestamp",
+          "type": "Integer"
+        }
+      ],
+      "primaryKey": [
+        "clientId",
+        "productId"
+      ],
+      "ttl": 5788800000
+    },
+    {
+      "contextName": "sessions",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "clientId",
+          "type": "String",
+          "missingAttributePolicy": "Reject"
+        },
+        {
+          "attributeName": "userAgent",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "browserName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "browserVersion",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "osName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "osVersion",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "deviceName",
+          "type": "String",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "deviceType",
+          "type": "String",
+          "allowedValues": [
+            "Mobile",
+            "Tablet",
+            "PC",
+            "Unknown"
+          ],
+          "default": "Unknown"
+        },
+        {
+          "attributeName": "ipAddress",
+          "type": "String",
+          "default": "MISSING"
+        }
+      ],
+      "primaryKey": [
+        "clientId"
+      ],
+      "ttl": 5788800000
+    },
+    {
+      "contextName": "products",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "productId",
+          "type": "String"
+        },
+        {
+          "attributeName": "productName",
+          "type": "String"
+        },
+        {
+          "attributeName": "vendor",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "url",
+          "type": "String",
+          "description": "Page URL",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "productType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        }
+      ],
+      "primaryKey": [
+        "productId"
+      ]
+    },
+    {
+      "contextName": "widgets",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "widgetId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "widgetName",
+          "type": "String"
+        },
+        {
+          "attributeName": "pageType",
+          "type": "String"
+        },
+        {
+          "attributeName": "widgetType",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "widgetId"
+      ]
+    },
+    {
+      "contextName": "shopifyWebhookRequests",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "webhookId",
+          "type": "String"
+        },
+        {
+          "attributeName": "domain",
+          "type": "String"
+        },
+        {
+          "attributeName": "topic",
+          "type": "String"
+        },
+        {
+          "attributeName": "createdTimestamp",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "receivedTimestamp",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "customerId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": -1
+        },
+        {
+          "attributeName": "customerEmail",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "customerPhone",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "ordersRequested",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "ordersToRedact",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "dataRequest",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": "MISSING"
+        },
+        {
+          "attributeName": "payload",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "webhookId"
+      ],
+      "ttl": 31536000000
+    }
+  ]
+}

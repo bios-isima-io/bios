@@ -1,0 +1,23 @@
+set -e
+
+SCRIPT_PATH="$(cd "$(dirname "$0")"; pwd)"
+
+if [ $# -lt 2 ]; then
+    echo "Usage: "$(basename "$0")" <TRINO_STATIC_FILES_DIR> <TRINO_BIOS_ZIP_DIR>"
+    exit 1
+fi
+
+TRINO_STATIC_FILES_DIR=$1
+TRINO_BIOS_ZIP_DIR=$2
+
+echo "...   Copying trino bios plugin files to destination:" ${TRINO_STATIC_FILES_DIR}
+echo "...   Getting trino bios plugin files from source:" ${TRINO_BIOS_ZIP_DIR}
+
+mkdir -p ${TRINO_STATIC_FILES_DIR}/plugin
+cd ${TRINO_STATIC_FILES_DIR}/plugin
+rm -rf bios
+
+cp ${TRINO_BIOS_ZIP_DIR}/bios-sql-*.zip bios-sql.zip
+unzip bios-sql.zip -d bios
+rm bios-sql.zip
+mv bios/bios-sql*/* bios

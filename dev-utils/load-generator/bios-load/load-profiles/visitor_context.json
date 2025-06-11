@@ -1,0 +1,93 @@
+  {
+    "contextName": "visitorContext",
+    "peakRequestSize": 6250,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "customerId",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "utmSource",
+        "type": "string",
+        "attrValType": "URL",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "utmContent",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "utmMedium",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "utmCampaign",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "utmTerm",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "deeplink",
+        "type": "string",
+        "attrValType": "URL",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "daysSinceLastVisit",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "lastVisitDate",
+        "type": "integer",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "attributeName": "visitorType",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "newUser",
+          "repeatUser",
+          "powerUser",
+          "superUser"
+        ]
+      },
+      {
+        "attributeName": "hsSite",
+        "type": "string",
+        "attrValType": "URL",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "segmentSource",
+        "type": "string",
+        "attrValType": "URL",
+        "range": "5-10"
+      }
+    ],
+    "primaryKeys": [
+      "visitorId"
+    ]
+  }
+  

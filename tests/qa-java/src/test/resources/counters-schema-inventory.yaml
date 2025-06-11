@@ -1,0 +1,15 @@
+countersServiceName: inventory
+# auto generated
+# updatesSignalName: inventoryCounterUpdates
+# snapshotsContextName: inventoryCounterSnapshots
+dimensions:
+  - dimension: fcType
+    type: String
+  - dimension: fcId
+    type: Integer
+  - dimension: itemId
+    type: Integer
+counters:
+  - onHand
+  - demand
+snapshotInterval: 100  # in millisecond

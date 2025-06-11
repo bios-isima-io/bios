@@ -1,0 +1,72 @@
+{
+  "contextName": "productCatalog",
+  "peakRequestSize": 625,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "productId",
+      "type": "String",
+      "attrValType": "STRING_ID",
+      "range": "1000000-4999999"
+    },
+    {
+      "attributeName": "title",
+      "type": "String",
+      "attrValType": "PRODUCT_NAME",
+      "range": "8-32"
+    },
+    {
+      "attributeName": "description",
+      "type": "String",
+      "attrValType": "DESCRIPTION"
+    },
+    {
+      "attributeName": "group",
+      "type": "String",
+      "attrValType": "INDUSTRY"
+    },
+    {
+      "attributeName": "category",
+      "type": "String",
+      "attrValType": "REGEX",
+      "pattern": "CAT[0-9]{3}"
+    },
+    {
+      "attributeName": "subCategory",
+      "type": "String",
+      "attrValType": "REGEX",
+      "pattern": "SUB[1-4]{1}"
+    },
+    {
+      "attributeName": "salePrice",
+      "type": "String",
+      "attrValType": "REGEX",
+      "pattern": "[0-9]{2}"
+    },
+    {
+      "attributeName": "inStockCount",
+      "type": "Integer",
+      "attrValType": "RANDOM_NUMBER",
+      "range": "1-1000"
+    },
+    {
+      "attributeName": "isAdult",
+      "type": "Boolean",
+      "attrValType": "BOOLEAN"
+    },
+    {
+      "attributeName": "status",
+      "type": "String",
+      "attrValType": "ENUM",
+      "allowedValues": [
+        "active",
+        "suspended",
+        "archive",
+        "MISSING"
+      ]
+    }
+  ],
+  "primaryKeys": [
+    "productId"
+  ]
+}

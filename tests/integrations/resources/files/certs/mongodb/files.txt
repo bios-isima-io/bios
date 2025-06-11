@@ -1,0 +1,14 @@
+# For server certificate
+mongodb-cert.pem      : Server certificate file for mongodb server configuration
+
+# For client certificate (subject = O=Test,CN=Deli)
+mongodb-root-cert.pem         : Self-signed root CA used for client certificate
+mongodb-root-key.pem          : Self-signed root CA private key
+deli-mongodb.cert.pem         : Client certificate
+deli-mongodb.key.pem          : Client certificate private key
+deli-mongodb.p12              : Client certificate p12
+deli-mongodb-p12-password.txt : Client certificate p12 password
+
+###
+prepare.sh            : Script to prepare for the certificates
+client.ext            : Client cert configuration file

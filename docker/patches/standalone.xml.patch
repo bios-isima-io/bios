@@ -1,0 +1,82 @@
+--- standalone.xml.orig	2021-05-18 06:44:25.904648349 +0000
++++ standalone.xml	2021-05-18 06:46:33.016306386 +0000
+@@ -101,14 +101,15 @@
+                     <named-formatter name="COLOR-PATTERN"/>
+                 </formatter>
+             </console-handler>
+-            <periodic-rotating-file-handler name="FILE" autoflush="true">
++            <size-rotating-file-handler name="FILE" autoflush="true">
+                 <formatter>
+                     <named-formatter name="PATTERN"/>
+                 </formatter>
+                 <file relative-to="jboss.server.log.dir" path="server.log"/>
+-                <suffix value=".yyyy-MM-dd"/>
+                 <append value="true"/>
+-            </periodic-rotating-file-handler>
++                <rotate-size value="100M"/>
++                <max-backup-index value="10"/>
++            </size-rotating-file-handler>
+             <logger category="com.arjuna">
+                 <level name="WARN"/>
+             </logger>
+@@ -124,7 +125,6 @@
+             <root-logger>
+                 <level name="INFO"/>
+                 <handlers>
+-                    <handler name="CONSOLE"/>
+                     <handler name="FILE"/>
+                 </handlers>
+             </root-logger>
+@@ -166,7 +166,7 @@
+             </datasources>
+         </subsystem>
+         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
+-            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false}"/>
++            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" deployment-timeout="1200" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false}"/>
+         </subsystem>
+         <subsystem xmlns="urn:jboss:domain:discovery:1.0"/>
+         <subsystem xmlns="urn:jboss:domain:distributable-web:2.0" default-session-management="default" default-single-sign-on-management="default">
+@@ -483,7 +483,15 @@
+                 <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
+                 <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
+                 <host name="default-host" alias="localhost">
+-                    <location name="/" handler="welcome-content"/>
++                    <location name="/" handler="bios-doc"/>
++                    <filter-ref name="server-header"/>
++                    <filter-ref name="x-powered-by-header"/>
++                    <filter-ref name="access-control-allow-methods-header"/>
++                    <filter-ref name="access-control-allow-headers-header"/>
++                    <filter-ref name="access-control-allow-credentials-header"/>
++                    <filter-ref name="access-control-max-age-header"/>
++                    <filter-ref name="rewrite-bios" predicate="regex('/bios/(.*)')"/>
++                    <filter-ref name="rewrite-selfserve" predicate="regex('/selfserve/(.*)')"/>
+                     <http-invoker security-realm="ApplicationRealm"/>
+                 </host>
+             </server>
+@@ -492,8 +500,18 @@
+                 <websockets/>
+             </servlet-container>
+             <handlers>
+-                <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
++                <file name="bios-doc" path="${jboss.home.dir}/bios-doc"/>
+             </handlers>
++            <filters>
++                <response-header name="server-header" header-name="Server" header-value="WildFly/16"/>
++                <response-header name="x-powered-by-header" header-name="X-Powered-By" header-value="Undertow/2"/>
++                <response-header name="access-control-allow-methods-header" header-name="Access-Control-Allow-Methods" header-value="GET, POST, OPTIONS, PUT, FETCH, DELETE, PATCH"/>
++                <response-header name="access-control-allow-headers-header" header-name="Access-Control-Allow-Headers" header-value="accept, authorization, content-type, x-requested-with, xsrfToken, x-bios-version, x-user-name, x-invalidate-cache, x-tenant-name"/>
++                <response-header name="access-control-allow-credentials-header" header-name="Access-Control-Allow-Credentials" header-value="true"/>
++                <response-header name="access-control-max-age-header" header-name="Access-Control-Max-Age" header-value="1"/>
++                <expression-filter name="rewrite-bios" expression="regex('/bios(.*)') -> rewrite('/tfos/bios$${1}')"/>
++                <expression-filter name="rewrite-selfserve" expression="regex('/selfserve(.*)') -> rewrite('/tfos/selfserve$${1}')"/>
++            </filters>
+         </subsystem>
+         <subsystem xmlns="urn:jboss:domain:webservices:2.0" statistics-enabled="${wildfly.webservices.statistics-enabled:${wildfly.statistics-enabled:false}}">
+             <wsdl-host>${jboss.bind.address:127.0.0.1}</wsdl-host>
+@@ -527,4 +545,4 @@
+             <remote-destination host="localhost" port="25"/>
+         </outbound-socket-binding>
+     </socket-binding-group>
+-</server>
+\ No newline at end of file
++</server>

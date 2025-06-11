@@ -1,0 +1,26 @@
+{
+    "name": "students",
+    "_description": [
+        "Event for this stream includes all supported attributetypes."
+    ],
+    "attributes": [{
+        "name": "roll",
+        "type": "int"
+    }, {
+        "name": "name",
+        "type": "string"
+    },
+    {
+    	"name": "age",
+    	"type": "int"
+    },
+    {
+    	"name": "marks",
+    	"type": "double"
+    },
+    {
+    	"name": "city",
+    	"type": "string"
+    }]
+}
+

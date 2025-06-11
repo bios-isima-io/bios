@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "$0")"; pwd)"
+SERVER_DIR="$(cd "${SCRIPT_DIR}/.."; pwd)"
+ROOT="$(cd "${SERVER_DIR}/../.."; pwd)"
+TARGET_DIR="${SERVER_DIR}/target"
+LIB_SRC_DIR="${TARGET_DIR}/lib"
+HOME_LIB_DIR="${ROOT}/home-dev/lib"
+BUILD_VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='properties']/*[local-name()='revision']/text()" "${ROOT}/pom.xml" | tr -d '\n')
+
+SERVER_JAR=bios-server-${BUILD_VERSION}.jar
+PACKAGE_NAME=bios-server-${BUILD_VERSION}
+PACKAGE_DIR="${TARGET_DIR}/package/${PACKAGE_NAME}"
+
+# Make sure the necessary components are built already
+if [ ! -f "${TARGET_DIR}/${SERVER_JAR}" ]; then
+    echo "Server jar file ${TARGET_DIR}/${SERVER_JAR} is missing. Please execute mvn install"
+    exit 1
+fi
+if [ ! -d "${LIB_SRC_DIR}" ]; then
+    echo "Library directory ${LIB_SRC_DIR} is missing. Please execute mvn install"
+    exit 1
+fi
+
+# Set up a package directory
+rm -rf "${PACKAGE_DIR}"
+mkdir -p "${PACKAGE_DIR}"
+cp -r "${ROOT}/home/bin" "${PACKAGE_DIR}/"
+cp -r "${ROOT}/home/configuration" "${PACKAGE_DIR}/"
+cp -r "${LIB_SRC_DIR}" "${PACKAGE_DIR}/"
+cp "${TARGET_DIR}/${SERVER_JAR}" "${PACKAGE_DIR}/lib/"
+
+cd "${PACKAGE_DIR}/.."
+tar cvfz ${TARGET_DIR}/${PACKAGE_NAME}.tar.gz ${PACKAGE_NAME}
+
+# Build the home-dev library
+mkdir -p ${HOME_LIB_DIR}
+rm -f ${HOME_LIB_DIR}/*
+ln -s ${LIB_SRC_DIR}/*.jar ${HOME_LIB_DIR}/
+ln -s ${TARGET_DIR}/bios-*.jar ${HOME_LIB_DIR}/

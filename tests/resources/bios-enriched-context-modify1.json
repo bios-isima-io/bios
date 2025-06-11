@@ -1,0 +1,51 @@
+{
+  "contextName": "enrichedContext",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "resourceId",     "type": "String"},
+    {"attributeName": "resourceTypeNum", "type": "Integer"},
+    {"attributeName": "zipcode",         "type": "String", "missingAttributePolicy": "StoreDefaultValue", "default": "missing_zipcode"},
+    {"attributeName": "newAttribute",    "type": "Integer", "default": "0"}
+  ],
+  "primaryKey": ["resourceId"],
+  "missingLookupPolicy": "FailParentLookup",
+  "dataSynthesisStatus":"Disabled",
+  "enrichments": [
+    {
+      "enrichmentName": "resourceType",
+      "foreignKey": ["resourceTypeNum"],
+      "enrichedAttributes": [
+        { "value": "resourceType.resourceTypeCode" },
+        { "value": "resourceType.resourceCategory", "as": "myResourceCategory"}
+      ]
+    },
+    {
+      "enrichmentName": "resourceDetails",
+      "foreignKey": ["resourceId"],
+      "enrichedAttributes": [
+        {
+          "valuePickFirst": [
+            "staff.cost",
+            "doctor.salary",
+            "venue.cost",
+            "auxiliary.cost",
+            "machine.cost",
+            "workspace.rent"
+            ],
+          "as": "cost"
+        },
+        {
+          "valuePickFirst": [
+            "staff.aliasName",
+            "doctor.aliasName",
+            "venue.venueId",
+            "auxiliary.auxiliaryId",
+            "machine.machineId",
+            "workspace.workspaceId"
+          ],
+          "as": "resourceValue"
+        }
+      ]
+    }
+  ]
+}

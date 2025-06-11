@@ -1,0 +1,42 @@
+{
+  "contextName": "storeContext",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "storeId",
+      "type": "String",
+        "attrValType": "REGEX",
+        "pattern": "STORE0[1-9]{1}"
+    },
+    {
+      "attributeName": "name",
+      "type": "String",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+    },
+    {
+      "attributeName": "address",
+      "type": "String",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+    },
+    {
+      "attributeName": "city",
+      "type": "String",
+        "attrValType": "CITY"
+    },
+    {
+      "attributeName": "state",
+      "type": "String",
+        "attrValType": "STATE"
+    },
+    {
+      "attributeName": "pincode",
+      "type": "Integer",
+        "attrValType": "PINCODE"
+    }
+  ],
+  "primaryKeys": [
+    "storeId"
+  ]
+}

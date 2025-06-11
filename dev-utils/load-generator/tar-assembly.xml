@@ -1,0 +1,60 @@
+<assembly>
+  <id>bundle</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+
+  <fileSets>
+
+    <fileSet>
+      <directory>${project.build.directory}</directory>
+      <outputDirectory>./bin</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+      <excludes>
+        <exclude>bios-sdk*.jar</exclude>
+      </excludes>
+    </fileSet>
+
+    <fileSet>
+      <directory>${project.build.directory}/lib</directory>
+      <outputDirectory>./bin</outputDirectory>
+      <includes>
+        <include>slf4j-log4j12-*.jar</include>
+      </includes>
+      <excludes>
+        <exclude>bios-sdk*.jar</exclude>
+      </excludes>
+    </fileSet>
+
+    <fileSet>
+      <directory>${project.build.directory}/lib</directory>
+      <outputDirectory>./lib</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+      <excludes>
+        <exclude>slf4j-log4j12-*.jar</exclude>
+      </excludes>
+    </fileSet>
+
+    <fileSet>
+      <directory>${project.basedir}</directory>
+      <outputDirectory>.</outputDirectory>
+      <includes>
+        <include>*.properties</include>
+        <include>log4j.xml</include>
+      </includes>
+    </fileSet>
+
+    <fileSet>
+      <directory>${project.basedir}/scripts/load-test-script</directory>
+      <outputDirectory>.</outputDirectory>
+      <includes>
+        <include>**</include>
+      </includes>
+    </fileSet>
+
+  </fileSets>
+</assembly>

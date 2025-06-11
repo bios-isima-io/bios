@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.isima</groupId>
+    <artifactId>bios</artifactId>
+    <version>${revision}</version>
+  </parent>
+
+  <artifactId>bios-maintenance</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+    <cassandra.version>4.1.4</cassandra.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>build-bios-maintainer</id>
+            <configuration>
+              <executable>${project.basedir}/build.sh</executable>
+              <workingDirectory>${project.basedir}</workingDirectory>
+            </configuration>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <inherited>false</inherited>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}</directory>
+              <includes>
+                <include>dbdozer.egg-info/</include>
+                <include>.eggs/</include>
+                <include>wheelhouse/</include>
+                <include>build/</include>
+                <include>dist/</include>
+                <include>src/_version.py</include>
+                <include>src/dbdozer/_version.py</include>
+              </includes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <id>build-docker-image</id>
+                <configuration>
+                  <executable>./build-docker.sh</executable>
+                </configuration>
+                <phase>package</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

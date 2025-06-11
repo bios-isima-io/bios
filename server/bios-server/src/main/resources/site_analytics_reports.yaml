@@ -1,0 +1,182 @@
+reports:
+  - reportId: 21dcbe4d-36b5-4c0a-9a88-0368c7eee74b
+    reportName: Worldwide Traffic
+    source: signal
+    fav: true
+    metrics:
+      - measurement: pageViews.count()
+        as: Page Views
+        type: simple
+        defaultGraphType: map
+        yAxisPosition: left
+    dimensions:
+      - countryIsoCode
+      - ""
+    defaultTimeRange: 86400000
+    defaultWindowLength: 3600000
+    defaultStartTime: 0
+    existingReport: false
+    filters: {}
+    filterOrder: []
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Weekly
+    map:
+      mapChartCountry: ""
+  - reportId: 3b54600a-c996-4c98-827b-1989887ace23
+    reportName: Device OS
+    source: signal
+    fav: true
+    metrics:
+      - measurement: pageViews.count()
+        as: Page Views
+        type: simple
+        defaultGraphType: donut
+        yAxisPosition: left
+    dimensions:
+      - os
+      - ""
+    defaultTimeRange: 86400000
+    defaultWindowLength: 3600000
+    defaultStartTime: 0
+    existingReport: false
+    filters: {}
+    filterOrder: []
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Daily
+  - reportId: a5523940-98d9-406d-9659-1c83cd851d0b
+    reportName: Top Pages
+    metrics:
+      - measurement: pageViews.count()
+        as: Page Views
+        type: simple
+        defaultGraphType: bar
+        yAxisPosition: left
+    dimensions:
+      - pageUri
+      - ""
+    defaultTimeRange: 86400000
+    defaultWindowLength: 1800000
+    defaultStartTime: 0
+    existingReport: false
+    filters: {}
+    filterOrder: []
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Daily
+  - reportId: d627c093-4a65-4cfd-a945-7d238a80fb9f
+    reportName: Browser Types
+    metrics:
+      - measurement: pageViews.count()
+        as: pageViews.count()
+        type: simple
+        defaultGraphType: bar
+        yAxisPosition: left
+    dimensions:
+      - browser
+      - ""
+    defaultTimeRange: 86400000
+    defaultWindowLength: 3600000
+    defaultStartTime: 0
+    existingReport: false
+    filters: {}
+    filterOrder: []
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Daily
+  - reportId: 875c8e2c-d987-4e8b-beda-0be7ce976325
+    reportName: Device Types
+    source: signal
+    fav: true
+    metrics:
+      - measurement: pageViews.count()
+        as: Page Views
+        type: simple
+        defaultGraphType: donut
+        yAxisPosition: left
+    dimensions:
+      - platform
+      - ""
+    defaultTimeRange: 86400000
+    defaultWindowLength: 3600000
+    defaultStartTime: 0
+    existingReport: false
+    filters: {}
+    filterOrder: []
+    topX: 20
+    topY: 20
+    forecast: false
+    cyclicalComparisonStart: Daily
+  - reportId: 82f52c2f-4d94-4c94-bf71-2c9bdb1db6aa
+    reportName: Top Page Transitions
+    source: signal
+    fav: true
+    metrics:
+      - measurement: pageTransitions.count()
+        as: Page Transitions
+        type: simple
+        defaultGraphType: bar
+        yAxisPosition: left
+    dimensions:
+      - fromPage
+      - toPage
+    defaultTimeRange: 86400000
+    defaultWindowLength: 3600000
+    defaultStartTime: 0
+    existingReport: false
+    filters: {}
+    filterOrder: []
+    topX: 5
+    topY: 5
+    forecast: false
+    cyclicalComparisonStart: Daily
+insights:
+  signal:
+    sections:
+      - insightConfigs:
+          - fav: true
+            insightId: a1a79745-d409-4944-abd4-96547b3da05b
+            reportId: 21dcbe4d-36b5-4c0a-9a88-0368c7eee74b
+          - fav: true
+            insightId: 95070a79-ac0e-4709-ac10-5241d0bf53c4
+            reportId: 3b54600a-c996-4c98-827b-1989887ace23
+          - fav: true
+            insightId: c6e1cdc4-9c03-460f-9fee-f5ef2e883c9d
+            reportId: a5523940-98d9-406d-9659-1c83cd851d0b
+          - fav: true
+            insightId: fb3bfe7b-274b-4b46-ae24-502baea931ca
+            reportId: d627c093-4a65-4cfd-a945-7d238a80fb9f
+          - fav: true
+            insightId: a39422b6-2368-4f5f-a5cb-d3a04b66fae8
+            reportId: 875c8e2c-d987-4e8b-beda-0be7ce976325
+          - fav: true
+            insightId: 697761ab-4333-49bf-8ec8-c4976ed9cbf1
+            reportId: 82f52c2f-4d94-4c94-bf71-2c9bdb1db6aa
+        sectionId: 9a08b00b-b349-49c2-afee-81771e3adfd7
+        timeRange: 3600000
+      - insightConfigs:
+          - fav: false
+            insightId: 7772ba06-bf75-4f94-bf42-d9bb77adb170
+            reportId: 21dcbe4d-36b5-4c0a-9a88-0368c7eee74b
+          - fav: false
+            insightId: f70c9a46-a592-4628-b8f8-213105ab7905
+            reportId: 3b54600a-c996-4c98-827b-1989887ace23
+          - fav: false
+            insightId: e6be13d5-ec89-4f04-8cb9-f04f9c8f93c5
+            reportId: a5523940-98d9-406d-9659-1c83cd851d0b
+          - fav: false
+            insightId: bfc2b785-ee1e-4206-af27-564cff88218f
+            reportId: d627c093-4a65-4cfd-a945-7d238a80fb9f
+          - fav: false
+            insightId: 94e34c1b-ee89-4ebc-b7a9-b42fef042eca
+            reportId: 875c8e2c-d987-4e8b-beda-0be7ce976325
+          - fav: false
+            insightId: 00e1afd5-586d-4843-8c27-09a4e4ada0b9
+            reportId: 82f52c2f-4d94-4c94-bf71-2c9bdb1db6aa
+        sectionId: ba2a6cae-c74b-4720-bcad-f22387171e74
+        timeRange: 86400000

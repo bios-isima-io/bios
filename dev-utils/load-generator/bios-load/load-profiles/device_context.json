@@ -1,0 +1,115 @@
+  {
+    "contextName": "deviceContext",
+    "peakRequestSize": 6250,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "deviceId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "ipAddress",
+        "type": "string",
+        "attrValType": "INET"
+      },
+      {
+        "attributeName": "os",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "linux",
+          "ios",
+          "mac",
+          "windows"
+        ]
+      },
+      {
+        "attributeName": "osVersion",
+        "type": "string",
+        "attrValType": "VERSION",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "browser",
+        "type": "string",
+        "attrValType": "BROWSER",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "advertisingTrackingEnabled",
+        "type": "boolean",
+        "attrValType": "BOOLEAN"
+      },
+      {
+        "attributeName": "advertisingId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "screenHeight",
+        "type": "decimal",
+        "attrValType": "AGE",
+        "range": "15-95"
+      },
+      {
+        "attributeName": "screenWidth",
+        "type": "decimal",
+        "attrValType": "AGE",
+        "range": "15-95"
+      },
+      {
+        "attributeName": "screenDensity",
+        "type": "decimal",
+        "attrValType": "AGE",
+        "range": "10-99"
+      },
+      {
+        "attributeName": "deviceManufacturer",
+        "type": "string",
+        "attrValType": "COMPANY_NAME",
+        "range": "10-15"
+      },
+      {
+        "attributeName": "deviceModel",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "deviceName",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-10"
+      },
+      {
+        "attributeName": "deviceType",
+        "type": "string",
+        "attrValType": "DEVICE_TYPE",
+        "range": "10-15"
+      },
+      {
+        "attributeName": "networkType",
+        "type": "string",
+        "attrValType": "NETWORK_TYPE",
+        "range": "10-15"
+      },
+      {
+        "attributeName": "cellularNetwork",
+        "type": "string",
+        "attrValType": "NETWORK_TYPE",
+        "range": "10-15"
+      }
+    ],
+    "primaryKeys": [
+      "visitorId"
+    ]
+  }

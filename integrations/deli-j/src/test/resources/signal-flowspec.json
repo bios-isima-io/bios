@@ -1,0 +1,43 @@
+{
+  "importFlowName": "flow_test_signal",
+  "importFlowId": 307,
+  "sourceDataSpec": {
+    "importSourceId": "207",
+    "hibernateEntity": "com.example.accessingdatamysql.User",
+    "cdcOperationTypes": [
+      "Create",
+      "Read",
+      "Update",
+      "Delete"
+    ],
+    "cdcAdditionalAttributes": [
+      "operationType",
+      "operationLatency",
+      "operationResult",
+      "sqlStatement",
+      "deltaChanges"
+    ]
+  },
+  "destinationDataSpec": {
+    "importDestinationId": "101",
+    "type": "SIGNAL",
+    "name": "userSignal"
+  },
+  "dataPickupSpec": {
+    "attributes": [
+      {
+        "sourceAttributeName": "id",
+        "as": "id"
+      },
+      {
+        "sourceAttributeName": "name",
+        "as": "name"
+      },
+      {
+        "sourceAttributeName": "email",
+        "as": "email"
+      }
+    ]
+  },
+  "acknowledgementEnabled": false
+}

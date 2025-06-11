@@ -1,0 +1,23 @@
+[
+  {
+    "groupName": "*",
+    "p1Type": "JAVA_SINGLE_THREAD",
+    "p2Type": "JAVA_SINGLE_THREAD",
+    "p3Type": "JAVA_SINGLE_THREAD"
+  },
+  {
+    "groupName": "isima",
+    "p1Type": "BIOS_EXECUTOR",
+    "p1Parameters": [16384, "SPIN"],
+    "p2Type": "BIOS_EXECUTOR",
+    "p2Parameters": [16384, "BLOCK"],
+    "p3Type": "BIOS_EXECUTOR",
+    "p3Parameters": [16384, "BLOCK"]
+  },
+  {
+    "groupName": "nettyExecutorTest",
+    "p1Type": "NETTY_SINGLE_THREAD",
+    "p2Type": "NETTY_SINGLE_THREAD",
+    "p3Type": "NETTY_SINGLE_THREAD"
+  }
+]

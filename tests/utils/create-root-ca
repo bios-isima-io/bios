@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+
+CURRENT_DIR="${PWD}"
+WORK_DIR=/tmp/create-root-ca.$$
+
+trap "rm -rf ${WORK_DIR}" EXIT
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $(basename "$0") <output_prefix> [subject]"
+    echo "  Default subject is '/C=US/ST=California/L=Palo Alto/CN=eng.isima.io'"
+    exit 1
+fi
+
+OUTPUT_PREFIX=$1
+SUBJECT="$2"
+: ${SUBJECT:="/C=US/ST=California/L=Palo Alto/CN=eng.isima.io"}
+
+#
+# Generate output file names
+#
+ROOT_CA=${OUTPUT_PREFIX}.cert.pem
+ROOT_KEY=${OUTPUT_PREFIX}.key.pem
+ROOT_P12=${OUTPUT_PREFIX}.p12
+
+# Make file names absolute paths
+if [[ "${ROOT_CA}" != /* ]]; then
+    ROOT_CA=${CURRENT_DIR}/${ROOT_CA}
+fi
+if [[ "${ROOT_KEY}" != /* ]]; then
+    ROOT_KEY=${CURRENT_DIR}/${ROOT_KEY}
+fi
+if [[ "${ROOT_P12}" != /* ]]; then
+    ROOT_P12=${CURRENT_DIR}/${ROOT_P12}
+fi
+
+mkdir ${WORK_DIR}
+cd ${WORK_DIR}
+
+openssl genrsa -out rootCA.key 2048
+openssl req -new -x509 -nodes -sha256 -days 9999 -subj "${SUBJECT}" \
+        -key rootCA.key -out rootCA.pem
+
+# Convert the certificate to PKCS12 file
+openssl pkcs12 -export -passin pass:${PASSWORD} -passout pass:${PASSWORD} \
+        -inkey rootCA.key -in rootCA.pem -out rootCA.p12
+
+mv rootCA.pem ${ROOT_CA}
+mv rootCA.key ${ROOT_KEY}
+mv rootCA.p12 ${ROOT_P12}
+cd "${CURRENT_DIR}"
+
+GENERATED_SUBJECT=$(openssl x509 -in ${ROOT_CA} -subject | head -n 1 | sed 's/subject=//g')
+
+echo -e "\nGenerated root CA files as follows:"
+echo ""
+echo "  Subject          : ${GENERATED_SUBJECT}"
+echo "  Root CA PEM      : ${ROOT_CA}"
+echo "  Root private key : ${ROOT_KEY}"
+echo "  Root CA PKCS12   : ${ROOT_P12}"
+echo ""

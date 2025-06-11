@@ -1,0 +1,6 @@
+#ifndef TFOS_CSDK_VERSION_H_
+#define TFOS_CSDK_VERSION_H_
+
+#define BIOS_VERSION "${VERSION_STRING}"
+
+#endif  // TFOS_CSDK_VERSION_H_

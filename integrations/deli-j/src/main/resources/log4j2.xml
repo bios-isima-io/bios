@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d %-level [%t] %logger{1.1.7} - %msg{nolookups}%n"/>
+    </Console>
+    <File name="File" fileName="logs/mysql-importer.log">
+      <PatternLayout pattern="%d %-level [%t] %logger{1.1.7} - %msg{nolookups}%n"/>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Logger name="io.isima" level="info" additivity="false">
+      <AppenderRef ref="File"/>
+      <AppenderRef ref="Console" level="info"/>
+    </Logger>
+    <Root level="warn">
+      <AppenderRef ref="File" level="info"/>
+      <AppenderRef ref="Console" level="warn"/>
+    </Root>
+  </Loggers>
+</Configuration>

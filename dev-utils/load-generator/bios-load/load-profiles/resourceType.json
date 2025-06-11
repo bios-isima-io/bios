@@ -1,0 +1,14 @@
+{
+  "contextName": "resourceType",
+  "peakRequestSize": 625,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceTypeNum",  "type": "integer",
+      "attrValType": "REGEX", "pattern": "[1-9]{5}"},
+    { "attributeName": "resourceTypeCode", "type": "string",
+      "attrValType": "PROFESSION" },
+    { "attributeName": "resourceCategory", "type": "integer",
+      "attrValType": "NUMERIC_ID", "range": "100-999" }
+  ],
+  "primaryKeys": ["resourceTypeNum"]
+}

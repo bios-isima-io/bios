@@ -1,0 +1,115 @@
+{
+  "signalName": "warehousePickerTaskSignal",
+  "peakRequestSize": 315,
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "pickerTaskId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "100000-999999"
+    },
+    {
+      "attributeName": "warehouseId",
+      "type": "string",
+      "attrValType": "REGEX",
+      "pattern": "[W]{1}[H]{1}[1-9]{1}"
+    },
+    {
+      "attributeName": "pickerId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "1-1000"
+    },
+    {
+      "attributeName": "pickerName",
+      "type": "string",
+      "attrValType": "NAME"
+    },
+    {
+      "attributeName": "referenceId",
+      "type": "integer",
+      "attrValType": "REGEX",
+      "pattern": "[1-9]{10}"
+    },
+    {
+      "attributeName": "referenceType",
+      "type": "string",
+      "attrValType": "ENUM",
+      "allowedValues": [
+        "SALE_ORDER",
+        "STOCK_TRANSFER",
+        "BIN_MOVEMENT",
+        "NON_SALE_ORDER"
+      ]
+    },
+    {
+      "attributeName": "trayId",
+      "type": "integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "1-1000"
+    },
+    {
+      "attributeName": "status",
+      "type": "string",
+      "attrValType": "ENUM",
+      "allowedValues": [
+        "PICKED",
+        "ASSIGNED",
+        "CREATED",
+        "SIDELINED",
+        "COMPLETED",
+        "CANCELLED",
+        "SIDELINED_ASSIGNED",
+        "SIDELINED_CREATED",
+        "PENDING_FOR_BILLING",
+        "PENDING_PROMOTIONAL_PICKING",
+        "RETURN_PENDING_WITH_PICKER"
+      ]
+    },
+    {
+      "attributeName": "priority",
+      "type": "string",
+      "attrValType": "ENUM",
+      "allowedValues": [
+        "LOW",
+        "NORMAL",
+        "HIGH",
+        "EXPRESS"
+      ]
+    },
+    {
+      "attributeName": "trayDestinationZone",
+      "type": "string",
+      "attrValType": "ENUM",
+      "allowedValues": [
+        "BILLER_ZONE",
+        "COURIER_ZONE",
+        "EXPRESS_BILLER_ZONE",
+        "B2B_BILLER_ZONE",
+        "CANCELLED_ZONE",
+        "SIDELINED_ZONE"
+      ]
+    },
+    {
+      "attributeName": "promisedDeliveryDate",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "isCourierOrder",
+      "type": "boolean",
+      "attrValType": "BOOLEAN"
+    },
+    {
+      "attributeName": "warehouseTDD",
+      "type": "integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "isExpressOrder",
+      "type": "boolean",
+      "attrValType": "BOOLEAN"
+    }
+  ]
+}

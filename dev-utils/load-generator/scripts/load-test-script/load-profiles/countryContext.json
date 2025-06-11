@@ -1,0 +1,41 @@
+  { 
+    "contextName": "countryContext",
+    "peakRequestSize": 315,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "countryCode",
+        "type": "string",
+        "attrValType": "REGEX",
+        "pattern": "[A-Z]{2}"
+      },
+      {
+        "attributeName": "name",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "population",
+        "type": "integer",
+        "attrValType": "REGEX",
+        "pattern": "[0-9]{7}"
+      },
+      {
+        "attributeName": "continent",
+        "type": "string",
+        "attrValType": "ENUM",
+        "allowedValues": [
+          "Asia",
+          "Africa",
+          "Europe",
+          "Australia",
+          "North America",
+          "South America"
+        ]
+      }
+    ],
+    "primaryKeys": [
+      "countryCode"
+    ]
+  }

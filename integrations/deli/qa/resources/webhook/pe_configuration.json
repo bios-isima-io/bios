@@ -1,0 +1,546 @@
+{
+  "tenantName": "webhookTest",
+  "importSources": [
+    {
+      "importSourceId": "202",
+      "importSourceName": "Webhook CT",
+      "type": "Webhook",
+      "webhookPath": "/pharmeasy/ct",
+      "authentication": {
+        "type": "InMessage",
+        "inMessageUserAttribute": "key_values/user",
+        "inMessagePasswordAttribute": "key_values/pass"
+      }
+    }
+  ],
+  "importDestinations": [
+    {
+      "importDestinationId": "101",
+      "importDestinationName": "Bios",
+      "type": "bios",
+      "endpoint": "https://localhost:8443",
+      "_endpoint": "https://10.0.2.108"
+    }
+  ],
+  "importFlowSpecs": [
+    {
+      "importFlowName": "Customer Context",
+      "importFlowId": "302",
+      "sourceDataSpec": {
+        "importSourceId": "202",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "Context",
+        "name": "customerContext"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "key_values/signal",
+            "filter": "lambda value: value == 'impressionSignal'"
+          }
+        ],
+        "attributeSearchPath": "profiles/*/event_properties",
+        "attributes": [
+          {
+            "sourceAttributeName": "identity",
+            "transforms": [
+              {
+                "rule": "lambda id: id or 0",
+                "as": "customerId"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "is_priority",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isPriority"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "is_chronic",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isChronic"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "has_placed_order",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "hasPlacedOneOrder"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "has_delivered_order",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "hasFulfilledOneOrder"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "has_placed_diag_order",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "hasPlacedOneDiagOrder"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "has_diag_fulfilled_order",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "hasFulfilledOneDiagOrder"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Element Context",
+      "importFlowId": "303",
+      "sourceDataSpec": {
+        "importSourceId": "202",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "Context",
+        "name": "elementContext"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "key_values/signal",
+            "filter": "lambda value: value == 'impressionSignal'"
+          }
+        ],
+        "attributeSearchPath": "profiles/*/event_properties",
+        "attributes": [
+          {
+            "sourceAttributeNames": [
+              "element_unique_name",
+              "platform"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda un, p: f'{un}_{p}'",
+                "as": "elementUniqueNameAndPlatform"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "element_unique_name",
+            "as": "elementUniqueName"
+          },
+          {
+            "sourceAttributeName": "element_name",
+            "as": "elementName"
+          },
+          {
+            "sourceAttributeName": "element_type",
+            "as": "elementType"
+          },
+          {
+            "sourceAttributeName": "element_sub_type",
+            "as": "elementSubType"
+          },
+          {
+            "sourceAttributeName": "num_items_within_element",
+            "transforms": [
+              {
+                "rule": "lambda x: x or 0",
+                "as": "numItemsWithinElement"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "element_scroll_type",
+            "transforms": [
+              {
+                "rule": "lambda x: x if x is not None else 'no_scroll'",
+                "as": "elementScrollType"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Clicks Signal",
+      "importFlowId": "304",
+      "sourceDataSpec": {
+        "importSourceId": "202",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "clickSignal"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "key_values/signal",
+            "filter": "lambda value: value == 'clickSignal'"
+          }
+        ],
+        "attributeSearchPath": "profiles/*/event_properties",
+        "attributes": [
+          {
+            "sourceAttributeName": "trigger",
+            "as": "impressionTrigger"
+          },
+          {
+            "sourceAttributeName": "destination",
+            "as": "destination"
+          },
+          {
+            "sourceAttributeName": "destination_id",
+            "as": "destinationId"
+          },
+          {
+            "sourceAttributeName": "click_id",
+            "as": "clickId"
+          },
+          {
+            "sourceAttributeName": "source_url",
+            "as": "sourcePage"
+          },
+          {
+            "sourceAttributeName": "source",
+            "as": "sourceId"
+          },
+          {
+            "sourceAttributeName": "session_id",
+            "as": "sessionId"
+          },
+          {
+            "sourceAttributeName": "session_id_flag",
+            "as": "sessionIdFlag"
+          },
+          {
+            "sourceAttributeName": "referrer",
+            "as": "referrer"
+          },
+          {
+            "sourceAttributeName": "clever_tap_id",
+            "as": "cleverTapId"
+          },
+          {
+            "sourceAttributeName": "CT Source",
+            "as": "cleverTapSource"
+          },
+          {
+            "sourceAttributeName": "platform",
+            "as": "appPlatform"
+          },
+          {
+            "sourceAttributeName": "app_version",
+            "as": "appVersion"
+          },
+          {
+            "sourceAttributeName": "identity",
+            "as": "customerId"
+          },
+          {
+            "sourceAttributeName": "is_logged_in",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isCustomerLoggedIn"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "is_cart_empty",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isCartEmpty"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "ip_reverse_city",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isIpReverseCity"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "selected_pincode",
+            "as": "selectedPinCode"
+          },
+          {
+            "sourceAttributeName": "is_pincode_courier",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isPinCodeCourier"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "selected_city",
+            "as": "selectedCity"
+          },
+          {
+            "sourceAttributeNames": [
+              "element_unique_name",
+              "platform"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda un, p: f'{un}_{p}'",
+                "as": "elementUniqueNameAndPlatform"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "item_id",
+            "as": "itemId"
+          },
+          {
+            "sourceAttributeName": "item_rank",
+            "as": "itemRank"
+          },
+          {
+            "sourceAttributeName": "item_name",
+            "as": "itemName"
+          },
+          {
+            "sourceAttributeName": "item_type",
+            "as": "itemType"
+          },
+          {
+            "sourceAttributeName": "item_sub_type",
+            "as": "itemSubType"
+          },
+          {
+            "sourceAttributeName": "item_price",
+            "as": "itemPrice"
+          },
+          {
+            "sourceAttributeName": "item_discount_amount",
+            "as": "itemDiscountAmount"
+          },
+          {
+            "sourceAttributeName": "item_discount_percent",
+            "as": "itemDiscountPercent"
+          },
+          {
+            "sourceAttributeName": "item_image_url",
+            "as": "itemImageUrl"
+          },
+          {
+            "sourceAttributeName": "parent_item_type",
+            "as": "parentItemType"
+          },
+          {
+            "sourceAttributeName": "parent_item_id",
+            "as": "parentItemId"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Impressions Signal",
+      "importFlowId": "305",
+      "sourceDataSpec": {
+        "importSourceId": "202",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "impressionSignal"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "key_values/signal",
+            "filter": "lambda value: value == 'impressionSignal'"
+          }
+        ],
+        "attributeSearchPath": "profiles/*/event_properties",
+        "attributes": [
+          {
+            "sourceAttributeName": "trigger",
+            "transforms": [
+              {
+                "rule": "lambda x: 'on_page_load'",
+                "as": "impressionTrigger"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "click_id",
+            "as": "clickId"
+          },
+          {
+            "sourceAttributeName": "source_url",
+            "as": "sourcePage"
+          },
+          {
+            "sourceAttributeName": "source",
+            "as": "sourceId"
+          },
+          {
+            "sourceAttributeName": "session_id",
+            "as": "sessionId"
+          },
+          {
+            "sourceAttributeName": "session_id_flag",
+            "as": "sessionIdFlag"
+          },
+          {
+            "sourceAttributeName": "referrer",
+            "as": "referrer"
+          },
+          {
+            "sourceAttributeName": "clever_tap_id",
+            "as": "cleverTapId"
+          },
+          {
+            "sourceAttributeName": "CT Source",
+            "as": "cleverTapSource"
+          },
+          {
+            "sourceAttributeName": "platform",
+            "as": "appPlatform"
+          },
+          {
+            "sourceAttributeName": "app_version",
+            "as": "appVersion"
+          },
+          {
+            "sourceAttributeName": "identity",
+            "as": "customerId"
+          },
+          {
+            "sourceAttributeName": "is_logged_in",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isCustomerLoggedIn"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "is_cart_empty",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isCartEmpty"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "ip_reverse_city",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isIpReverseCity"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "selected_pincode",
+            "as": "selectedPinCode"
+          },
+          {
+            "sourceAttributeName": "is_pincode_courier",
+            "transforms": [
+              {
+                "rule": "lambda x: 'true' if x else 'false'",
+                "as": "isPinCodeCourier"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "selected_city",
+            "as": "selectedCity"
+          },
+          {
+            "sourceAttributeNames": [
+              "element_unique_name",
+              "platform"
+            ],
+            "transforms": [
+              {
+                "rule": "lambda un, p: f'{un}_{p}'",
+                "as": "elementUniqueNameAndPlatform"
+              }
+            ]
+          },
+          {
+            "sourceAttributeName": "item_id",
+            "as": "itemId"
+          },
+          {
+            "sourceAttributeName": "item_rank",
+            "as": "itemRank"
+          },
+          {
+            "sourceAttributeName": "item_name",
+            "as": "itemName"
+          },
+          {
+            "sourceAttributeName": "item_type",
+            "as": "itemType"
+          },
+          {
+            "sourceAttributeName": "item_sub_type",
+            "as": "itemSubType"
+          },
+          {
+            "sourceAttributeName": "item_price",
+            "as": "itemPrice"
+          },
+          {
+            "as": "itemDiscountAmount",
+            "sourceAttributeName": "item_discount_amount"
+          },
+          {
+            "sourceAttributeName": "item_discount_percent",
+            "as": "itemDiscountPercent"
+          },
+          {
+            "sourceAttributeName": "item_image_url",
+            "as": "itemImageUrl"
+          },
+          {
+            "sourceAttributeName": "parent_item_type",
+            "as": "parentItemType"
+          },
+          {
+            "sourceAttributeName": "parent_item_id",
+            "as": "parentItemId"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    }
+  ],
+  "importDataProcessors": []
+}

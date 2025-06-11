@@ -1,0 +1,27 @@
+{
+  "signalName": "patientVisits",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "visitId", "type": "Integer"},
+    {"attributeName": "patientId", "type": "Integer"},
+    {"attributeName": "resourceId", "type": "String"}
+  ],
+  "enrich": {
+    "enrichments": [
+      {
+        "enrichmentName": "resourceDetails",
+        "foreignKey": ["resourceId"],
+        "missingLookupPolicy": "Reject",
+        "contextName": "enrichedContext",
+        "contextAttributes": [
+          {"attributeName": "resourceTypeNum"},
+          {"attributeName": "zipcode"},
+          {"attributeName": "resourceTypeCode"},
+          {"attributeName": "myResourceCategory"},
+          {"attributeName": "cost"},
+          {"attributeName": "resourceValue"}
+        ]
+      }
+    ]
+  }
+}

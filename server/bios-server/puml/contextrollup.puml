@@ -1,0 +1,48 @@
+@startuml
+
+Class ContextCassStream {
+    Event getContextEntry(Session session, Object key, AttributeDesc keyDesc)
+    Event[] getContextEntries(Session session, List<Object> keys, AttributeDesc keyDesc,
+    void putContextEntries(Session session, List<Event> entries, ...)
+}
+
+Class RollupSummary {
+   Event getRollupEntry(Session session, Object key, long timestamp);
+   void putRollupEntries(Session session, List<Event> event, long rollupTimestamp);
+}
+
+Class ContextCache
+Class RollupCache
+Class ContextTable <<DB>>
+Class RollupCassStream
+Class RollupTable <<DB>>
+Class RollupSummaryRouter
+Class DataEngineMaintenance {
+    <<Periodic>> void rollupWorker();
+}
+Class FanRouter
+
+note "Reads Only. No writes." as N2
+note "Route dimensions to other Nodes." as N3
+note "One per feature/view" as N4
+note "One per Context" as N5
+
+ContextCassStream "1" *-- "1" ContextCache
+ContextCassStream "1" *-- "1" ContextTable
+ContextCassStream "1..N" -- "1" RollupSummary
+RollupSummary "1" *-- "1" RollupCache
+RollupSummary "1" -- "1" RollupCassStream
+RollupCassStream "1" *-- "1" RollupTable
+DataEngineMaintenance "1" -- "1" RollupSummaryRouter
+RollupSummaryRouter "1" -- "0..N" RollupSummary
+RollupSummaryRouter "1" -- "1" FanRouter
+
+RollupCache .. N2
+N2 .. RollupCassStream
+FanRouter .. N3
+RollupSummary .. N4
+ContextCassStream .. N5
+
+
+@enduml
+

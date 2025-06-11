@@ -1,0 +1,56 @@
+{
+    "signalName": "productUnitSignal",
+    "peakRequestSize": 1565,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "type": "integer",
+        "attributeName": "skidTagNumber",
+        "attrValType": "REGEX",
+        "pattern": "[1-4]{3}"
+      },
+      {
+        "type": "string",
+        "attributeName": "eventType",
+	      "attrValType": "ENUM",
+	      "allowedValues": [
+          "inwarded",
+          "received",
+          "QA",
+          "ordered",
+          "shipped",
+          "damaged",
+          "missing",
+          "returned"
+        ]
+      },
+      {
+        "type": "integer",
+        "attributeName": "eventDate",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "type": "integer",
+        "attributeName": "eventTs",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "type": "integer",
+        "attributeName": "vendorId",
+        "attrValType": "REGEX",
+        "pattern": "[1-9]{5}"
+      },
+      {
+        "type": "string",
+        "attributeName": "sku",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "type": "string",
+        "attributeName": "productId",
+        "attrValType": "REGEX",
+        "pattern": "[1-5]{4}"
+      }
+    ]
+  }

@@ -1,0 +1,17 @@
+{
+  "signalName": "allTypesWithDefault",
+  "missingAttributePolicy": "StoreDefaultValue",
+  "attributes": [
+    {"attributeName": "customerId",     "type": "Integer", "default": -1},
+    {"attributeName": "stayLength",     "type": "Integer", "default": 999},
+    {"attributeName": "latitude",        "type": "Decimal", "default": -1.2},
+    {"attributeName": "longitude",       "type": "Decimal", "default": 3.4},
+    {"attributeName": "customerName",   "type": "String", "default": "John Doe"},
+    {"attributeName": "gender",          "type": "String", "allowedValues": ["MALE", "FEMALE", "UNKNOWN"], "default": "UNKNOWN"},
+    {"attributeName": "country",         "type": "String", "default": "United States of America"},
+    {"attributeName": "state",           "type": "String", "default": ""},
+    {"attributeName": "active",           "type": "Boolean", "default": true},
+    {"attributeName": "signature",       "type": "Blob", "default": "tkRuAA=="},
+    {"attributeName": "picture",       "type": "Blob", "default": ""}
+  ]
+}

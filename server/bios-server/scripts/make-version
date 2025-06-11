@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#################################################################################
+# This script reads the latest commit ID from git and put it info to a property
+# file version.properties at the top directory in the server jar file. The server
+# program can read the property file to provide snapshot number.
+#
+# The script is meant be executed by maven at prepare-package phase.
+#
+project_root="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "${project_root}"
+
+echo -n "$(basename "$0"): Creating version info..."
+
+TARGET=server/target/classes
+
+mkdir -p "${TARGET}"
+echo "version=$(git log | head -1 | awk '{print $2}')" > "${TARGET}/version.properties"
+if [ $? -ne 0 ]; then
+    echo "NOT SUCCESSFUL -- Check if the build environment is under git repository."
+    # don't treat this as an error. we just continue
+    exit 1
+else
+    echo "done."
+fi

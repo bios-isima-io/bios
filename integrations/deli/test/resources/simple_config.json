@@ -1,0 +1,81 @@
+{
+  "importSources": [
+    {
+      "importSourceId": "205",
+      "importSourceName": "Webhook Covid Data Source",
+      "type": "Webhook",
+      "webhookPath": "/deli/pharmeasy/ct",
+      "authentication": {
+        "type": "InMessage",
+        "user": "ravid@isima.io",
+        "password": "Test123!"
+      }
+    }
+  ],
+  "importDestinations": [
+    {
+      "importDestinationId": "101",
+      "type": "bios",
+      "endpoint": "https://bios.isima.io",
+      "authentication": {
+        "type": "Login",
+        "user": "ravid@isima.io",
+        "password": "Test123!"
+      }
+    }
+  ],
+  "importFlowSpecs": [
+    {
+      "importFlowName": "Impressions",
+      "importFlowId": "305",
+      "sourceDataSpec": {
+        "importSourceId": "205",
+        "webhookSubPath": "impressions",
+        "webhookFilter": "attribute: key_values.signal = 'impressionSignal'",
+        "payloadType": "JSON"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "impressionSignal",
+        "destinationBatchSize": 1024
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "/",
+        "attributes": [
+          {
+            "sourceAttributeName": "abc"
+          },
+          {
+            "sourceAttributeName": "def",
+            "as": "123"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    },
+    {
+      "importFlowName": "Clicks",
+      "importFlowId": "306",
+      "sourceDataSpec": {
+        "importSourceId": "205",
+        "payloadType": "JSON",
+        "webHookFilter": "attribute: key_values.signal = 'clickSignal'"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "clickSignal"
+      },
+      "dataPickupSpec": {
+        "attributeSearchPath": "/",
+        "attributes": [
+          {
+            "sourceAttributeName": "abc"
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    }
+  ]
+}

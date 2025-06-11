@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>sdk</artifactId>
+    <groupId>io.isima</groupId>
+    <version>${revision}</version>
+  </parent>
+
+  <artifactId>csdk</artifactId>
+  <packaging>pom</packaging>
+
+  <properties>
+    <main.directory>${project.parent.basedir}</main.directory>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>csdk-build</id>
+            <configuration>
+              <executable>${project.basedir}/build.sh</executable>
+            </configuration>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>csdk-unit-test</id>
+            <configuration>
+              <skip>${skipTests}</skip>
+              <executable>ctest</executable>
+              <workingDirectory>${project.basedir}/target</workingDirectory>
+              <environmentVariables>
+                <CTEST_OUTPUT_ON_FAILURE>1</CTEST_OUTPUT_ON_FAILURE>
+              </environmentVariables>
+            </configuration>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <profiles>
+    <profile>
+      <id>integration-test</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <inherited>false</inherited>
+            <executions>
+              <execution>
+                <id>csdk-unit-test-with-valgrind</id>
+                <!-- moved here from the regular maven build cycle since this test is getting to take significant time -->
+                <configuration>
+                  <executable>ctest</executable>
+                  <arguments>
+                    <argument>-T</argument>
+                    <argument>memcheck</argument>
+                    <!-- excluding:
+                         EventLoopTest - hangs intermittently
+                    -->
+                    <argument>-E</argument>
+                    <argument>EventLoopTest\..*</argument>
+                  </arguments>
+                  <workingDirectory>${project.basedir}/target</workingDirectory>
+                </configuration>
+                <phase>test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>native-client-basic-test</id>
+                <configuration>
+                  <executable>valgrind</executable>
+                  <arguments>
+                    <argument>--leak-check=full</argument>
+                    <argument>--error-exitcode=1</argument>
+                    <argument>--errors-for-leak-kinds=definite,possible</argument>
+                    <argument>${project.basedir}/target/test/server-access/dapi_server_test</argument>
+                  </arguments>
+                </configuration>
+                <phase>verify</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

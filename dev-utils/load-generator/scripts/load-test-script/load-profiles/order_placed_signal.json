@@ -1,0 +1,275 @@
+  {
+    "signalName": "orderPlacedSignal",
+    "peakRequestSize": 315,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "userId",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "funnel",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "email",
+          "blogpost",
+          "google ad",
+          "facebook ad",
+          "twitter ad"
+        ]
+      },
+      {
+        "attributeName": "section",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "subsection",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "funnelTile",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "Kitchen",
+          "Shoes",
+          "Apparel",
+          "Dairy",
+          "ReadyToEat",
+          "Meat",
+          "Fruits",
+          "Vegetables"
+        ]
+      },
+      {
+        "attributeName": "funnelRow",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-49"
+      },
+      {
+        "attributeName": "sortbar",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "sortbarGroup",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "funnelSection",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "receivedAt",
+        "type": "integer",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "attributeName": "orderId",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "100000-999999"
+      },
+      {
+        "attributeName": "customerId",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "totalAmount",
+        "type": "integer",
+        "attrValType": "PRICE",
+        "range": "100-99999"
+      },
+      {
+        "attributeName": "totalQuantity",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "skuCount",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-9"
+      },
+      {
+        "attributeName": "promotionDiscount",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "promoCode",
+        "type": "string",
+        "attrValType": "PROMO_CODE",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "atcUser",
+        "type": "string",
+        "attrValType": "NAME"
+      },
+      {
+        "attributeName": "checkoutUser",
+        "type": "string",
+        "attrValType": "NAME",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "discount",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "discountPercentage",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "totalItemPrice",
+        "type": "integer",
+        "attrValType": "PRICE",
+        "range": "1-9999"
+      },
+      {
+        "attributeName": "shipping",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "credit",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "creditType",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "paymentMode",
+        "type": "string",
+        "attrValType": "PAYMENT_TYPE"
+      },
+      {
+        "attributeName": "cardType",
+        "type": "string",
+        "attrValType": "CARD_TYPE",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "gateway",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "bankCode",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "cardBrand",
+        "type": "string",
+        "attrValType": "CARD_BRAND",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "card",
+        "type": "string",
+        "attrValType": "CARD_BRAND",
+        "Comment": "The range here is ignored. ",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "pincode",
+        "type": "integer",
+        "attrValType": "PINCODE",
+        "range": "6-6"
+      },
+      {
+        "attributeName": "deliveryCity",
+        "type": "string",
+        "attrValType": "CITY",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "state",
+        "type": "string",
+        "attrValType": "STATE",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "country",
+        "type": "string",
+        "attrValType": "COUNTRY",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "paymentRetry",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-9"
+      }
+    ],
+    "mappedSignal":[
+      {
+        "srcAttribute" : "orderId",
+        "destAttribute" : "orderId", 
+        "destSignalName" : "productOrderedSignal"
+      },
+      {
+        "srcAttribute" : "userId",
+        "destAttribute" : "userId",
+        "destSignalName" : "productOrderedSignal"
+      },
+      {
+        "srcAttribute" : "atcUser",
+        "destAttribute" : "atc_user",
+        "destSignalName" : "productAddedToCartSignal"
+      },
+      {
+        "srcAttribute" : "section",
+        "destAttribute" : "section",
+        "destSignalName" : "productOrderedSignal"
+      },
+      {
+        "srcAttribute" : "subsection",
+        "destAttribute" : "subsection",
+        "destSignalName" : "productOrderedSignal"
+      },
+      {
+        "srcAttribute" : "paymentMode",
+        "destAttribute" : "paymentMode",
+        "destSignalName" : "productOrderedSignal"
+      }
+    ],
+    "keyAttributes" : ["order_id","userId","section","subsection","paymentMode"]
+  }

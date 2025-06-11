@@ -1,0 +1,10 @@
+{
+  "name": "doctor",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    { "name": "resourceId", "type": "string" },
+    { "name": "salary", "type": "double" },
+    { "name": "aliasName", "type": "string" }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "signalName": "signal_with_postprocess_example",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {"attributeName": "customer_id",     "type": "Integer"},
+    {"attributeName": "access_point_id", "type": "Integer"},
+    {"attributeName": "stay_length",     "type": "Integer"},
+    {"attributeName": "latitude",        "type": "Decimal"},
+    {"attributeName": "longitude",       "type": "Decimal"},
+    {"attributeName": "customer_name",   "type": "String"},
+    {"attributeName": "gender",          "type": "String", "allowedValues": ["MALE", "FEMALE", "UNKNOWN"]},
+    {"attributeName": "country",         "type": "String"},
+    {"attributeName": "state",           "type": "String"},
+    {"attributeName": "orderId",         "type": "Integer"}
+  ],
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "by_country_state",
+        "dimensions": ["country", "state"],
+        "attributes": ["stay_length", "orderId"],
+        "featureInterval": 300000
+      }
+    ]
+  }
+}

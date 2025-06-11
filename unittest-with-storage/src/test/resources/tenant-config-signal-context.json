@@ -1,0 +1,32 @@
+{
+  "name": "mytesttenantfromtenantmanagertest",
+  "streams": [
+    {
+      "name": "first_signal",
+      "attributes": [
+        {
+          "name": "first",
+          "type": "string"
+        }, {
+          "name": "second",
+          "type": "int"
+        }
+      ]
+    }, {
+      "name": "first_context",
+      "type": "context",
+      "attributes": [
+        {
+          "name": "city",
+          "type": "string"
+        }, {
+          "name": "state",
+          "type": "string"
+        }, {
+          "name": "country",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

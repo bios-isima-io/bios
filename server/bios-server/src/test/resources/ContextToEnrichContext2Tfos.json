@@ -1,0 +1,10 @@
+{
+  "name": "staff",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    { "name": "resourceId", "type": "string" },
+    { "name": "cost", "type": "double" },
+    { "name": "aliasName", "type": "string" }
+  ]
+}

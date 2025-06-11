@@ -1,0 +1,28 @@
+{
+  "signalName": "quantilesSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "a",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "b",
+      "type": "Decimal"
+    },
+    {
+      "attributeName": "c",
+      "type": "Integer"
+    }
+  ],
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "quantilesFeature",
+        "attributes": ["a", "b", "c"],
+        "dataSketches": ["Quantiles"],
+        "featureInterval": 15000
+      }
+    ]
+  }
+}

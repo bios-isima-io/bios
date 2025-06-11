@@ -1,0 +1,58 @@
+  {
+    "contextName": "skuContext",
+    "peakRequestSize": 625,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "sku",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "productId",
+        "type": "string",
+        "attrValType": "REGEX",
+        "pattern": "[1-5]{4}"
+       },
+      {
+        "attributeName": "fromAge",
+        "type": "integer",
+        "attrValType": "AGE",
+        "range": "15-95"
+      },
+      {
+        "attributeName": "toAge",
+        "type": "integer",
+        "attrValType": "AGE",
+        "range": "15-95"
+      },
+      {
+        "attributeName": "regularPrice",
+        "type": "decimal",
+        "attrValType": "PRICE",
+        "range": "100-99999"
+      },
+      {
+        "attributeName": "retailPrice",
+        "type": "decimal",
+        "attrValType": "PRICE",
+        "range": "100-99999"
+      },
+      {
+        "attributeName": "salePrice",
+        "type": "decimal",
+        "attrValType": "PRICE",
+        "range": "100-99999"
+      },
+      {
+        "attributeName": "itc",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "2-2"
+      }
+    ],
+    "primaryKeys": [
+      "sku"
+    ]
+  }

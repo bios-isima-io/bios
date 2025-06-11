@@ -1,0 +1,101 @@
+{
+  "signalName": "retailTransactionsSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "orgId",
+      "type": "String",
+      "attrValType": "STRING_ID",
+      "range": "2-2"
+    },
+    {
+      "attributeName": "retailStoreId",
+      "type": "String",
+      "attrValType": "REGEX",
+      "pattern": "STORE0[1-9]{1}"
+    },
+    {
+      "attributeName": "workstationId",
+      "type": "Integer",
+      "attrValType": "REGEX",
+      "pattern": "[0-9]{2}"
+    },
+    {
+      "attributeName": "tillId",
+      "type": "Decimal",
+      "attrValType": "NUMERIC_ID",
+      "range": "41200000-41209999"
+    },
+    {
+      "attributeName": "sequenceNumber",
+      "type": "Integer",
+      "attrValType": "NUMERIC_ID",
+      "range": "2001-2999"
+    },
+    {
+      "attributeName": "transactionTimestamp",
+      "type": "Integer",
+      "attrValType": "TIMESTAMP"
+    },
+    {
+      "attributeName": "operatorName",
+      "type": "String",
+      "attrValType": "RANDOM_STRING",
+      "range": "5-5"
+    },
+    {
+      "attributeName": "currencyCode",
+      "type": "String",
+      "attrValType": "RANDOM_STRING",
+      "range": "3-3"
+    },
+    {
+      "attributeName": "itemId",
+      "type": "Integer",
+      "attrValType": "REGEX",
+      "pattern": "[1-9]{8}"
+    },
+    {
+      "attributeName": "itemName",
+      "type": "String",
+      "attrValType": "RANDOM_STRING",
+      "range": "9-9"
+    },
+    {
+      "attributeName": "regularPrice",
+      "type": "Decimal",
+      "attrValType": "PRICE",
+      "range": "4-5"
+    },
+    {
+      "attributeName": "actualPrice",
+      "type": "Decimal",
+        "attrValType": "PRICE",
+        "range": "4-5"
+    },
+    {
+      "attributeName": "quantity",
+      "type": "Integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-9"
+    },
+    {
+      "attributeName": "taxAuthority",
+      "type": "String",
+      "attrValType": "RANDOM_STRING",
+      "range": "5-5"
+    },
+    {
+      "attributeName": "taxableAmount",
+      "type": "Decimal",
+        "attrValType": "PRICE",
+        "range": "4-5"
+    },
+    {
+      "attributeName": "taxAmount",
+      "type": "Decimal",
+        "attrValType": "PRICE",
+        "range": "4-5"
+    }
+  ]
+}

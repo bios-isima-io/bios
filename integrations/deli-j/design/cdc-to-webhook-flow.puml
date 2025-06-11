@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+' autonumber
+
+DB -> Deli_J: Change Event
+Deli_J -> Deli_J: Filter by offset
+Deli_J -> Deli_J: Build payload
+Deli_J -> Deli_P: Forward (Webhook req)
+Deli_P -> Deli_P: Special conversion
+Deli_P -> Deli_P: Regular incoming data processing
+Deli_P -> biOS: Deliver
+biOS --> Deli_P: Response
+Deli_P --> Deli_J: Response
+Deli_J -> Deli_J: Update offset (Checkpoint)
+
+@enduml

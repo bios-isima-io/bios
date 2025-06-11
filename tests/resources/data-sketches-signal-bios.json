@@ -1,0 +1,72 @@
+{
+  "signalName": "dataSketchesSignal",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "orderId",
+      "type": "Integer"
+    },
+    {
+      "attributeName": "orderAmount",
+      "type": "Decimal",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Money",
+        "unit": "USD",
+        "positiveIndicator": "High",
+        "firstSummary": "AVG",
+        "secondSummary": "SUM"
+      }
+    },
+    {
+      "attributeName": "deliveryTime",
+      "type": "Integer",
+      "tags": {
+        "category": "Quantity",
+        "kind": "Duration",
+        "unit": "Minute",
+        "positiveIndicator": "Low",
+        "firstSummary": "AVG"
+      }
+    },
+    {
+      "attributeName": "warehouse",
+      "type": "String",
+      "tags": {
+        "category": "Dimension"
+      }
+    },
+    {
+      "attributeName": "region",
+      "type": "String",
+      "tags": {
+        "category": "Dimension"
+      }
+    },
+    {
+      "attributeName": "zipcode",
+      "type": "String"
+    },
+    {
+      "attributeName": "orderDescription",
+      "type": "String",
+      "tags": {
+        "category": "Description"
+      }
+    },
+    {
+      "attributeName": "timeSpent",
+      "type": "Decimal"
+    }
+  ],
+  "postStorageStage": {
+    "features": [
+      {
+        "featureName": "QuantitativeSketchFor2Attributes",
+        "attributes": ["deliveryTime", "orderAmount"],
+        "dataSketches": ["Moments"],
+        "featureInterval": 300000
+      }
+    ]
+  }
+}

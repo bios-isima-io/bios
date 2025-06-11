@@ -1,0 +1,170 @@
+  {
+    "signalName": "productAddedToCartSignal",
+    "peakRequestSize": 940,
+    "missingAttributePolicy": "Reject",
+    "attributes": [
+      {
+        "attributeName": "visitorId",
+        "type": "string",
+        "attrValType": "STRING_ID",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "userId",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "10000-99999"
+      },
+      {
+        "attributeName": "funnel",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "email",
+          "blogpost",
+          "google ad",
+          "facebook ad",
+          "twitter ad"
+        ]
+      },
+      {
+        "attributeName": "section",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "subsection",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "funnelTile",
+        "type": "string",
+        "attrValType": "ENUM",
+	      "allowedValues": [
+          "Kitchen",
+          "Shoes",
+          "Apparel",
+          "Dairy",
+          "ReadyToEat",
+          "Meat",
+          "Fruits",
+          "Vegetables"
+        ]
+      },
+      {
+        "attributeName": "funnelRow",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "sortbar",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "sortbarGroup",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "funnelSection",
+        "type": "string",
+        "attrValType": "DEPARTMENT",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "receivedAt",
+        "type": "integer",
+        "attrValType": "TIMESTAMP"
+      },
+      {
+        "attributeName": "product_id",
+        "type": "integer",
+        "attrValType": "NUMERIC_ID",
+        "range": "1000-9999"
+      },
+      {
+        "attributeName": "quantity",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "sku",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "subtotal",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "100-999999"
+      },
+      {
+        "attributeName": "from_screen",
+        "type": "string",
+        "attrValType": "RANDOM_STRING",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "discount_percentage",
+        "type": "string",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "delivery_days",
+        "type": "integer",
+        "attrValType": "RANDOM_NUMBER",
+        "range": "1-99"
+      },
+      {
+        "attributeName": "atc_user",
+        "type": "string",
+        "attrValType": "NAME",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "add_from_details",
+        "type": "string",
+        "attrValType": "ADDRESS",
+        "range": "5-5"
+      },
+      {
+        "attributeName": "universal",
+        "type": "string",
+        "attrValType": "PRODUCT_NAME",
+        "range": "5-5"
+      }
+    ],
+    "mappedSignal":[
+      {
+        "srcAttribute" : "product_id",
+        "destAttribute" : "productId",
+        "destSignalName" : "product_view_signal"
+      },
+      {
+        "srcAttribute" : "userId",
+        "destAttribute" : "userId",
+        "destSignalName" : "product_view_signal"
+      },
+      {
+        "srcAttribute" : "section",
+        "destAttribute" : "section",
+        "destSignalName" : "product_view_signal"
+      },
+      {
+        "srcAttribute" : "subsection",
+        "destAttribute" : "subsection",
+        "destSignalName" : "product_view_signal"
+      }
+    ],
+    "keyAttributes" : ["product_id","userId","atc_user","section","subsection"]
+  }

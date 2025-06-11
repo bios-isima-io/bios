@@ -1,0 +1,9 @@
+{
+  "filter": "AvgPx >= 10000 AND TransactTime >= 1521580040000 AND TransactTime < 1521583640000 limit 5",
+  "attributes": [
+    "Symbol",
+    "OrderID",
+    "TransactTime",
+    "AvgPx"
+  ]
+}

@@ -1,0 +1,272 @@
+{
+    "event_id": "f408447c-e8fb-4b75-9556-e11f94ced521",
+    "event": {
+        "envelopeType": "DATA",
+        "partition": 8,
+        "offset": 2319096784,
+        "createTime": 1681930557165,
+        "topic": "triggers",
+        "com.adobe.mcloud.pipeline.pipelineMessage": {
+            "header": {
+                "messageType": "TRIGGER",
+                "source": "triggers",
+                "sentTime": 1681930557065,
+                "imsOrg": "97B21CFE5329614E0A490D45@AdobeOrg",
+                "properties": [
+                    {
+                        "name": "trace",
+                        "value": "false"
+                    },
+                    {
+                        "name": "sourceFirstTimestamp",
+                        "value": "1681930152"
+                    },
+                    {
+                        "name": "sourceLastTimestamp",
+                        "value": "1681930152"
+                    },
+                    {
+                        "name": "triggerFiredTimestamp",
+                        "value": "1681930555170"
+                    }
+                ],
+                "messageId": "e21aed6f-a71b-446a-ba20-31a5199d78ae"
+            },
+            "com.adobe.mcloud.protocol.trigger": {
+                "triggerId": "3ce217bd-6d8d-4e05-a3b4-08a94d65809a",
+                "triggerTimestamp": 1681930557065,
+                "mcId": "34160977842760770251754731617040433793",
+                "enrichments": {
+                    "analyticsHitSummary": {
+                        "dimensions": {
+                            "eVar1": {
+                                "type": "string",
+                                "data": [
+                                    "Product Detail | 233456787"
+                                ],
+                                "name": "eVar1",
+                                "source": "session summary"
+                            },
+                            "eVar10": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar10",
+                                "source": "session summary"
+                            },
+                            "eVar13": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar13",
+                                "source": "session summary"
+                            },
+                            "eVar14": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar14",
+                                "source": "session summary"
+                            },
+                            "eVar2": {
+                                "type": "string",
+                                "data": [
+                                    "Product Detail"
+                                ],
+                                "name": "eVar2",
+                                "source": "session summary"
+                            },
+                            "eVar24": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar24",
+                                "source": "session summary"
+                            },
+                            "eVar30": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar30",
+                                "source": "session summary"
+                            },
+                            "eVar31": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar31",
+                                "source": "session summary"
+                            },
+                            "eVar32": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar32",
+                                "source": "session summary"
+                            },
+                            "eVar33": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar33",
+                                "source": "session summary"
+                            },
+                            "eVar34": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar34",
+                                "source": "session summary"
+                            },
+                            "eVar35": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar35",
+                                "source": "session summary"
+                            },
+                            "eVar37": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar37",
+                                "source": "session summary"
+                            },
+                            "eVar43": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar43",
+                                "source": "session summary"
+                            },
+                            "eVar5": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar5",
+                                "source": "session summary"
+                            },
+                            "eVar52": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar52",
+                                "source": "session summary"
+                            },
+                            "eVar6": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar6",
+                                "source": "session summary"
+                            },
+                            "eVar63": {
+                                "type": "string",
+                                "data": [
+                                    "Some Top Level Category"
+                                ],
+                                "name": "eVar63",
+                                "source": "session summary"
+                            },
+                            "eVar64": {
+                                "type": "string",
+                                "data": [
+                                    "Some Top Level Category | Divide & Conquer"
+                                ],
+                                "name": "eVar64",
+                                "source": "session summary"
+                            },
+                            "eVar74": {
+                                "type": "string",
+                                "data": [
+                                    "/.product.3344567.html"
+                                ],
+                                "name": "eVar74",
+                                "source": "session summary"
+                            },
+                            "eVar76": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar76",
+                                "source": "session summary"
+                            },
+                            "eVar77": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar77",
+                                "source": "session summary"
+                            },
+                            "eVar78": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar78",
+                                "source": "session summary"
+                            },
+                            "eVar8": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar8",
+                                "source": "session summary"
+                            },
+                            "eVar82": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar82",
+                                "source": "session summary"
+                            },
+                            "eVar90": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar90",
+                                "source": "session summary"
+                            },
+                            "eVar95": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar95",
+                                "source": "session summary"
+                            },
+                            "eVar96": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "eVar96",
+                                "source": "session summary"
+                            },
+                            "prop7": {
+                                "type": "unknown",
+                                "data": [],
+                                "name": "prop7",
+                                "source": "session summary"
+                            },
+                            "state": {
+                                "type": "string",
+                                "data": [
+                                    ""
+                                ],
+                                "name": "state",
+                                "source": "session summary"
+                            },
+                            "zip": {
+                                "type": "string",
+                                "data": [
+                                    ""
+                                ],
+                                "name": "zip",
+                                "source": "session summary"
+                            }
+                        },
+                        "products": {}
+                    }
+                },
+                "triggerPath": [
+                    {
+                        "stateId": "start_and",
+                        "transition": "null",
+                        "timestamp": 1681930555170
+                    },
+                    {
+                        "stateId": "vmi_and_1",
+                        "transition": "conditional -> select * where events.event1 = ''",
+                        "timestamp": 1681930555170
+                    },
+                    {
+                        "stateId": "start_and",
+                        "transition": "states visited -> [StateVisitedNode [stateId=vmi_and_1, count=1, operator=GE]]",
+                        "timestamp": 1681930555170
+                    },
+                    {
+                        "stateId": "notify",
+                        "transition": "states visited -> [StateVisitedNode [stateId=vmi_and_1, count=1, operator=GE]]",
+                        "timestamp": 1681930555170
+                    }
+                ]
+            }
+        }
+    },
+    "recipient_client_id": "ba37318ee3ee11edb5ea0242ac120002"
+}

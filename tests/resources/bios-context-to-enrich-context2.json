@@ -1,0 +1,10 @@
+{
+  "contextName": "staff",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    { "attributeName": "resourceId",  "type": "String" },
+    { "attributeName": "cost", "type": "Decimal" },
+    { "attributeName": "aliasName", "type": "String" }
+  ],
+  "primaryKey": ["resourceId"]
+}

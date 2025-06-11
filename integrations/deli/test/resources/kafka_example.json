@@ -1,0 +1,81 @@
+{
+  "importSources": [
+    {
+      "importSourceId": "505",
+      "importSourceName": "Kafka Test Server",
+      "type": "Kafka",
+      "bootstrapServers": [
+        "34.93.18.170:9092"
+      ],
+      "apiVersion": [0,10,2],
+      "authentication": {
+        "type": "SASL_PLAINTEXT",
+        "user": "admin",
+        "password": "admin"
+      }
+    }
+  ],
+  "importDestinations": [
+    {
+      "importDestinationId": "501",
+      "type": "bios",
+      "endpoint": "https://kalyan-server-1",
+      "authentication": {
+        "type": "Login",
+        "user": "kalyan@isima.io",
+        "password": "Isima@123"
+      }
+    }
+  ],
+  "importFlowSpecs": [
+    {
+      "importFlowName": "testFlow",
+      "importFlowId": "605",
+      "sourceDataSpec": {
+        "importSourceId": "505",
+        "topic": "test",
+        "clientId": "covidClient",
+        "groupId": "test_group",
+        "kwArgs": {
+          "max_poll_records": 100,
+          "max_poll_interval_ms": 5000,
+          "auto_offset_reset": "earliest",
+          "enable_auto_commit": false
+        },
+        "payloadType": "Json"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "501",
+        "type": "SIGNAL",
+        "name": "covidDataSignal"
+      },
+      "dataPickupSpec": {
+        "attributes": [
+          {
+            "sourceAttributeName": "reportedDate",
+            "as": "reportedDate"
+          },
+          {
+            "sourceAttributeName": "countryCode",
+            "as": "countryCode"
+          },
+          {
+            "sourceAttributeName": "reportedCases",
+            "as": "reportedCases"
+          },
+          {
+            "sourceAttributeName": "reportedDeaths",
+            "as": "reportedDeaths"
+          }
+        ]
+      },
+      "checkpointingEnabled": true
+    }
+  ],
+  "importDataProcessors": [
+    {
+      "processorName": "test",
+      "code": "ZnJvbSBkYXRldGltZSBpbXBvcnQgZGF0ZXRpbWUKCgpkZWYgcGFyc2VfZGF0ZXRpbWUoc3JjKToKICAgIHJldHVybiBkYXRldGltZS5zdHJwdGltZShzcmMsICIlWS0lbS0lZFQlSDolTTolU1oiKQo="
+    }
+  ]
+}

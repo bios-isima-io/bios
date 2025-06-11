@@ -1,0 +1,10 @@
+{
+  "importDestinationId": "101",
+  "type": "Bios",
+  "endpoint": "https://kalyan-server-1",
+  "authentication": {
+    "type": "Login",
+    "user": "kalyan@isima.io",
+    "password": "Isima@123"
+  }
+}

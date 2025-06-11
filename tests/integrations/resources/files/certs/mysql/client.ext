@@ -1,0 +1,11 @@
+#
+# Edit this file to configure the client certificate
+#
+[client]
+basicConstraints = CA:FALSE
+nsCertType = client
+nsComment = "Deli MongoDB Connector"
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = digitalSignature
+extendedKeyUsage = clientAuth

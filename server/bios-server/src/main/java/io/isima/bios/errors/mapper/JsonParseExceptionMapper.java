@@ -1,0 +1,39 @@
+/*
+ * Copyright (C) 2025 Isima, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.isima.bios.errors.mapper;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import io.isima.bios.models.ErrorResponsePayload;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
+
+@Provider
+public class JsonParseExceptionMapper implements ExceptionMapper<JsonParseException> {
+
+  @Override
+  public Response toResponse(JsonParseException e) {
+    String message =
+        e.getMessage().replaceAll("Source: \\S+; ", "").replace("\n", "").replace("\"", "\\\"");
+    return Response.status(Status.BAD_REQUEST)
+        .type(MediaType.APPLICATION_JSON)
+        .entity(
+            new ErrorResponsePayload(Response.Status.BAD_REQUEST, "JSON parse error: " + message))
+        .build();
+  }
+}

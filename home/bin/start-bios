@@ -1,0 +1,109 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "$0")"; pwd)"
+
+_usage() {
+    echo "Usage: $(basename "$0") [options]"
+    echo "options:"
+    echo "  --debug : Run in debug mode"
+    echo "  --help  : Print help"
+    exit 0
+}
+
+_wait_pid_down() {
+    PID=$1
+    for i in {1..60}; do
+        echo -n "."
+        if [ -z "$(ps -p ${PID} | grep -v PID)" ]; then
+            echo "stopped."
+            return
+        fi
+        sleep 1
+    done
+}
+
+_term() {
+    echo "** STOP **"
+    kill -TERM ${SERVER_PID}
+    _wait_pid_down ${SERVER_PID}
+}
+
+trap _term TERM
+
+: ${DEBUG_MODE:="false"}
+while [[ "$1" == -* ]]; do
+    case $1 in
+        --debug)
+            DEBUG_MODE=true
+            ;;
+        --help)
+            _usage
+            ;;
+        *)
+            echo "Unknown option: $1"
+            usage
+            ;;
+    esac
+    shift
+done
+
+if [ -z "${BIOS_HOME}" ]; then
+   export BIOS_HOME="$(cd "${SCRIPT_DIR}/.."; pwd)"
+fi
+
+echo BIOS_HOME=$BIOS_HOME
+export BIOS_CONNECTION_TYPE=internal
+export SSL_CERT_FILE=/opt/bios/configuration/cacerts.pem
+
+# Log4j config
+LOG4J=-Dlog4j.configurationFile="${BIOS_HOME}/configuration/log4j2.xml"
+
+# Set up jvm options
+if [ -e ${BIOS_HOME}/configuration/bios-jvm.options ]; then
+    JVM_OPTS="${JVM_OPTS} $(grep -v '^#' ${BIOS_HOME}/configuration/bios-jvm.options)"
+fi
+if [ -n "${DB_CONTACT_POINTS}" ]; then
+    JVM_OPTS="${JVM_OPTS} -Dio.isima.bios.db.contactPoints=${DB_CONTACT_POINTS}"
+fi
+if [ -n "${BIOS_RF}" ]; then
+    JVM_OPTS="${JVM_OPTS} -Dio.isima.bios.db.replicationFactor=${BIOS_RF}"
+fi
+if [ -n "${AUTH_EXPIRATION_MILLIS}" ]; then
+    JVM_OPTS="${JVM_OPTS} -Dio.isima.bios.auth.timeout=${AUTH_EXPIRATION_MILLIS}"
+fi
+
+DEBUG_PORT=8787
+echo ""
+echo ""
+echo "Debug mode: ${DEBUG_MODE}"
+echo ""
+echo ""
+if [ "$DEBUG_MODE" = "true" ]; then
+    echo "!!! DEBUG MODE !!!"
+    set +e
+    DEBUG_OPT=$(echo "$JVM_OPTS" | grep "\-agentlib:jdwp")
+    set -e
+    if [ "x$DEBUG_OPT" = "x" ]; then
+        JVM_OPTS="$JVM_OPTS -agentlib:jdwp=transport=dt_socket,address=0.0.0.0:$DEBUG_PORT,server=y,suspend=n"
+    else
+        echo "Debug already enabled in JVM_OPTS, ignoring --debug argument"
+    fi
+fi
+
+# resolve class paths
+JAR_FILES=$(ls -1 "${BIOS_HOME}"/lib/*.jar)
+CP="$(echo ${JAR_FILES} | sed 's/ /:/g')"
+
+MAIN_CLASS=io.isima.bios.server.BiosServer
+
+# start proxy
+mkdir -p /var/log/server
+nghttpx --conf=/opt/bios/configuration/nghttpx.conf
+
+# start server
+java ${JVM_OPTS} ${LOG4J} -cp "${CP}" ${MAIN_CLASS} &
+SERVER_PID=$!
+
+wait "$SERVER_PID"

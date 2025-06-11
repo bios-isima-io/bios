@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "test": "node_modules/karma/bin/karma start karma.conf.js",
+    "test:watch": "node_modules/karma/bin/karma start --auto-watch --no-single-run karma.conf.js",
+    "test:report": "node_modules/karma/bin/karma start --no-colors --reporters spec,junit karma.conf.js",
+    "test:debug": "node_modules/karma/bin/karma start --auto-watch --single-run=false karma.debug.conf.js",
+    "on-the-fly-test": "node_modules/karma/bin/karma start karma.onTheFly.conf.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "bios-sdk": "${SDK_VERSION}",
+    "jasmine-core": "^5.1.1",
+    "karma": "^6.4.2",
+    "karma-babel-preprocessor": "^8.0.1",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-env-preprocessor": "^0.1.1",
+    "karma-jasmine": "^5.1.0",
+    "karma-junit-reporter": "^2.0.1",
+    "karma-spec-reporter": "^0.0.36",
+    "karma-webpack": "^4.0.2",
+    "typescript": "^5.8.3",
+    "webpack": "^4.46.0"
+  }
+}

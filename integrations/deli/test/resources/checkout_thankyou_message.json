@@ -1,0 +1,63 @@
+{
+    "headers": {
+        "x-real-ip": " 10.20.30.40, 11.21.31.41",
+        "connection": " upgrade",
+        "host": " bios.isima.io",
+        "x-real-port": " 33584",
+        "content-length": " 1530",
+        "user-agent": " Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/20.0 Chrome/106.0.5249.126 Mobile Safari/537.36",
+        "dnt": " 1",
+        "content-type": " application/json",
+        "accept": " */*",
+        "origin": " https",
+        "sec-fetch-site": " cross-site",
+        "sec-fetch-mode": " cors",
+        "sec-fetch-dest": " empty",
+        "referer": " https",
+        "accept-encoding": " gzip, deflate, br",
+        "accept-language": " ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+    },
+    "body": {
+        "abTest": "a/b test identifier here",
+        "touchPoint": "mobile",
+        "isNativePlatform": 0,
+        "deviceId": "",
+        "deviceType": "mobile",
+        "language": "ru",
+        "visitorId": 83745962,
+        "searchTerm": null,
+        "catalogListingIds": [],
+        "catalogGroupTitle": null,
+        "catalogCategoryTitle": null,
+        "catalogSubCategoryTitle": null,
+        "catalogProductId": null,
+        "catalogProductSellPrice": null,
+        "categoryId": null,
+        "categoryName": null,
+        "productId": null,
+        "productName": null,
+        "brandName": null,
+        "ordersNumber": "56",
+        "orderId": "62587139",
+        "transactionId": "62587139",
+        "transactionTotal": "19.63",
+        "transactionItems": [
+            {
+                "modification_id": "96852143",
+                "product_id": "74589631",
+                "amount": "1",
+                "name": "Exciting, Scrumptious, Zesty, Whimsical, Radiant",
+                "sell_price": "16.99"
+            }
+        ],
+        "transactionCoupon": "DISCOUNT_PL",
+        "pageHostName": "pigu.lt",
+        "pagePath": "/ru/o/thankyou/62587139",
+        "pageUrl": "https://pigu.lt/ru/o/thankyou/62587139",
+        "referrer": "https://pigu.lt/ru/orders/payments/init/62587139/827459613/PD/f6b70d594f5a25a211a647c8d47f5436/9d5c1f382a73a98a1d2f5c5f5f5a5a5e/0",
+        "pageType": "checkout / thankyou",
+        "productDefaultSellerId": null,
+        "image_url": null,
+        "gtin": null
+    }
+}

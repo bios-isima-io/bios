@@ -1,0 +1,10 @@
+{
+  "name": "resourceType",
+  "type": "context",
+  "missingValuePolicy": "strict",
+  "attributes": [
+    { "name": "resourceTypeNum",  "type": "long" },
+    { "name": "resourceTypeCode", "type": "string" },
+    { "name": "resourceCategory", "type": "long" }
+  ]
+}

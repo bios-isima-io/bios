@@ -1,0 +1,38 @@
+{
+	"analysis": {
+		"operation": [
+			{
+				"operationPolicy": "ALWAYS",
+				"operationType": "SUMMARIZE"
+			},
+			{
+				"operationPolicy": "ALWAYS",
+				"operationType": "ADMIN_READ"
+			},
+			{
+				"operationPolicy": "ALWAYS",
+				"operationType": "ADMIN_WRITE"
+			}
+		]
+	},
+	"signal": {
+		"operation": [
+			{
+				"operationPolicy": "ALWAYS",
+				"operationType": "INGEST"
+			},
+			{
+				"operationPolicy": "ALWAYS",
+				"operationType": "CONTEXT_WRITE"
+			}
+		]
+	},
+	"rollup": {
+		"operation": [
+			{
+				"operationPolicy": "ALWAYS",
+				"operationType": "EXTRACT"
+			}
+		]
+	}
+}

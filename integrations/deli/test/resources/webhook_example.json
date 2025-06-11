@@ -1,0 +1,116 @@
+{
+  "importSources": [
+    {
+      "importSourceId": "205",
+      "importSourceName": "Webhook Alerts",
+      "type": "Webhook",
+      "webhookPath": "/system",
+      "authentication": {
+        "type": "InMessage",
+        "inMessageUserAttribute": "user",
+        "inMessagePasswordAttribute": "password"
+      }
+    }
+  ],
+  "importDestinations": [
+    {
+      "importDestinationId": "101",
+      "type": "bios",
+      "endpoint": "https://localhost",
+      "authentication": {
+        "type": "Login",
+        "user": "admin@webhookTest",
+        "password": "admin"
+      }
+    }
+  ],
+  "importFlowSpecs": [
+    {
+      "importFlowName": "Event Received",
+      "importFlowId": "305",
+      "sourceDataSpec": {
+        "importSourceId": "205",
+        "webhookSubPath": "/alerts",
+        "payloadType": "JSON",
+        "mapperName": "alertsMapping"
+      },
+      "destinationDataSpec": {
+        "importDestinationId": "101",
+        "type": "SIGNAL",
+        "name": "alertsSignal"
+      },
+      "dataPickupSpec": {
+        "filters": [
+          {
+            "sourceAttributeName": "signalName",
+            "filter": "lambda value: value == 'monitoredSignal'"
+          }
+        ],
+        "attributeSearchPath": "",
+        "attributes": [
+          {
+            "sourceAttributeName": "signalName"
+          },
+          {
+            "sourceAttributeName": "featureName"
+          },
+          {
+            "sourceAttributeName": "alertName"
+          },
+          {
+            "sourceAttributeName": "condition"
+          },
+          {
+            "sourceAttributeName": "event"
+          },
+          {
+            "sourceAttributeName": "timestampMillisSinceEpoch",
+            "as": "alertRaisedTimestamp"
+          },
+          {
+            "sourceAttributeName": "windowStartTime",
+            "processes": [
+              {
+                "processorName": "alertUtils",
+                "method": "parse_datetime"
+              }
+            ],
+            "transforms": [
+              {
+                "rule": "lambda parsed: parsed.year",
+                "as": "year"
+              },
+              {
+                "rule": "lambda parsed: parsed.month",
+                "as": "month"
+              },
+              {
+                "rule": "lambda parsed: parsed.day",
+                "as": "day"
+              },
+              {
+                "rule": "lambda parsed: parsed.hour",
+                "as": "hour"
+              },
+              {
+                "rule": "lambda parsed: parsed.minute",
+                "as": "minute"
+              },
+              {
+                "rule": "lambda parsed: parsed.second",
+                "as": "second"
+              }
+            ]
+          }
+        ]
+      },
+      "acknowledgementEnabled": true
+    }
+  ],
+  "importDataProcessors": [
+    {
+      "processorName": "alertUtils",
+      "code": "ZnJvbSBkYXRldGltZSBpbXBvcnQgZGF0ZXRpbWUKCgpkZWYgcGFyc2VfZGF0ZXRpbWUoc3JjKToKICAgIHJldHVybiBkYXRldGltZS5zdHJwdGltZShzcmMsICIlWS0lbS0lZFQlSDolTTolU1oiKQo="
+    }
+  ]
+}

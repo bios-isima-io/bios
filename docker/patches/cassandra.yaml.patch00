@@ -1,0 +1,24 @@
+--- cassandra.yaml.orig	2018-02-14 20:46:04.000000000 +0000
++++ cassandra.yaml	2020-03-17 18:14:23.786491935 +0000
+@@ -100,7 +100,7 @@
+ #   users. It keeps usernames and hashed passwords in system_auth.roles table.
+ #   Please increase system_auth keyspace replication factor if you use this authenticator.
+ #   If using PasswordAuthenticator, CassandraRoleManager must also be used (see below)
+-authenticator: AllowAllAuthenticator
++authenticator: PasswordAuthenticator
+ 
+ # Authorization backend, implementing IAuthorizer; used to limit access/provide permissions
+ # Out of the box, Cassandra provides org.apache.cassandra.auth.{AllowAllAuthorizer,
+@@ -1157,10 +1157,10 @@
+ 
+ # Log WARN on any multiple-partition batch size exceeding this value. 5kb per batch by default.
+ # Caution should be taken on increasing the size of this threshold as it can lead to node instability.
+-batch_size_warn_threshold_in_kb: 5
++batch_size_warn_threshold_in_kb: 40000
+ 
+ # Fail any multiple-partition batch exceeding this value. 50kb (10x warn threshold) by default.
+-batch_size_fail_threshold_in_kb: 50
++batch_size_fail_threshold_in_kb: 50000
+ 
+ # Log WARN on any batches not of type LOGGED than span across more partitions than this limit
+ unlogged_batch_across_partitions_warn_threshold: 10

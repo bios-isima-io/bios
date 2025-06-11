@@ -1,0 +1,904 @@
+#!/bin/bash
+#
+# Script to start a three-node Cassandra cluster using Docker.
+# Nodes listen on 172.18.0.11, 172.18.0.12, 172.18.0.13.
+# Docker instance names are:
+#  - bios1 (listening on 172.18.0.11)
+#  - bios2 (listening on 172.18.0.12)
+#  - bios3 (listening on 172.18.0.13)
+
+SCRIPT_DIR="$(cd "$(dirname $0)"; pwd)"
+ROOT="$(cd "${SCRIPT_DIR}/../.."; pwd)"
+
+trap 'echo -e "\n## ERROR starting the test service cluster ######################"' ERR
+
+# System setup
+if [ $(docker --version | sed -r 's/.* ([0-9]+)\.[0-9]+\.[0-9]+, .*/\1/g') -ge 23 ]; then
+    DOCKER_CP="docker cp -q"
+else
+    DOCKER_CP="docker cp"
+fi
+
+###########
+# Functions
+
+is_true()
+{
+    value=$1
+    [ "${value}" = 1 ] || [ "${value}" = "yes" ] || [ "${value}" = "y" ] || [ "${value}" = "true" ]
+}
+
+new_section()
+{
+    message=$1
+    echo -e "\n----> ${message}\n"
+}
+
+# generate server certificate files
+generate_certs()
+{
+    node_number=$1
+    instance_host=$2
+
+    new_section "generating certificate files for node ${node_number} (endpoint: ${instance_host})"
+    certs_path="${TEST_HOME}/${node_number}/certs"
+    mkdir -p "${certs_path}/"
+    "${SCRIPT_DIR}/create-server-cert" \
+        --root-ca "${ROOT}/certs/root-ca.cert.pem" \
+        --root-key "${ROOT}/certs/root-ca.key.pem" \
+        --output-prefix="${certs_path}/server" \
+        --domain local.isima.io \
+        --common-name "${instance_host}" \
+        --password secret
+}
+
+install_cert()
+{
+    node_number=$1
+    container=bios${node_number}${CONTAINER_SUFFIX}
+    cert_dir="${TEST_HOME}/${node_number}/certs"
+    cert="${cert_dir}/server.p12"
+    echo -n "  ... installing certificate file; container=${container} file=${cert} ..."
+    num_trials=3
+    for ((i = 0; i < num_trials; ++i)); do
+        "${SCRIPT_DIR}/install-p12" --no-restart "${container}" "${cert}" secret
+        result=$?
+        if [ $result = 0 ]; then
+            ${DOCKER_CP} ${cert_dir}/server.cert.pem ${container}:/opt/bios/configuration/
+            ${DOCKER_CP} ${cert_dir}/server.key.pem ${container}:/opt/bios/configuration/
+            echo "done"
+            break;
+        else
+            echo "will retry..."
+        fi
+    done
+    return $result
+}
+
+make_cqlshrc()
+{
+    echo "[connection]" > ${DB_RESOURCES}/cqlshrc
+    echo "host = localhost" >> ${DB_RESOURCES}/cqlshrc
+    echo "port = 10109" >> ${DB_RESOURCES}/cqlshrc
+    echo "factory = cqlshlib.ssl.ssl_transport_factory" >> ${DB_RESOURCES}/cqlshrc
+    echo "" >> ${DB_RESOURCES}/cqlshrc
+    echo "[ssl]" >> ${DB_RESOURCES}/cqlshrc
+    echo "certfile = /var/ext_resources/${DB_CLUSTER_NAME}.cer.pem" >> ${DB_RESOURCES}/cqlshrc
+    echo "validate = false" >> ${DB_RESOURCES}/cqlshrc
+    echo "version = TLSv1_2" >> ${DB_RESOURCES}/cqlshrc
+    echo "# Next 2 lines must be provided when require_client_auth = true in the db.yaml file" >> ${DB_RESOURCES}/cqlshrc
+    echo "userkey = /var/ext_resources/${DB_CLUSTER_NAME}.key.pem" >> ${DB_RESOURCES}/cqlshrc
+    echo "usercert = /var/ext_resources/${DB_CLUSTER_NAME}.cer.pem" >> ${DB_RESOURCES}/cqlshrc
+}
+
+start_db_node()
+{
+    node_number=$1
+    cass_bind_ip=$2
+    image_tag=$3
+
+    test_data_dir="${TEST_HOME}/${node_number}"
+    mkdir -p "${test_data_dir}/db"
+    sudo rm -rf "${test_data_dir}"/db/{data,data1,data2,commitlog,hints,saved_caches}
+
+    if [ -z "${DOCKER_NETWORK_OPTION}" ] || [ "${NUM_NODES}" = 0 ]; then
+        PUBLISH="-p ${cass_bind_ip}:10073:10073 -p ${cass_bind_ip}:10109:10109 -p ${cass_bind_ip}:10105:10105"
+    fi
+
+    if is_true "${MOUNT_VOLUMES}"; then
+        VOLUMES="$(echo -v ${test_data_dir}/db/data1:/var/lib/db/data1 \
+           -v ${test_data_dir}/db/data2:/var/lib/db/data2 \
+           -v ${test_data_dir}/db/commitlog:/var/lib/db/commitlog \
+           -v ${test_data_dir}/db/hints:/var/lib/db/hints \
+           -v ${test_data_dir}/db/saved_caches:/var/lib/db/saved_caches \
+           -v ${test_data_dir}/db/logs:/opt/db/logs \
+           -v ${DB_RESOURCES}:/var/ext_resources)"
+    fi
+
+    new_section "starting DB node, listening at ${cass_bind_ip}"
+    docker create --name ${BIOSDB} ${CONTAINER_OPT_LABEL} \
+           --privileged ${DB_DOCKER_NETWORK_OPTION} ${PUBLISH} \
+           --restart unless-stopped \
+           ${VOLUMES} \
+           -e CASSANDRA_BROADCAST_ADDRESS=1.2.3.4 \
+           -e DB_KEYSTORE="${DB_TEMP_DIR}/db.pks12.keystore" \
+           -e DB_TRUSTSTORE="${DB_TEMP_DIR}/db.truststore" \
+           -e AUTH_EXPIRATION_MILLIS=3600000 \
+           -e JVM_OPTS="${JVM_OPTS}" \
+           bios-storage:${image_tag}
+    ${DOCKER_CP} ${BIOSDB}:/opt/db/conf/jvm-server.options "${DB_RESOURCES}/"
+    ${DOCKER_CP} ${BIOSDB}:/opt/db/conf/jvm11-server.options "${DB_RESOURCES}/"
+    ${DOCKER_CP} ${BIOSDB}:/opt/db/conf/jvm-clients.options "${DB_RESOURCES}/"
+    sed -i 's/Dcassandra.available_processors=.*/Dcassandra.available_processors=4/g' "${DB_RESOURCES}/jvm-server.options"
+    sed -i 's/XX:ParallelGCThreads=.*/XX:ParallelGCThreads=4/g' "${DB_RESOURCES}/jvm11-server.options"
+    sed -i 's/XX:ConcGCThreads=.*/XX:ConcGCThreads=4/g' "${DB_RESOURCES}/jvm11-server.options"
+    echo -e "-Xms128M\n-Xmx1024M" >> "${DB_RESOURCES}/jvm-clients.options"
+    ${DOCKER_CP} "${DB_RESOURCES}/jvm-server.options" ${BIOSDB}:/opt/db/conf/
+    ${DOCKER_CP} "${DB_RESOURCES}/jvm11-server.options" ${BIOSDB}:/opt/db/conf/
+    ${DOCKER_CP} "${DB_RESOURCES}/jvm-clients.options" ${BIOSDB}:/opt/db/conf/
+    ${DOCKER_CP} ${BIOSDB}:/opt/db/conf/cassandra.yaml "${DB_RESOURCES}/db.yaml"
+    if is_true "${DB_TLS_ENABLED}"; then
+        pushd "${DB_RESOURCES}"
+        sed -ri 's/internode_encryption: .*$/internode_encryption: all/g' db.yaml
+        sed -ri ':a; $!N; s/Enable client-to-server encryption\n  enabled: false/Enable client-to-server encryption\
+  enabled: true/g' db.yaml
+        popd
+    fi
+    ${DOCKER_CP} "${DB_RESOURCES}/db.yaml" ${BIOSDB}:/opt/db/conf/cassandra.yaml
+    make_cqlshrc
+    if [ "${MOUNT_VOLUMES}" = 0 ]; then
+        ${DOCKER_CP} "${DB_RESOURCES}" ${BIOSDB}:/var/ext_resources
+    fi
+    docker start ${BIOSDB} \
+        && wait_cassandra_up ${BIOSDB} \
+        && create_mbean_user ${BIOSDB} \
+        && wait_cassandra_ring ${BIOSDB} 1
+}
+
+start_node()
+{
+    node_number=$1
+    bind_ip=$2
+    cass_bind_ip=$3
+    image_tag=$4
+    is_rollup=$5
+
+    new_section "creating BIOS node ${node_number} (rollup: ${is_rollup})"
+
+    test_data_dir="${TEST_HOME}/${node_number}"
+    mkdir -p "${test_data_dir}/server/logs"
+
+    if [ -z "${DOCKER_NETWORK}" ]; then
+        DB_CONTACT_POINTS=${cass_bind_ip}
+    else
+        DB_CONTACT_POINTS=${BIOSDB}
+    fi
+
+    # setup server.options
+    echo -n "  ... setting up properties for testing ..."
+    server_resources="${test_data_dir}/server/resources"
+    mkdir -p "${server_resources}"
+    cp "${ROOT}/home/configuration/server.options" "${server_resources}/"
+    cp "${ROOT}/home/configuration/log4j2.xml" "${server_resources}/"
+    server_options=${server_resources}/server.options
+    sed -ri "s/^io.isima.bios.data.rollup.enabled=.*/io.isima.bios.data.rollup.enabled=${is_rollup}/g" ${server_options}
+    set_up_test_config "${server_options}"
+    if [ "${DB_TLS_ENABLED}" = 1 ]; then
+        enable_db_tls "${server_options}"
+    fi
+    change_log_severity ${server_resources}/log4j2.xml io.isima.bios2.server.services.RequestStream debug
+    echo "done"
+
+    if [ "${MOUNT_VOLUMES}" = 1 ]; then
+        VOLUMES="-v ${test_data_dir}/server/logs:/var/log/server
+                 -v ${server_resources}:/var/ext_resources"
+        if [ "${DB_TLS_ENABLED}" = 1 ]; then
+
+        VOLUMES="${VOLUMES} -v ${DB_RESOURCES}:/var/db_resources"
+        fi
+    fi
+
+    container=bios${node_number}${CONTAINER_SUFFIX}
+    if is_true "${BIOS_DEBUG_ENABLED}"; then
+        options_for_debug="-p ${bind_ip}:${BIOS_DEBUG_PORT}:8787 -e DEBUG_MODE=true"
+    fi
+    echo "  ... creating container"
+    docker create --name ${container} ${CONTAINER_OPT_LABEL} \
+           --privileged ${DOCKER_NETWORK_OPTION} \
+           --restart unless-stopped \
+           -p ${bind_ip}:${UPSTREAM_HTTPS_PORT}:${CONTAINER_HTTPS_PORT} \
+           -p ${bind_ip}:${SERVER_PROXY_PORT}:${SERVER_PROXY_PORT} \
+           -p ${bind_ip}:${HTTP3_PORT}:${HTTP3_PORT}/udp \
+           ${VOLUMES} \
+           -e SERVER_HEAP_SIZE="${SERVER_HEAP_SIZE}" \
+           -e JVM_OPTS="${JVM_OPTS}" \
+           ${options_for_debug} \
+           ${BIOS_CONTAINER_EXTERNAL_OPTIONS} \
+           bios:${image_tag}
+    if is_true ${USE_BUILT_SERVER_JAR}; then
+        echo "  ... copying the locally built server jar file"
+        ${DOCKER_CP} ${ROOT}/server/target/bios-${BIOS_VERSION}.jar ${container}:/opt/bios/lib/
+    fi
+    if [ ${MOUNT_VOLUMES} = 0 ]; then
+        ${DOCKER_CP} ${DB_RESOURCES} ${container}:/var/db_resources
+    fi
+    echo "  ... copying necessary configuration files"
+    ${DOCKER_CP} ${server_resources}/server.options ${container}:/opt/bios/configuration/server.options
+    ${DOCKER_CP} ${server_resources}/log4j2.xml ${container}:/opt/bios/configuration/log4j2.xml
+    ${DOCKER_CP} "${ROOT}/server/bios-server/src/test/resources/initial_test_users.json" ${container}:/opt/bios/configuration/initial_test_users.json
+    ${DOCKER_CP} ${TEST_HOME}/cacerts.pem ${container}:/opt/bios/configuration/
+
+    ${DOCKER_CP} ${container}:/opt/bios/configuration/nghttpx.conf ${server_resources}
+    sed -ri "s/BIOS_HOST/${bind_ip}/g ; s/BIOS_PORT/${UPSTREAM_HTTPS_PORT}/g" ${server_resources}/nghttpx.conf
+    ${DOCKER_CP} ${server_resources}/nghttpx.conf ${container}:/opt/bios/configuration/
+
+    install_cert ${node_number}
+
+    new_section "starting BIOS node ${node_number} (rollup: ${is_rollup})"
+    docker start ${container}
+
+    checknode ${node_number} ${bind_ip}
+}
+
+set_up_test_config()
+{
+    server_options=$1
+    set_property "${server_options}" io.isima.bios.db.contactPoints ${DB_CONTACT_POINTS}
+    set_property "${server_options}" io.isima.bios.db.replicationFactor 1
+    set_property "${server_options}" io.isima.bios.auth.timeout 3600000
+    set_property "${server_options}" io.isima.bios.initialUsersFile /opt/bios/configuration/initial_test_users.json
+    set_property "${server_options}" io.isima.bios.test.enabled true
+    set_property "${server_options}" io.isima.bios.test.signup.enabled true
+    set_property "${server_options}" io.isima.bios.headerDump.enabled true
+    set_property "${server_options}" io.isima.bios.microservice.counters.enabled ${COUNTERS_MICROSERVICE_ENABLED}
+    set_property "${server_options}" io.isima.bios.server.quic.keystore.file configuration/server.p12
+    set_property "${server_options}" io.isima.bios.server.http3.enabled true
+    set_property "${server_options}" io.isima.bios.microservice.recommendation.enabled true
+    set_property "${server_options}" io.isima.bios.mail.secureConnection.disabled true
+    set_property "${server_options}" io.isima.bios.mail.nonsecureport 1025
+    set_property "${server_options}" io.isima.bios.mail.host ${ADDRESS[1]}
+    set_property "${server_options}" io.isima.bios.data.rollup.interval 3
+}
+
+function set_property()
+{
+    SERVER_OPTIONS=$1
+    KEY=$2
+    VALUE=$3
+    if [ -n "$(egrep "#? *${KEY}=" "${SERVER_OPTIONS}")" ]; then
+        sed -ri "s|#? *${KEY}=.*|${KEY}=${VALUE}|g" ${SERVER_OPTIONS}
+    else
+        sed -i "$ a\\${KEY}=${VALUE}" ${SERVER_OPTIONS}
+    fi
+}
+
+function change_log_severity()
+{
+    log_config_xml=$1
+    class_name=$2
+    severity=$3
+    sed -ri 's|<Logger name="'${class_name}'" level="[a-zA-Z]+" (.*)|<Logger name="'${class_name}'" level="'${severity}'" \1|g' ${log_config_xml}
+}
+
+enable_db_tls()
+{
+    server_options=$1
+
+    echo -n "\n  ... Setting up TLS config ..."
+    set_property "${server_options}" io.isima.bios.db.ssl.enabled true
+    set_property "${server_options}" io.isima.bios.db.ssl.keystore.file /var/db_resources/db.pks12.keystore
+    set_property "${server_options}" io.isima.bios.db.ssl.keystore.password secret
+    set_property "${server_options}" io.isima.bios.db.ssl.truststore.file /var/db_resources/db.truststore
+    set_property "${server_options}" io.isima.bios.db.ssl.truststore.password secret
+    echo "done"
+}
+
+start_lb()
+{
+    image_tag="$1"
+    http_port="$2"
+    https_port="$3"
+    test_data_dir="${TEST_HOME}/lb"
+    mkdir -p "${test_data_dir}"
+    mkdir -p "${test_data_dir}/lb_resources/conf.d"
+    cp ${TEST_HOME}/cacerts.pem ${test_data_dir}/lb_resources/
+
+    UPSTREAMS=${ADDRESS[1]}
+    if [ "${NUM_NODES}" -gt 1 ]; then
+        UPSTREAMS=${UPSTREAMS},${ADDRESS[2]}
+    fi
+    if [ "${USE_PROXY}" = 1 ] && [ "${NUM_NODES}" -gt 2 ]; then
+        UPSTREAMS=${UPSTREAMS},${ADDRESS[0]}
+        _startlb_node_start=4
+    else
+        _startlb_node_start=3
+    fi
+    for ((node = ${_startlb_node_start}; node <= ${NUM_NODES}; ++node)); do
+        UPSTREAMS=${UPSTREAMS},${ADDRESS[${node}]}
+    done
+
+    new_section "start load balancer node with upstreams=${UPSTREAMS}"
+
+    if [ "${MOUNT_VOLUMES}" = 1 ]; then
+        VOLUMES="-v ${test_data_dir}/logs:/var/log/nginx -v ${test_data_dir}/lb_resources:/var/ext_resources"
+    fi
+
+    docker create --name ${BIOSLB} --privileged ${DOCKER_NETWORK_OPTION} ${CONTAINER_OPT_LABEL} \
+       --restart unless-stopped \
+       -p ${BIND_HTTP_PORT}:${NGINX_HTTP_PORT} \
+       -p ${BIND_HTTPS_PORT}:${NGINX_HTTPS_PORT} \
+       -e MAIN_UPSTREAMS=${UPSTREAMS} \
+       -e WEBSSH_UPSTREAMS=${WEBSSH_UPSTREAMS} \
+       -e INTEGRATION_UPSTREAMS=${WEBHOOK_HOSTS} \
+       -e UPSTREAM_HTTP_PORT=${http_port} \
+       -e UPSTREAM_HTTPS_PORT=${https_port} \
+       -e INTEGRATION_PORT=${WEBHOOK_PORT} \
+       ${VOLUMES} \
+       bioslb:${image_tag}
+    if [ "${MOUNT_VOLUMES}" = 0 ]; then
+        ${DOCKER_CP} "${test_data_dir}/lb_resources" ${BIOSLB}:/var/ext_resources
+    fi
+    ${DOCKER_CP} ${ROOT}/home-dev/configuration/server.cert.pem ${BIOSLB}:/etc/nginx/external/cert.pem
+    ${DOCKER_CP} ${ROOT}/home-dev/configuration/server.key.pem ${BIOSLB}:/etc/nginx/external/key.pem
+    docker start ${BIOSLB}
+    if [ ${USE_HTTP3} = 1 ]; then
+        # TODO prepare the LB config before startup so that we don't have to restar the LB
+        sleep 5
+        sudo sed -i 's/# BACKEND_SSL_OPTIONS/keepalive 240;/g' ${test_data_dir}/lb_resources/conf.d/load-balancer.conf
+        sudo sed -i 's|# SERVER_PROXY_OPTIONS|proxy_http_version 3;\
+         proxy_http3_max_concurrent_streams 8192;\
+         proxy_socket_keepalive on;\
+         proxy_ssl_trusted_certificate /var/ext_resources/cacerts.pem;|g' ${test_data_dir}/lb_resources/conf.d/load-balancer.conf
+        docker restart ${BIOSLB}
+    fi
+}
+
+start_proxy()
+{
+    image_tag="$1"
+    bind_hostport=$2
+    upstream_host=$3
+    http_port=$4
+    https_port=$5
+
+    test_data_dir="${TEST_HOME}/lbproxy"
+    mkdir -p "${test_data_dir}"
+    mkdir -p "${test_data_dir}/lb_resources/conf.d"
+    cp ${TEST_HOME}/cacerts.pem ${test_data_dir}/lb_resources/
+
+    if [ "${MOUNT_VOLUMES}" = 1 ]; then
+        VOLUMES="-v ${test_data_dir}/logs:/var/log/nginx -v ${test_data_dir}/lb_resources:/var/ext_resources"
+    fi
+
+    new_section "start proxy node listen=localhost:${bind_hostport} upstream=${upstream_host}:${https_port}"
+    docker create --name ${BIOSPROXY} --privileged ${DOCKER_NETWORK_OPTION} ${CONTAINER_OPT_LABEL} \
+           --restart unless-stopped \
+           -p ${bind_hostport}:${NGINX_HTTPS_PORT} \
+           -e MAIN_UPSTREAMS=${upstream_host} \
+           -e WEBSSH_UPSTREAMS=${WEBSSH_UPSTREAMS} \
+           -e INTEGRATION_UPSTREAMS=${WEBHOOK_HOSTS} \
+           -e UPSTREAM_HTTP_PORT=${http_port} \
+           -e UPSTREAM_HTTPS_PORT=${https_port} \
+           ${VOLUMES} \
+           bioslb:${image_tag}
+    if [ "${MOUNT_VOLUMES}" = 0 ]; then
+        ${DOCKER_CP} "${test_data_dir}/lb_resources" ${BIOSPROXY}:/var/ext_resources
+    fi
+    docker start ${BIOSPROXY}
+}
+
+wait_cassandra_ring() {
+    container=$1
+    number=$2
+    echo -n "  ... waiting for db ring to form ..."
+    for i in {1..20}; do
+        # For nodetool to work: see https://stackoverflow.com/questions/72258217/cassandra-nodetool-urisyntaxexception-malformed-ipv6-address-at-index-7
+        ring=$(docker exec ${container} /opt/db/bin/nodetool --ssl -u tfosmb -pw 4bc823ffdd63997c357a0cc343ba016d status | grep "^UN" | wc -l)
+        if [ "$ring" -eq "$number" ]; then
+            echo "ok"
+            return 0
+        fi
+        echo -n "."
+        sleep 5
+    done
+    echo "fail"
+    return 1
+}
+
+wait_cassandra_up() {
+    container=$1
+    echo -n "  ... waiting for db starting to listen ..."
+    if [ "${DB_TLS_ENABLED}" = 1 ]; then
+        SSL_OPTS="--ssl --cqlshrc /var/ext_resources/cqlshrc"
+    fi
+    for i in {1..30}; do
+        out="$(docker exec ${container} /opt/db/bin/cqlsh ${SSL_OPTS} -u cassandra -p cassandra -e 'use system' localhost 10109 2>&1)"
+        if [ $? -eq 0 ]; then
+            echo "ok"
+            return 0
+        fi
+        echo -n "."
+        sleep 5
+    done
+    echo "fail: ${out}"
+    return 1
+}
+
+function create_mbean_user() {
+    echo -n "  ... creating mbean user (tfosmb) for jmx connection ..."
+    container=$1
+    CQLSH=/opt/db/bin/cqlsh
+    if [ "${DB_TLS_ENABLED}" = 1 ]; then
+        SSL_OPTS="--ssl --cqlshrc /var/ext_resources/cqlshrc"
+    fi
+    out=$(docker exec ${container} ${CQLSH} ${SSL_OPTS} -u cassandra -p cassandra -f /var/ext_resources/create-mbean-user.cql localhost 10109 2>&1)
+    result=$?
+    if [ "${result}" = 0 ]; then
+        echo "ok"
+    else
+        echo "error: ${out}"
+    fi
+    return $result
+}
+
+checklb()
+{
+    bindlbip=localhost
+
+    echo -n "  ... waiting for load balancer node coming up ..."
+    status='not started'
+    for i in {1..300}; do
+        curl -s -k -f "https://${bindlbip}:${BIND_HTTPS_PORT}/bios/v1/version" > /dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            status='started'
+            break
+        fi
+        echo -n "."
+        sleep 1
+    done
+    echo ${status}
+}
+
+checknode()
+{
+    node_number=$1
+    bind_ip=$2
+
+    uri="/bios/v1/version"
+
+    endpoint="https://${bind_ip}:${UPSTREAM_HTTPS_PORT}${uri}"
+    echo -n "  ... waiting for node ${node_number} coming up (${endpoint}) ..."
+    status='not started'
+    for i in {1..36}; do
+        # bios
+        out=$(curl -k --http2 -fsS ${endpoint} 2>&1)
+        if [ $? -eq 0 ]; then
+            status='started'
+            break
+        fi
+        echo -n "."
+        sleep 5
+    done
+    echo ${status}
+    if [ "${status}" = 'not started' ]; then
+        echo ${out}
+    fi
+}
+
+usage()
+{
+    echo "Usage: start-test-bios [options] [docker_tag]"
+    echo "  options:"
+    echo "    -6                        : (deprecated) Starts six server nodes"
+    echo "    --dbnetwork <net>         : Use specified docker network only for the DB container"
+    echo "    --debug                   : Enabled server remote debugging at port ${BIOD_DEBUG_PORT}"
+    echo "    --debug-log-enabled <y/n> : Disable debug logging in biOS servers (default=y)"
+    echo "    --enable-db-tls           : Use TLS for DB connections"
+    echo "    --help, -h                : Print usage"
+    echo "    --http3                   : Use HTTP/3 to communicate between the LB and servers"
+    echo "    --lb-http-port            : Load balancer HTTP port (default=80)"
+    echo "    --lb-https-port           : Load balancer HTTPS port (default=443)"
+    echo "    -n <num_nodes>            : Specifis number of server nodes, default=3"
+    echo "                                Only DB container is started at 0.0.0.0:10109 when -n 0 is specified."
+    echo "    --network <net>           : Use specified docker network"
+    echo "    --no-mount                : Do not mount volumes"
+    echo "    --no-smtp                 : Do not start SMTP server"
+    echo "    -p                        : Enable proxy (Used for failure recovery test)"
+    echo "    --server-http-port        : Server HTTP port (default=8080)"
+    echo "    --server-https-port       : Server HTTPS port (default=8443)"
+    echo "    --skip-public-ca          : Skips adding public certificate authorities to TLS DB conn."
+    echo "    --rollup                  : Comma separated node numbers where rollup is enabled (default: the last node)"
+    echo "    --suffix <suffix>         : Suffix for container names, such as bios -> bios.suffix"
+    echo "    --use-built-server-war    : Use the latest server war built in $ROOT/server/target"
+    exit 1
+}
+
+#####################
+# Check prerequisites
+
+export BIOS_VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='properties']/*[local-name()='revision']/text()" "${ROOT}/pom.xml" | tr -d '\n')
+
+if [ -z "${BIOS_VERSION}" ]; then
+    echo "ERROR: Environment variable BIOS_VERSION is not set."
+    suggestion
+    exit 255
+fi
+if [ -z "${ROOT}" ]; then
+    echo "ERROR: Environment variable ROOT is not set."
+    suggestion
+    exit 255
+fi
+
+ADD_ENDPOINT="${ROOT}/scripts/add-endpoint"
+
+######
+# Main
+
+: ${CONTAINER_SUFFIX:=""}
+: ${DB_TLS_ENABLED:=0}
+: ${BIOS_DEBUG_ENABLED:=false}
+: ${DEBUG_LOG_ENABLED:=1}
+: ${MOUNT_VOLUMES:=1}
+: ${NUM_NODES:=3}
+: ${SKIP_PUBLIC_CA:=0}
+: ${USE_BUILT_SERVER_WAR:=0}
+: ${USE_PROXY:=0}
+: ${COUNTERS_MICROSERVICE_ENABLED:=false}
+: ${USE_HTTP3:=0}
+: ${USE_SMTP:=1}
+while [[ "$1" == -* ]] ; do
+    case $1 in
+        -6)
+            NUM_NODES=6
+            ;;
+        --dbnetwork)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            DB_DOCKER_NETWORK=$1
+            ;;
+        --debug)
+            BIOS_DEBUG_ENABLED=true
+            ;;
+        --debug-log-enabled)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            DEBUG_LOG_ENABLED=$1
+            ;;
+        --enable-db-tls)
+            DB_TLS_ENABLED=1
+            ;;
+        -h|--help)
+            usage
+            ;;
+        --lb-http-port)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            BIND_HTTP_PORT=$1
+            ;;
+        --lb-https-port)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            BIND_HTTPS_PORT=$1
+            ;;
+        -n)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            NUM_NODES=$1
+            ;;
+        -p)
+            USE_PROXY=1
+            ;;
+        --network)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            DOCKER_NETWORK=$1
+            ;;
+        --no-mount)
+            MOUNT_VOLUMES=0
+            ;;
+        --skip-public-ca)
+            SKIP_PUBLIC_CA=1
+            ;;
+        --server-http-port)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            UPSTREAM_HTTP_PORT=$1
+            ;;
+        --server-https-port)
+            if [ $# -lt 2 ]; then
+                echo "ERROR: $1 option requires an argument"
+                usage
+            fi
+            shift
+            UPSTREAM_HTTPS_PORT=$1
+            ;;
+        --suffix)
+            shift
+            CONTAINER_SUFFIX=".$1"
+            # we put label only when a suffix is specified
+            CONTAINER_OPT_LABEL="--label test${CONTAINER_SUFFIX}"
+            ;;
+        --use-built-server-war)
+            USE_BUILT_SERVER_WAR=1
+            ;;
+        --http3)
+            USE_HTTP3=1
+            ;;
+        --no-smtp)
+            USE_SMTP=0
+            ;;
+        --rollup)
+            shift
+            src=$1
+            ROLLUP_NODES=$(echo ${src} | sed 's/,/ /g')
+            ;;
+        *)
+            echo "ERROR: No such option: $1"
+            usage
+            ;;
+    esac
+    shift
+done
+
+BIOS_TAG=$1
+
+############
+# Parameters
+
+TEST_HOME="${ROOT}/test_data"
+sudo rm -rf "${TEST_HOME}"
+
+: ${BIOS_TAG:="${BIOS_VERSION}"}
+ADDRESS[0]=172.18.0.10
+ADDRESS[1]=172.18.0.11
+ADDRESS[2]=172.18.0.12
+ADDRESS[3]=172.18.0.13
+ADDRESS[4]=172.18.0.14
+ADDRESS[5]=172.18.0.15
+ADDRESS[6]=172.18.0.16
+CASS_ADDRESS=${ADDRESS[1]}
+: ${UPSTREAM_HTTP_PORT:=8080}
+: ${UPSTREAM_HTTPS_PORT:=8443}
+CONTAINER_HTTPS_PORT=443
+# v1.1 server supports only http/2. in order to accept http/1.x requests that Nginx sends,
+# each server container opens a secondary port where a proxy listens for converting protocols.
+# this port accepts HTTP 1 and 2 over TLS.
+SERVER_PROXY_PORT=9443
+HTTP3_PORT=4433
+if [ ${USE_HTTP3} = 1 ]; then
+    LB_BACKEND_SERVER_PORT=${HTTP3_PORT}
+else
+    LB_BACKEND_SERVER_PORT=${SERVER_PROXY_PORT}
+fi
+
+: ${BIND_HTTPS_PORT:=443}
+NGINX_HTTPS_PORT=443
+: ${BIND_HTTP_PORT:=80}
+NGINX_HTTP_PORT=80
+
+NODE_TYPE[1]=signal
+NODE_TYPE[2]=signal
+NODE_TYPE[3]=signal
+NODE_TYPE[4]=signal
+NODE_TYPE[5]=signal
+NODE_TYPE[6]=signal
+
+BIOSDB=bios-storage${CONTAINER_SUFFIX}
+BIOSLB=bioslb${CONTAINER_SUFFIX}
+BIOSPROXY=biosproxy${CONTAINER_SUFFIX}
+BIOSSMTP=biossmtp${CONTAINER_SUFFIX}
+
+# Need to verify if this is used
+: ${JVM_OPTS:="-Xms4G -Xmx4G -ea"}
+
+
+# needed for azure tests
+: ${SERVER_HEAP_SIZE:="8192m"}
+
+if [ -n "${DOCKER_NETWORK}" ]; then
+    DOCKER_NETWORK_OPTION="--network ${DOCKER_NETWORK}"
+fi
+
+if [ -n "${DB_DOCKER_NETWORK}" ]; then
+    DB_DOCKER_NETWORK_OPTION="--network ${DB_DOCKER_NETWORK}"
+elif [ -n "${DOCKER_NETWORK}" ]; then
+    DB_DOCKER_NETWORK_OPTION="--network ${DOCKER_NETWORK}"
+fi
+
+: ${BIOS_DEBUG_PORT:="8787"}
+
+
+echo "## BEGIN #########################"
+echo "  Number of server nodes  : ${NUM_NODES}"
+echo "  DB container            : ${BIOSDB}"
+for (( i=1; i <= ${NUM_NODES}; ++i )); do
+    echo "  Server $i container      : bios${i}${CONTAINER_SUFFIX}"
+done
+    echo "  LB container            : ${BIOSLB}"
+
+if [ -n "${DOCKER_NETWORK}" ]; then
+    echo "  Docker network          : ${DOCKER_NETWORK}"
+fi
+for (( i=1; i <= ${NUM_NODES}; ++i )); do
+    echo "  Server $i endpoint       : https://${ADDRESS[i]}:${UPSTREAM_HTTPS_PORT}"
+done
+echo "  LB endpoint             : https://${ADDRESS[0]}:${BIND_HTTPS_PORT}"
+if [ ${USE_PROXY} = 1 ]; then
+    echo "  Proxy over node 3       : yes"
+    echo "  Proxy endpoint          : https://${ADDRESS[0]}:${BIND_HTTPS_PORT}"
+    echo "  Proxy container         : ${BIOSPROXY}"
+fi
+if is_true ${SKIP_PUBLIC_CA}; then
+    echo "  Skip loading public CAs : yes"
+else
+    echo "  Skip loading public CAs : no"
+fi
+if is_true ${DEBUG_LOG_ENABLED}; then
+    echo "  Debug log               : enabled"
+else
+    echo "  Debug log               : disabled"
+fi
+if is_true ${USE_BUILT_SERVER_WAR}; then
+    echo "  Use built server war    : yes"
+else
+    echo "  Use built server war    : no"
+fi
+if [ "${NUM_NODES}" -gt 0 ]; then
+    if is_true ${BIOS_DEBUG_ENABLED}; then
+        echo "  Debug at port ${BIOS_DEBUG_PORT}      : yes"
+    else
+        echo "  Debug at port ${BIOS_DEBUG_PORT}      : no"
+    fi
+fi
+echo "##################################"
+
+# Deployment starts here #######################################################
+
+# Setup test addresses
+if [ ${USE_PROXY} = 1 ]; then
+    third_endpoint="https://${ADDRESS[0]}:${UPSTREAM_HTTPS_PORT}"
+    if ! "${SCRIPT_DIR}/set-ip-to-device.sh" ${ADDRESS[0]} docker0; then
+        exit 1
+    fi
+else
+    third_endpoint="https://${ADDRESS[3]}:${UPSTREAM_HTTPS_PORT}"
+fi
+for ((node = 1; node <= ${NUM_NODES}; ++node)); do
+    if ! "${SCRIPT_DIR}/set-ip-to-device.sh" ${ADDRESS[${node}]} docker0; then
+        exit 1
+    fi
+done
+
+# Start SMTP sink if enabled
+if [ "${USE_SMTP}" = 1 ]; then
+    echo "Starting SMTP server"
+    SMTP_PUBLISH="-p 0.0.0.0:1025:1025 -p 0.0.0.0:8025:8025"
+    # SMTP_PUBLISH="-p ${ADDRESS[1]}:1025:1025 -p ${ADDRESS[1]}:8025:8025"
+    docker run --name ${BIOSSMTP} -d ${SMTP_PUBLISH} mailhog/mailhog
+fi
+
+# Create server certificates
+if [ ${USE_PROXY} = 1 ] && ! generate_certs 0 ${ADDRESS[0]}; then
+    exit 1
+fi
+for ((node = 1; node <= ${NUM_NODES}; ++node)); do
+    if ! generate_certs ${node} ${ADDRESS[${node}]}; then
+        exit 1
+    fi
+done
+cp "${ROOT}/certs/root-ca.cert.pem" "${TEST_HOME}/cacerts.pem"
+
+# Setup DB
+DB_RESOURCES="${TEST_HOME}/db_resources"
+DB_CLUSTER_NAME="test-cluster"
+sudo rm -rf "${DB_RESOURCES}"
+mkdir -p "${DB_RESOURCES}"
+set -e
+if is_true "${SKIP_PUBLIC_CA}"; then
+    "${ROOT}/scripts/generate-db-ssl" --skip-public-ca "${DB_RESOURCES}" ${DB_CLUSTER_NAME} "localhost"
+else
+    "${ROOT}/scripts/generate-db-ssl" "${DB_RESOURCES}" ${DB_CLUSTER_NAME} "localhost"
+fi
+cp "${ROOT}/scripts/create-mbean-user.cql" "${DB_RESOURCES}/"
+set +e
+
+# Start DB on localhost and leave if NUM_NODES is 0
+if ((${NUM_NODES} == 0)); then
+    start_db_node 1 0.0.0.0 ${BIOS_TAG}
+    exit $?
+fi
+
+# Or start DB on node 1 address then continue
+start_db_node 1 ${CASS_ADDRESS} ${BIOS_TAG}
+
+# Start the LB first, it's necessary to collect server certs before servers start
+if [ "${NUM_NODES}" -gt 0 ]; then
+    start_lb ${BIOS_TAG} ${UPSTREAM_HTTP_PORT} ${LB_BACKEND_SERVER_PORT}
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+fi
+
+# Start the proxy node if necessary
+if [ ${USE_PROXY} = 1 ]; then
+    start_proxy ${BIOS_TAG} ${ADDRESS[0]}:${UPSTREAM_HTTPS_PORT} ${ADDRESS[3]} \
+               ${UPSTREAM_HTTP_PORT} ${LB_BACKEND_SERVER_PORT}
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+fi
+
+if [ ${USE_PROXY} = 1 ]; then
+    sleep 10
+    echo -n "  ... collecting cert for the proxy ..."
+    ${DOCKER_CP} "${TEST_HOME}/0/certs/server.cert.pem" biosproxy:/var/ext_resources/cert.pem \
+        && ${DOCKER_CP} "${TEST_HOME}/0/certs/server.key.pem" biosproxy:/var/ext_resources/key.pem \
+        && docker exec biosproxy /usr/local/bin/set_certfiles.sh cert.pem key.pem
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    echo "done"
+fi
+
+# Start the server nodes
+for ((node = 1; node <= ${NUM_NODES}; ++node)); do
+    if [ -n "${ROLLUP_NODES}" ]; then
+        is_rollup=false
+        for target in ${ROLLUP_NODES}; do
+            if [ ${node} = ${target} ]; then
+                is_rollup=true
+            fi
+        done
+    else
+        if ((node < ${NUM_NODES})); then
+            is_rollup=false
+        else
+            is_rollup=true
+        fi
+    fi
+    start_node ${node} ${ADDRESS[${node}]} ${CASS_ADDRESS} ${BIOS_TAG} ${is_rollup}
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+done
+
+new_section "adding endpoints"
+export SSL_CERT_FILE="${TEST_HOME}/cacerts.pem"
+for ((node = 1; node <= ${NUM_NODES}; ++node)); do
+    if [ $node = 3 ]; then
+        endpoint=${third_endpoint}
+    else
+        endpoint=https://${ADDRESS[${node}]}:${UPSTREAM_HTTPS_PORT}
+    fi
+    if ! ${ADD_ENDPOINT} ${endpoint} superadmin superadmin ${NODE_TYPE[${node}]}; then
+        exit 1
+    fi
+done
+
+new_section "final check"
+if ! checklb; then
+    exit 1
+fi
+
+echo -e "\nDONE"

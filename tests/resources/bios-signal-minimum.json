@@ -1,0 +1,10 @@
+{
+  "signalName": "minimum",
+  "missingAttributePolicy": "Reject",
+  "attributes": [
+    {
+      "attributeName": "one",
+      "type": "string"
+    }
+  ]
+}

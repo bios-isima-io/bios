@@ -1,0 +1,492 @@
+{
+  "tenantName": "webhookTest",
+  "signals": [
+    {
+      "signalName": "monitoredSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "one",
+          "type": "String"
+        }
+      ],
+      "postStorageStage": {
+        "features": [
+          {
+            "featureName": "monitor",
+            "dimensions": [],
+            "attributes": [],
+            "featureInterval": 60000,
+            "alerts": [
+              {
+                "alertName": "eventReceived",
+                "condition": "(count() > 0)",
+                "webhookUrl": "http://172.17.0.1:8088/system/alerts",
+                "userName": "admin@webhookTest",
+                "password": "admin"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "signalName": "alertsSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "signalName",
+          "type": "String"
+        },
+        {
+          "attributeName": "featureName",
+          "type": "String"
+        },
+        {
+          "attributeName": "alertName",
+          "type": "String"
+        },
+        {
+          "attributeName": "condition",
+          "type": "String"
+        },
+        {
+          "attributeName": "year",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "month",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "day",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "hour",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "minute",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "second",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "windowLength",
+          "type": "String"
+        },
+        {
+          "attributeName": "event",
+          "type": "String"
+        },
+        {
+          "attributeName": "alertRaisedTimestamp",
+          "type": "Integer"
+        }
+      ]
+    },
+    {
+      "signalName": "clickSignal",
+      "missingAttributePolicy": "StoreDefaultValue",
+      "attributes": [
+        {
+          "attributeName": "impressionTrigger",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "destination",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "destinationId",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "clickId",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "sourcePage",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "sourceId",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "sessionId",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "sessionIdFlag",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "referrer",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "cleverTapId",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "cleverTapSource",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "appPlatform",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "appVersion",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "customerId",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "isCustomerLoggedIn",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "isCartEmpty",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "isIpReverseCity",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "selectedPinCode",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "isPinCodeCourier",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "selectedCity",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemId",
+          "type": "Integer",
+          "default": 0
+        },
+        {
+          "attributeName": "itemRank",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemType",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemSubType",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemPrice",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemDiscountAmount",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemDiscountPercent",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "itemImageUrl",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "parentItemType",
+          "type": "String",
+          "default": ""
+        },
+        {
+          "attributeName": "parentItemId",
+          "type": "Integer",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "signalName": "impressionSignal",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "impressionTrigger",
+          "type": "String"
+        },
+        {
+          "attributeName": "clickId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "sourcePage",
+          "type": "String"
+        },
+        {
+          "attributeName": "sourceId",
+          "type": "String"
+        },
+        {
+          "attributeName": "sessionId",
+          "type": "String"
+        },
+        {
+          "attributeName": "sessionIdFlag",
+          "type": "String"
+        },
+        {
+          "attributeName": "referrer",
+          "type": "String"
+        },
+        {
+          "attributeName": "cleverTapId",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "cleverTapSource",
+          "type": "String"
+        },
+        {
+          "attributeName": "appPlatform",
+          "type": "String"
+        },
+        {
+          "attributeName": "appVersion",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "customerId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "isCustomerLoggedIn",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "isCartEmpty",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "isIpReverseCity",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "selectedPinCode",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "isPinCodeCourier",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "selectedCity",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String"
+        },
+        {
+          "attributeName": "itemId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "itemRank",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "itemName",
+          "type": "String"
+        },
+        {
+          "attributeName": "itemType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "itemSubType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "itemPrice",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "itemDiscountAmount",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "itemDiscountPercent",
+          "type": "Decimal",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        },
+        {
+          "attributeName": "itemImageUrl",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "parentItemType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "parentItemId",
+          "type": "Integer",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "contexts": [
+    {
+      "contextName": "customerContext",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "customerId",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "isPriority",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "isChronic",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "hasPlacedOneOrder",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "hasFulfilledOneOrder",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "hasPlacedOneDiagOrder",
+          "type": "Boolean"
+        },
+        {
+          "attributeName": "hasFulfilledOneDiagOrder",
+          "type": "Boolean"
+        }
+      ],
+      "primaryKey": [
+        "customerId"
+      ]
+    },
+    {
+      "contextName": "elementContext",
+      "missingAttributePolicy": "Reject",
+      "attributes": [
+        {
+          "attributeName": "elementUniqueNameAndPlatform",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementUniqueName",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementName",
+          "type": "String"
+        },
+        {
+          "attributeName": "elementType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "elementSubType",
+          "type": "String",
+          "missingAttributePolicy": "StoreDefaultValue",
+          "default": ""
+        },
+        {
+          "attributeName": "numItemsWithinElement",
+          "type": "Integer"
+        },
+        {
+          "attributeName": "elementScrollType",
+          "type": "String"
+        }
+      ],
+      "primaryKey": [
+        "elementUniqueNameAndPlatform"
+      ]
+    }
+  ]
+}

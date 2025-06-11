@@ -1,0 +1,23 @@
+{
+    "signalName": "testSignal",
+    "missingAttributePolicy": "StoreDefaultValue",
+    "dataSynthesisStatus": "Disabled",
+    "attributes": [
+      {
+        "attributeName": "userName",         
+        "type": "String", 
+        "default": "UNKNOWN"
+      },
+      {
+        "attributeName": "itemName",     
+        "type": "String", 
+        "allowedValues":["Crocin","Dolo650", "Betadine","UNKNOWN"],
+        "default": "UNKNOWN"
+      },
+      {
+        "attributeName": "itemQuantity",     
+        "type": "Integer", 
+        "default": "0"
+      }
+    ]
+}

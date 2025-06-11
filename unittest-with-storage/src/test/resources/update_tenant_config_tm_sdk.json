@@ -1,0 +1,14 @@
+{
+    "name": "test_tenant_name",
+    "streams":
+    [{
+        "name": "testStreamOne",
+        "attributes": [{
+            "name": "first",
+            "type": "string"
+        }, {
+            "name": "second",
+            "type": "int"
+        }]
+    }]
+}

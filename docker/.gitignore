@@ -1,0 +1,5 @@
+apache-cassandra-3.11.5-bin.tar.gz
+*.war
+wait_cassandra_up.sh
+wait_url_up.sh
+wildfly-18.0.1.Final.tar.gz
